@@ -1,0 +1,218 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, sds cli scripts tab 
+summary: 在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含SDS CLI指令碼的相關資訊。 
+---
+= 站台調查與規劃工作表SDS CLI指令碼索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含SDS CLI指令碼的相關資訊。
+
+以下是如何設定SDS CLI指令碼索引標籤的範例。
+
+|===
+| 控制器1 | 控制器2 
+
+
+ a| 
+Vol尺寸vol0 aggr0 108 g
+ a| 
+
+
+
+ a| 
+SnapReserve bootcampvol 0
+ a| 
+
+
+
+ a| 
+SnapReserve vol0 20
+ a| 
+
+
+
+ a| 
+快照自動刪除bootcampvol
+ a| 
+
+
+
+ a| 
+Snapautodete bootcampvol承諾試用
+ a| 
+
+
+
+ a| 
+Snapautodete bootcampvol觸發Volume
+ a| 
+
+
+
+ a| 
+Snapautodete bootcampvol target自由空間20
+ a| 
+
+
+
+ a| 
+Snapautodete bootcampvolvol defer_delete user_reated
+ a| 
+
+
+
+ a| 
+快照自動刪除vol0
+ a| 
+
+
+
+ a| 
+Snapautodete vol0承諾試用
+ a| 
+
+
+
+ a| 
+Snapautodete vol0觸發Volume
+ a| 
+
+
+
+ a| 
+Snapautodete vol0 target可用空間20
+ a| 
+
+
+
+ a| 
+Snapautodete vol0 defer_delete user_已 建立
+ a| 
+
+
+
+ a| 
+開啟Vol autossize bootcampvol
+ a| 
+
+
+
+ a| 
+Vol自動調整vol0開啟
+ a| 
+
+
+
+ a| 
+Vol選項bootcampvolvol te_first volVolume擴充
+ a| 
+
+
+
+ a| 
+Vol選項bootcampvolvol分數保留100
+ a| 
+
+
+
+ a| 
+Vol選項vol0 te_first volVolume擴充
+ a| 
+
+
+
+ a| 
+Vol選項vol0分數保留100
+ a| 
+
+
+
+ a| 
+qtree安全性/vol/bootcampvol UNIX
+ a| 
+
+
+
+ a| 
+qtree安全性/vol/vol0 NTFS
+ a| 
+
+
+
+ a| 
+Snapsched bootcampvol0 0
+ a| 
+
+
+
+ a| 
+Snapsched vol0 0 2 6@8、12、16、20
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/qavol_narayan/testlun跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm25_boot_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm25_data1_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm25_data2_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm26_boot_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm26_data1_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm26_data2_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm27_boot_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm27_data1_LUN跳過#LUN對應。
+ a| 
+
+
+
+ a| 
+由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm27_data2_LUN跳過#LUN對應。
+ a| 
+
+|===

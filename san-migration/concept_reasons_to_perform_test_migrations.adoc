@@ -1,0 +1,29 @@
+---
+permalink: san-migration/concept_reasons_to_perform_test_migrations.html 
+sidebar: sidebar 
+keywords: reasons, perform, test, migrations 
+summary: NetApp建議在移轉正式作業資料之前、先在客戶測試環境中測試所有組態。 
+---
+= 執行測試移轉的理由
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp建議在移轉正式作業資料之前、先在客戶測試環境中測試所有組態。
+
+在執行正式作業移轉之前、您應該執行一系列不同規模的測試移轉。在正式作業移轉之前執行測試移轉、可讓您：
+
+* 確認儲存設備和網路組態是否正確。
+* 預估移轉的持續時間與效能。
++
+使用測試移轉結果、您可以預估正式作業移轉可能需要多久時間、以及預期的處理量。否則、移轉所需時間的變數數量將難以準確估計。
+
+
+
+[NOTE]
+====
+測試移轉應在正式作業資料移轉開始前至少一週執行。這將有足夠的時間來解決可能的問題、例如存取、儲存連線和授權。
+
+====

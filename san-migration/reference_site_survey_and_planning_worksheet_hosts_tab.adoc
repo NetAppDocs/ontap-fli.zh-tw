@@ -1,0 +1,83 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, hosts tab 
+summary: 在「站台調查與規劃」工作表中、您應該設定包含移轉專案主機資訊的索引標籤。 
+---
+= 站台調查與規劃工作表的主機索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該設定包含移轉專案主機資訊的索引標籤。
+
+以下是如何設定「主機」索引標籤的範例。
+
+[cols="8*"]
+|===
+8+| 主機 
+
+
+ a| 
+*目前*
+ a| 
+* NetApp推薦*
+
+
+
+ a| 
+主機名稱
+ a| 
+驅動程式
+ a| 
+韌體
+ a| 
+Huk
+ a| 
+MPIO
+ a| 
+SnapDrive
+ a| 
+SnapManager
+ a| 
+即時修復程式
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+DM-rx200s6-22
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+DM-rx200s6-20
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===

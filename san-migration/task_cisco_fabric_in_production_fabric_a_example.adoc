@@ -1,0 +1,51 @@
+---
+permalink: san-migration/task_cisco_fabric_in_production_fabric_a_example.html 
+sidebar: sidebar 
+keywords: cisco, fabric, production, fabric a, example 
+summary: 以下是正式作業架構A中的Cisco Fabric範例 
+---
+= 生產架構中的Cisco Fabric就是一個例子
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+以下是正式作業架構A中的Cisco Fabric範例
+
+.步驟
+. 在正式作業架構A中建立區域
++
+[listing]
+----
+conf t
+zone name rx21_flicDOT vsan 10
+member pwwn 21:00:00:24:ff:30:14:c5
+member pwwn 20:01:00:a0:98:2f:94:d1
+member pwwn 20:03:00:a0:98:2f:94:d1
+zone name rx22_flicDOT vsan 10
+member pwwn 21:00:00:24:ff:30:04:85
+member pwwn 20:01:00:a0:98:2f:94:d1
+member pwwn 20:03:00:a0:98:2f:94:d1
+zone name rx20_flicDOT vsan 10
+member pwwn 21:00:00:24:ff:30:03:ea
+member pwwn 20:01:00:a0:98:2f:94:d1
+member pwwn 20:03:00:a0:98:2f:94:d1
+exit
+end
+----
+. 在正式作業架構A中啟動區域
++
+[listing]
+----
+conf t
+zoneset name PROD_LEFT vsan 10
+member rx21_flicDOT
+member rx22_flicDOT
+member rx20_flicDOT
+exit
+zoneset activate name PROD_LEFT vsan 10
+end
+copy running-config startup-config
+----
+

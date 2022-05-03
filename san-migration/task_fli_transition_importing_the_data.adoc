@@ -1,0 +1,54 @@
+---
+permalink: san-migration/task_fli_transition_importing_the_data.html 
+sidebar: sidebar 
+keywords: import, data, fli 7-mode, ontap 
+summary: 這些步驟說明如何ONTAP 使用FLI將資料從7-Mode來源LUN匯入到目的地LUN。 
+---
+= 將資料從FLI 7-Mode匯入ONTAP 到VMware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+這些步驟說明如何ONTAP 使用FLI將資料從7-Mode來源LUN匯入到目的地LUN。
+
+.步驟
+. 開始匯入移轉。
++
+[listing]
+----
+cluster::*> lun import start -vserver fli_72C -path /vol/flivol/72Clun1
+----
+. 顯示FLI狀態。
++
+[listing]
+----
+cluster::*> lun import show -vserver fli_72C -path /vol/flivol/72Clun1
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+fli_72C D0i1E+G8Wg6m   /vol/flivol/72Clun1 import    started
+                                                           completed        100
+----
++
+如果您想要在移轉完成後、確保來源LUN保持一致、您需要：
+
++
+** 匯入顯示完成後、請關閉主機。
+** 刪除LUN關係：「LUN匯入刪除-vserver fli_72C -path /vol/flivol/72Clun1」。
++
+[NOTE]
+====
+請記住、LUN關係中斷後、LUN很快就會失去同步、因為只會變更新的LUN。因此、在您想要還原原始狀態時、維持一致狀態可能會有所助益、但新的LUN可能不會在來源LUN中反映變更。
+
+====
++
+[NOTE]
+====
+在停止匯入之後、除非您打算驗證匯入、否則您可以銷毀匯入關係。
+
+====
+
+
+

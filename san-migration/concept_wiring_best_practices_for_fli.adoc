@@ -1,0 +1,25 @@
+---
+permalink: san-migration/concept_wiring_best_practices_for_fli.html 
+sidebar: sidebar 
+keywords: wire, best practices, fli migration 
+summary: 若要設定ONTAP 適用於FLI移轉的靜態儲存設備、您應該根據規劃資訊和建議的最佳實務做法、將來源儲存設備連線至光纖網路。 
+---
+= 連接FLI移轉的最佳實務做法
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+若要設定ONTAP 適用於FLI移轉的靜態儲存設備、您應該根據規劃資訊和建議的最佳實務做法、將來源儲存設備連線至光纖網路。
+
+在設定ONTAP 用於FLI移轉的薦下列線路最佳實務做法。
+
+* 使用雙Fabric提供備援。
+* 從每個目的地儲存設備使用至少兩個啟動器和兩個目標連接埠進行FLI移轉。
+* 請勿將目的地儲存啟動器連接埠與主機分區。啟動器ONTAP 連接埠的功能可用於連接來源儲存設備的目標連接埠。
+
+
+以下是正式作業網路中來源儲存設備和目的地儲存設備的佈線範例。
+
+image::../media/configure_ontap_storage_for_fli_migration_1.png[用於生產中的來源與目的地儲存設備的配線]

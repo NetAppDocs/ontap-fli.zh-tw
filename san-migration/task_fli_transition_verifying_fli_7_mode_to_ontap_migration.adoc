@@ -1,0 +1,67 @@
+---
+permalink: san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html 
+sidebar: sidebar 
+keywords: verify, fli 7-mode, ontap, migration, results 
+summary: 您可以選擇確認LUN已從FLI 7-Mode正確移轉至ONTAP VMware。 
+---
+= 驗證FLI 7-Mode以ONTAP 驗證移轉結果
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以選擇確認LUN已從FLI 7-Mode正確移轉至ONTAP VMware。
+
+啟動驗證工作以比較來源和目的地LUN。監控驗證進度。驗證中的LUN在驗證工作階段期間必須離線。驗證工作階段可能會冗長、因為它是來源LUN與目的地LUN之間的區塊對區塊的比較。移轉所需的時間應與移轉所需的時間大致相同。不需要驗證、但我們建議您驗證匯入/移轉的LUN子集、以瞭解匯入程序。
+
+[NOTE]
+====
+LUN匯入驗證必須先明確停止、才能使LUN恢復連線。否則、LUN線上失敗。此行為將在即將推出ONTAP 的更新版本中改變。
+
+====
+.步驟
+. 離線待驗證的LUN。
++
+[listing]
+----
+cluster::*> lun offline -vserver fli_72C -path /vol/flivol/72Clun1
+Warning: This command will take LUN "/vol/flivol/72Clun1" in Vserver "fli_72C" offline.
+Do you want to continue? {y|n}: y
+----
+. 啟動LUN驗證。
++
+[listing]
+----
+lun import verify start -vserver fli_72C -path /vol/flivol/72Clun1
+----
+. 顯示LUN驗證狀態。
++
+[listing]
+----
+ontaptme-fc-cluster::*> lun import show -vserver fli_72C -path /vol/flivol/72Clun1
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+fli_72C D0i1E+G8Wg6m   /vol/flivol/72Clun1 verify    started
+                                                                        9
+----
++
+[NOTE]
+====
+LUN匯入驗證必須先明確停止、才能使LUN恢復連線。否則、LUN線上失敗。請參閱下列CLI輸出。
+
+====
+. 停止LUN驗證。即使狀態顯示已完成驗證、仍需手動執行此步驟。
++
+[listing]
+----
+lun import verify stop -vserver fli_72C -path /vol/flivol/72Clun1
+----
+. 驗證完成後將LUN連線。
++
+[listing]
+----
+lun online -vserver fli_72C -path /vol/flivol/72Clun1
+----
+

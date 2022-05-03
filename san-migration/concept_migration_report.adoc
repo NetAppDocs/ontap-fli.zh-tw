@@ -1,0 +1,28 @@
+---
+permalink: san-migration/concept_migration_report.html 
+sidebar: sidebar 
+keywords: migration, report 
+summary: 匯入記錄會儲存在叢集事件記錄檔中。您應該檢閱記錄檔是否有錯誤、以驗證移轉是否成功。 
+---
+= 移轉報告
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+匯入記錄會儲存在叢集事件記錄檔中。您應該檢閱記錄檔是否有錯誤、以驗證移轉是否成功。
+
+移轉報告應顯示如下：
+
+[listing]
+----
+DataMig-cmode::*> rows 0; event log show –nodes * –event fli*
+7/7/2014 18:37:21   DataMig-cmode-01 INFORMATIONAL fli.lun.verify.complete: Import verify of foreign LUN 83017542001E of size 42949672960 bytes from array model DF600F belonging to vendor HITACHI  with NetApp LUN QvChd+EUXoiS is successfully completed.
+~~~~~~ Output truncated ~~~~~~~
+----
+[NOTE]
+====
+在執行移轉階段中、會說明比較來源和目的地LUN的驗證步驟。執行移轉階段會涵蓋匯入和LUN驗證步驟、因為這些步驟會連結至匯入工作和外部LUN。
+
+====

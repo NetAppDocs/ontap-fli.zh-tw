@@ -1,0 +1,288 @@
+---
+section: san-migration
+title: 使用FLI進行SAN移轉
+entries:
+- title: 資料移轉方案總覽
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_data_migration_program_overview.html"
+  - title: 目標對象
+    url: "/san-migration/concept_intended_audience.html"
+  - title: 外部LUN匯入支援的移轉類型
+    url: "/san-migration/concept_migration_types_supported_by_foreign_lun_import.html"
+  - title: 外部LUN匯入概念
+    url: "/san-migration/concept_foreign_lun_import_concepts.html"
+  - title: 資料移轉挑戰
+    url: "/san-migration/concept_data_migration_challenges.html"
+  - title: SAN移轉解決方案的專業服務
+    entries:
+    - title: 總覽
+      url: "/san-migration/concept_professional_services_for_san_migration_solutions.html"
+    - title: 適用於異質SAN環境的資料移轉服務
+      url: "/san-migration/concept_data_migration_service_for_heterogenous_san_environments.html"
+  - title: 資料移轉方法
+    url: "/san-migration/concept_data_migration_methodology.html"
+  - title: 資料移轉選項
+    url: "/san-migration/concept_data_migration_options.html"
+  - title: 建議的資料移轉工具
+    entries:
+    - title: 總覽
+      url: "/san-migration/concept_recommended_tools_for_data_migration.html"
+    - title: 評估移轉持續時間的基準測試
+      url: "/san-migration/concept_benchmarks_for_estimating_migration_durations.html"
+  - title: 外部LUN匯入
+    entries:
+    - title: 總覽
+      url: "/san-migration/concept_foreign_lun_import_overview.html"
+    - title: 外部LUN匯入功能
+      url: "/san-migration/concept_foreign_lun_import_features.html"
+    - title: 基於FLI的解決方案的優點
+      url: "/san-migration/concept_benefits_of_an_fli_solution.html"
+    - title: LUN需求與限制
+      url: "/san-migration/concept_lun_requirements_and_limitations.html"
+    - title: FLI支援的組態
+      url: "/san-migration/concept_fli_supported_configurations.html"
+- title: 資料移轉的實作基礎知識
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_implementation_basics_for_data_migration.html"
+  - title: FLI的實體配線需求
+    url: "/san-migration/concept_physical_wiring_requirements_for_fli.html"
+  - title: 目標和啟動器連接埠分區
+    url: "/san-migration/concept_target_and_initiator_port_zoning.html"
+  - title: FLI分區要求
+    url: "/san-migration/concept_fli_zoning_requirements.html"
+  - title: 啟動器群組組態
+    url: "/san-migration/concept_initiator_group_configuration.html"
+  - title: 執行測試移轉的理由
+    url: "/san-migration/concept_reasons_to_perform_test_migrations.html"
+- title: 移轉程序總覽
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_migration_process_overview.html"
+  - title: 探索階段工作流程
+    url: "/san-migration/concept_migration_discover_phase_workflow.html"
+  - title: 分析階段工作流程
+    url: "/san-migration/concept_migration_analyze_phase_workflow.html"
+  - title: 規劃階段工作流程
+    url: "/san-migration/concept_migration_plan_phase_workflow.html"
+  - title: FLI支援的組態
+    url: "/san-migration/concept_fli_supported_configurations.html"
+  - title: 執行階段工作流程
+    url: "/san-migration/concept_migration_execute_phase_workflow.html"
+  - title: 離線移轉工作流程
+    url: "/san-migration/concept_fli_offline_migration.html"
+  - title: 線上移轉工作流程
+    url: "/san-migration/concept_fli_online_migration.html"
+  - title: 確認階段工作流程
+    url: "/san-migration/concept_migration_verify_phase_workflow.html"
+  - title: 探索階段資料收集程序
+    url: "/san-migration/concept_discover_phase_procedures.html"
+  - title: 分析階段IMT 的最佳實務做法
+    entries:
+    - title: 總覽
+      url: "/san-migration/concept_analyze_phase_procedures.html"
+    - title: FLI互通性與支援條件
+      url: "/san-migration/concept_fli_interoperability_and_support_criteria.html"
+    - title: 使用IMT 支援的功能表檢查FLI組態
+      url: "/san-migration/task_checking_supported_configuration_for_fli_using_imt.html"
+    - title: 使用SAN LUN移轉應用程式檢查FLI支援的組態
+      url: "/san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html"
+    - title: 啟用不受支援的LUN
+      entries:
+      - title: 開始之前
+        url: "/san-migration/concept_enablement_for_non_supported_luns_interoperability.html"
+      - title: 匯入非FC LUN
+        url: "/san-migration/task_importing_non_fc_luns.html"
+      - title: 使用Foreign LUN Import（外部LUN匯入）將LUN匯入AFF 到物件庫
+        url: "/san-migration/concept_using_fli_to_import_luns_into_all_flash.html"
+    - title: 落差分析報告
+      url: "/san-migration/concept_gap_analysis_report.html"
+  - title: 規劃及準備階段程序
+    entries:
+    - title: 總覽
+      url: "/san-migration/concept_plan_phase_procedures.html"
+    - title: 連接FLI移轉的最佳實務做法
+      url: "/san-migration/concept_wiring_best_practices_for_fli.html"
+    - title: 設定交換器區域
+      url: "/san-migration/task_configuring_switch_zones.html"
+    - title: 如何設定來源陣列
+      url: "/san-migration/concept_how_to_configure_source_arrays.html"
+    - title: 移轉測試
+      url: "/san-migration/concept_migration_tests.html"
+    - title: 使用Hitachi AMS2100測試移轉範例
+      url: "/san-migration/task_test_migration_example_using_hitachi_ams2100.html"
+- title: FLI離線工作流程
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_fli_offline_workflow.html"
+  - title: FLI離線：準備轉換
+    entries:
+    - title: 總覽
+      url: "/san-migration/concept_fli_offline_preparation_for_cutover.html"
+    - title: 重新啟動主機以驗證系統狀態
+      url: "/san-migration/task_rebooting_the_host_to_validate_system_state.html"
+    - title: 驗證主機LUN路徑和多重路徑組態驗證
+      entries:
+      - title: 總覽
+        url: "/san-migration/concept_verifying_host_lun_path_and_multipath_configuration.html"
+      - title: Windows主機的多重路徑驗證
+        url: "/san-migration/task_multipath_verification_for_windows_hosts.html"
+      - title: Linux主機的多重路徑驗證
+        url: "/san-migration/task_multipath_verification_for_linux_hosts.html"
+      - title: ESXi主機的多重路徑驗證
+        url: "/san-migration/task_multipath_verification_for_esxi_hosts.html"
+    - title: 準備主機進行FLI離線移轉
+      url: "/san-migration/concept_prepare_hosts_for_fli_offline_migration.html"
+    - title: 在ONTAP FLI期間、將來源LUN呈現給整個儲存區
+      url: "/san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html"
+    - title: 驗證目的地儲存設備上的來源LUN以供離線FLI使用
+      url: "/san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html"
+    - title: 設定移轉工作
+      url: "/san-migration/task_configuring_migration_jobs.html"
+  - title: FLI離線：匯入資料
+    url: "/san-migration/task_fli_offline_importing_the_data.html"
+  - title: FLI離線：驗證移轉結果
+    url: "/san-migration/task_fli_offline_verifying_migration_results.html"
+  - title: FLI離線移轉後工作
+    url: "/san-migration/concept_fli_offline_post_migration_tasks.html"
+- title: FLI線上工作流程
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_fli_online_workflow.html"
+  - title: 重新開機主機
+    url: "/san-migration/task_rebooting_hosts_f0f8.html"
+  - title: FLI線上支援的主機作業系統
+    url: "/san-migration/concept_supported_host_operating_systems_for_fli_online.html"
+  - title: 驗證主機LUN路徑和多重路徑組態
+    url: "/san-migration/concept_verify_host_lun_path_and_multipath_configuration_fa1e.html"
+  - title: 準備主機進行FLI線上移轉
+    url: "/san-migration/concept_prepare_hosts_for_fli_online_migration.html"
+  - title: FLI線上：準備LUN路徑
+    url: "/san-migration/task_fli_online_preparing_the_lun_path.html"
+  - title: FLI線上：執行中斷轉換
+    url: "/san-migration/task_fli_online_performing_a_disruptive_cutover.html"
+  - title: 線上FLI：匯入資料
+    url: "/san-migration/task_fli_online_importing_the_data.html"
+  - title: FLI線上：驗證移轉結果
+    url: "/san-migration/task_fli_online_verifying_migration_results.html"
+  - title: 清除FLI線上移轉
+    url: "/san-migration/task_fli_online_cleanup.html"
+  - title: FLI線上移轉後工作
+    url: "/san-migration/concept_fli_online_post_migration_tasks.html"
+- title: FLI 7-Mode to ONTAP VMware移轉工作流程
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html"
+  - title: 7-Mode至ONTAP 支援的不支援FLI組態
+    url: "/san-migration/concept_7_mode_to_ontap_supported_configurations.html"
+  - title: 重新開機主機
+    url: "/san-migration/task_rebooting_hosts_9207.html"
+  - title: 驗證主機LUN路徑和多重路徑組態
+    url: "/san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html"
+  - title: 準備主機進行移轉
+    url: "/san-migration/concept_prepare_hosts_for_the_transition.html"
+  - title: 準備要移轉的來源陣列和目的地陣列
+    url: "/san-migration/task_fli_transition_preparing_source_and_destination_arrays.html"
+  - title: 執行將FLI 7-Mode轉換為ONTAP VMware的中斷執行
+    url: "/san-migration/task_fli_transition_performing_a_disruptive_cutover.html"
+  - title: 將資料從FLI 7-Mode匯入ONTAP 到VMware
+    url: "/san-migration/task_fli_transition_importing_the_data.html"
+  - title: 驗證FLI 7-Mode以ONTAP 驗證移轉結果
+    url: "/san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html"
+  - title: FLI移轉後的工作流程
+    url: "/san-migration/concept_fli_transition_post_migration_tasks.html"
+- title: 使用工作流程自動化（WFA）的FLI
+  url: "/san-migration/concept_fli_using_workflow_automation_wfa.html"
+- title: FLI移轉後程序
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_fli_post_migration_procedures_all_workflows.html"
+  - title: 移除ONTAP 來源LUN的不穩定性儲存設備
+    url: "/san-migration/task_removing_source_luns_from_ontap_storage.html"
+  - title: 從主機移除來源LUN
+    url: "/san-migration/task_removing_source_luns_from_host.html"
+  - title: 從區域集移除來源儲存設備和主機區域
+    entries:
+    - title: Brocade網路範例
+      url: "/san-migration/task_brocade_fabric_example.html"
+    - title: Cisco Fabric範例
+      url: "/san-migration/task_cisco_fabric_example.html"
+  - title: 建立移轉後的Snapshot複本
+    url: "/san-migration/task_create_a_post_migration_snapshot_copy.html"
+  - title: FLI移轉清除與驗證階段
+    url: "/san-migration/concept_fli_migration_clean_up_and_verify_phase.html"
+  - title: 移轉報告
+    url: "/san-migration/concept_migration_report.html"
+  - title: 取消來源陣列和目的地陣列的分區
+    url: "/san-migration/task_unzoning_source_and_destination_array.html"
+  - title: 將來源陣列從ONTAP 無法使用的資料中移除
+    url: "/san-migration/task_removing_the_source_array_from_ontap.html"
+  - title: 正在移除目的地陣列組態
+    url: "/san-migration/task_removing_destination_array_configuration.html"
+  - title: 記錄新移轉的環境
+    url: "/san-migration/task_document_customer_environment.html"
+- title: 外部LUN匯入效能
+  entries:
+  - title: 總覽
+    url: "/san-migration/concept_performance.html"
+  - title: 效能強化ONTAP 功能
+    url: "/san-migration/concept_performance_enhancements_in_clustered_data_ontap_8_3_1.html"
+  - title: 影響外部LUN匯入移轉效能的變數
+    url: "/san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html"
+  - title: 評估移轉持續時間的基準測試
+    url: "/san-migration/concept_benchmarks_for_estimating_migration_durations.html"
+  - title: 外部LUN匯入移轉的最佳實務做法
+    url: "/san-migration/concept_best_practices_for_fli_migration.html"
+  - title: ESXi CAW/ATS補救
+    url: "/san-migration/reference_esxi_caw_ats_remediation.html"
+  - title: 主機補救
+    url: "/san-migration/reference_host_remediation.html"
+  - title: 清除SCSI-3持續保留
+    url: "/san-migration/reference_clearing_scsi_3_persistent_reservations.html"
+  - title: 建立主機對目的地區域
+    entries:
+    - title: 總覽
+      url: "/san-migration/concept_creating_the_host_to_destination_zones.html"
+    - title: 正式作業架構中的Brocade網路就是一個範例
+      url: "/san-migration/task_brocade_fabric_in_production_fabric_a_example.html"
+    - title: 正式作業架構B中的Brocade網路範例
+      url: "/san-migration/task_brocade_fabric_in_production_fabric_b_example.html"
+    - title: 生產架構中的Cisco Fabric就是一個例子
+      url: "/san-migration/task_cisco_fabric_in_production_fabric_a_example.html"
+    - title: 生產架構B中的Cisco Fabric範例
+      url: "/san-migration/task_cisco_fabric_in_production_fabric_b_example.html"
+- title: 場地調查與規劃工作表範例
+  entries:
+  - title: 總覽
+    url: "/san-migration/reference_sample_site_survey_and_planning_worksheet.html"
+  - title: 站台調查與規劃工作表聯絡人索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html"
+  - title: 站台調查與規劃工作表問卷索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html"
+  - title: 站台調查與規劃工作表切換標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html"
+  - title: 站台調查與規劃工作表來源儲存設備索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html"
+  - title: 站台調查與規劃工作表的「目的地儲存裝置」索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html"
+  - title: 站台調查與規劃工作表的主機索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html"
+  - title: Site Survey and Planning工作表HBA and Zone Information（HBA與區域資訊）索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html"
+  - title: 站台調查與規劃工作表來源LUN索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html"
+  - title: 站台調查與規劃工作表儲存群組索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html"
+  - title: 站台調查與規劃工作表LUN詳細資料索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html"
+  - title: 站台調查與規劃工作表NetApp LUN配置索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html"
+  - title: 站台調查與規劃工作表移轉排程索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html"
+  - title: 站台調查與規劃工作表Aggregate Status索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html"
+  - title: Site Survey and Planning工作表FAS 單「Config」（組態）索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html"
+  - title: 站台調查與規劃工作表SDS CLI指令碼索引標籤
+    url: "/san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html"

@@ -1,0 +1,19 @@
+---
+permalink: san-migration/concept_migration_process_overview.html 
+redirect: ontap-fli/san-migration/concept_migration_discover_phase_workflow.html 
+sidebar: sidebar 
+keywords: migration, process, overview 
+summary: FLI移轉程序是適用於任何資料移轉的五階段方法：探索、分析、規劃、執行及驗證。 
+---
+= 移轉程序總覽
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI移轉程序是適用於任何資料移轉的五階段方法：探索、分析、規劃、執行及驗證。
+
+image::../media/migration_overview_1.png[五階段移轉方法]
+
+這些階段提供一般架構、可協助識別在整個移轉程序中執行一般工作的位置。本節圖表顯示可在主機、架構、目的地儲存設備及來源儲存設備等四大主要元件中同時執行的工作。

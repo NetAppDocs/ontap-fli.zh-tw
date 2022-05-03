@@ -1,0 +1,36 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning, worksheet, aggregate status tab 
+summary: 在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含有關您Aggregate狀態的資訊。 
+---
+= 站台調查與規劃工作表Aggregate Status索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含有關您Aggregate狀態的資訊。
+
+以下是如何設定Aggregate Status索引標籤的範例。
+
+[cols="6*"]
+|===
+6+| NetApp Aggregate資訊 
+
+
+ a| 
+控制器
+ a| 
+Aggregate
+ a| 
+總大小（GB）
+ a| 
+已用容量（GB）
+ a| 
+可用（GB）
+ a| 
+上一頁的「建置」
+
+|===

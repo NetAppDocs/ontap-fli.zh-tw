@@ -1,0 +1,17 @@
+---
+permalink: san-migration/concept_implementation_basics_for_data_migration.html 
+redirect: ontap-fli/san-migration/concept_physical_wiring_requirements_for_fli.html 
+sidebar: sidebar 
+keywords: implementation, basics, data, migration 
+summary: 外部LUN匯入（FLI）實作包括實體配線、分區和建立啟動器記錄的步驟。NetApp儲存啟動器連接埠和來源儲存設備的初始組態可為環境做好移轉準備。 
+---
+= 資料移轉的實作基礎知識
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+外部LUN匯入（FLI）實作包括實體配線、分區和建立啟動器記錄的步驟。NetApp儲存啟動器連接埠和來源儲存設備的初始組態可為環境做好移轉準備。
+
+本節範例使用Hitachi Data Systems（HDS）AMS陣列、因此外部陣列命令會因您要移轉的協力廠商陣列而異。

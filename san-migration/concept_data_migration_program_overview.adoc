@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_data_migration_program_overview.html 
+sidebar: sidebar 
+keywords: data, migration, program, overview 
+summary: 資料移轉方案可建立資料移轉解決方案、讓客戶更輕鬆地移轉至NetApp儲存設備、並將LUN從NetApp 7-Mode移轉至ONTAP VMware。外部LUN匯入（FLI）是資料移轉產品組合的一部分。 
+---
+= 資料移轉方案總覽
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+資料移轉方案可建立資料移轉解決方案、讓客戶更輕鬆地移轉至NetApp儲存設備、並將LUN從NetApp 7-Mode移轉至ONTAP VMware。外部LUN匯入（FLI）是資料移轉產品組合的一部分。
+
+此方案提供成功移轉資料所需的必要工具、產品和服務輔助資料、藉此提升生產力。透過提供適當的技能和知識來執行資料移轉、本方案旨在加速採用NetApp技術。

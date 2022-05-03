@@ -1,0 +1,58 @@
+---
+permalink: san-migration/concept_fli_zoning_requirements.html 
+sidebar: sidebar 
+keywords: fli, zoning, requirements 
+summary: 使用FLI的標準移轉案例需要四個不同的區域。您應該在每個區域中包含特定的連接埠。 
+---
+= FLI分區要求
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用FLI的標準移轉案例需要四個不同的區域。您應該在每個區域中包含特定的連接埠。
+
+* 區域1：來源儲存設備至目的地儲存設備（正式作業架構A）
++
+區域1應包含所有節點上的所有目的地儲存啟動器、以及Fabric A中的所有來源儲存目標連接埠區域成員包括：
+
++
+** –Node1 - ONTAP 0A
+** –Node2 - ONTAP 0A
+** AMS2100 -- Ctrl0 -- 0A
+** AMS2100 -- Ctrl1 -- 1a.
+
+
+* 區域2：來源儲存設備至目的地儲存設備（正式作業光纖B）
++
+區域2應包含所有節點上的所有目的地儲存啟動器連接埠、以及Fabric B中的所有來源儲存目標連接埠區域2成員包括：
+
++
+** –Node1 - ONTAP 0b
+** 系統資訊- Node2 - ONTAP 0b
+** AMS2100 -- Ctrl0 -- 0e
+** AMS2100 -- Ctrl1 -- 1e
+
+
+* 區域3：主機對目的地儲存設備（正式作業架構A）
++
+區域3應包含主機匯流排介面卡（HBA）連接埠1、以及正式作業Fabric A中的目的地控制器連接埠區域3成員包括：
+
++
+** 支援：生命1 ONTAP
+** 資訊- ONTAP lif3.
+** 主機- HBA0
+
+
+* 區域4：主機對目的地儲存設備（正式作業架構B）
++
+區域4應包含HBA連接埠2和正式作業架構B中的目的地控制器連接埠區域4成員包括：
+
++
+** 資訊- ONTAP lif2.
+** 資訊- ONTAP lif4.
+** 主機- HBA1
+
+
+

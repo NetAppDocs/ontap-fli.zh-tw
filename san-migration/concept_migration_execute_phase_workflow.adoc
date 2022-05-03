@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_migration_execute_phase_workflow.html 
+sidebar: sidebar 
+keywords: execute, phase, workflows 
+summary: 執行階段著重於執行FLI離線或線上移轉的LUN移轉工作。 
+---
+= 執行階段工作流程
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+執行階段著重於執行FLI離線或線上移轉的LUN移轉工作。
+
+系統會檢閱主機事件記錄、以找出並修正任何問題、並降低風險。重新啟動主機、以確保在發生重大重新設定之前、主機不會發生任何潛在問題。
+
+在目的地儲存設備上看到來源LUN之後、即可建立及執行移轉工作。完成移轉（FLI離線）或建立FLI LUN關係（FLI線上）之後、主機會分區至目的地儲存設備。系統會對應新的LUN、並開始針對驅動程式、多重路徑軟體及分析階段中識別的任何其他更新進行主機修復。

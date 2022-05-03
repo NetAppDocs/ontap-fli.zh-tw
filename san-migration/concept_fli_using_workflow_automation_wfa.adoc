@@ -1,0 +1,22 @@
+---
+permalink: san-migration/concept_fli_using_workflow_automation_wfa.html 
+sidebar: sidebar 
+keywords: fli, using, workflow, automation, wfa, migration 
+summary: 工作流程自動化可與FLI搭配使用、以自動化移轉前與移轉後、移轉及移轉工作與狀態檢查。在自動化移轉中、FLI使用工作流程自動化軟體來自動化部分移轉程序。配備WFA的FLI可在線上或離線模式下使用。 
+---
+= 使用工作流程自動化（WFA）的FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+工作流程自動化可與FLI搭配使用、以自動化移轉前與移轉後、移轉及移轉工作與狀態檢查。在自動化移轉中、FLI使用工作流程自動化軟體來自動化部分移轉程序。配備WFA的FLI可在線上或離線模式下使用。
+
+若要搭配FLI使用WFA、您必須在環境中的適當伺服器上下載並安裝WFA。安裝WFA之後、您就會下載指定的工作流程。可供下載的兩個FLI自動化套件為離線FLI和線上FLI。自動化套件遵循的支援規則與FLI離線和FLI線上工作流程相同。這包括線上支援FLI的主機操作系統清單。
+
+WFA自動化套件可從WFA自動化商店下載。如需執行的特定行動及其他詳細工作流程資訊的詳細資訊、請檢閱每個套件內嵌的說明檔案。
+
+*相關資訊*
+
+http://docs.netapp.com["《Workflow Developer's Guide》（英文）OnCommand Workflow Automation"]

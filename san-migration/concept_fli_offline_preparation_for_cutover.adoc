@@ -1,0 +1,17 @@
+---
+permalink: san-migration/concept_fli_offline_preparation_for_cutover.html 
+redirect: ontap-fli/san-migration/task_rebooting_the_host_to_validate_system_state.html 
+sidebar: sidebar 
+keywords: fli, offline, preparation, cutover 
+summary: 在預先移轉外部LUN匯入（FLI）期間、驗證並驗證主機和來源LUN路徑。主機重新開機後、系統會關閉、以準備移轉。 
+---
+= FLI離線：準備轉換
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在預先移轉外部LUN匯入（FLI）期間、驗證並驗證主機和來源LUN路徑。主機重新開機後、系統會關閉、以準備移轉。
+
+完成移轉與補救後、主機便可連線至新的目的地儲存設備、終端使用者也可驗證應用程式。

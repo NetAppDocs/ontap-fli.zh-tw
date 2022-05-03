@@ -1,0 +1,63 @@
+---
+permalink: san-migration/reference_esxi_caw_ats_remediation.html 
+sidebar: sidebar 
+keywords: esxi, caw/ats, remediation 
+summary: 線上FLI不支援VMware原子測試與設定（ATS）/SCSI比較與寫入（CAW）。如果您使用的是VMFS5、而且來源陣列支援CAW、這一點很重要。若要修復主機、您必須遵循本節所述的程序。 
+---
+= ESXi CAW/ATS補救
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+線上FLI不支援VMware原子測試與設定（ATS）/SCSI比較與寫入（CAW）。如果您使用的是VMFS5、而且來源陣列支援CAW、這一點很重要。若要修復主機、您必須遵循本節所述的程序。
+
+FLI線上LUN關係不支援ATS / CAW命令、而VMFS5檔案系統會在目的地ESXi 5.x主機上無法掛載。這是VMware在VMFS5標頭上維護ATS位元的結果、此標頭會強制執行CAW/ATS、而且不允許標頭在沒有ATS的主機或陣列上運作。ATS位元會裝載在VMFS標頭中、這是_分割區_中列出的第一個LUN的一部分。這是唯一需要修正的LUN（如果列出多個範圍）。
+
+如果LUN由多個主機共用、則在其中一個主機上更新LUN就足夠了。所有其他主機會在重新掃描後自動更新。如果任何共享主機的VM或ESXi使用中I/O都在LUN上執行、則停用ATS / CAW將會失敗。我們建議您在進行必要的ATS / CAW變更的同時、關閉共享LUN的VM和其他主機機器。此動作可在適當FLI工作流程的「中斷連接」區段中所列的主機重新定位/轉換的中斷部分開始時執行。
+
+如果LUN由多個主機共用、則在啟用或停用ATS位元時、所有主機都必須離線。啟用或停用ATS之後、您將需要重新整理LUN。完成任何重新對應之後、您就可以將主機重新啟動、並確認您能夠存取LUN。
+
+如果您執行的是舊版VMFS、或是從舊版升級、則不需要執行任何補救。如果您確實需要啟用或停用ATS / CAW、可以使用下列命令。不過、如果VM處於作用中狀態、且VMFS5資料存放區有任何I/O執行、則兩者都無法運作。我們建議關閉主機、進行必要的ATS / CAW變更、並執行適當FLI工作流程中「中斷連接」區段所列的主機復原點/轉換的其他中斷部分。
+
+您可以執行下列命令來檢查ATS / CAW狀態：
+
+[listing]
+----
+~ # vmkfstools -Ph -v 1 /vmfs/volumes/fli-orig-3
+VMFS-5.58 file system spanning 1 partitions.
+File system label (if any): fli-orig-3
+Mode: public ATS-only
+Capacity 99.8 GB, 58.8 GB available, file block size 1 MB, max file size 62.9 TB
+Volume Creation Time: Wed Jun 10 13:56:05 2015
+Files (max/free): 130000/129979
+Ptr Blocks (max/free): 64512/64456
+Sub Blocks (max/free): 32000/31995
+Secondary Ptr Blocks (max/free): 256/256
+File Blocks (overcommit/used/overcommit %): 0/41931/0
+Ptr Blocks  (overcommit/used/overcommit %): 0/56/0
+Sub Blocks  (overcommit/used/overcommit %): 0/5/0
+Volume Metadata size: 804159488
+UUID: 557841f5-145136df-8de6-0025b501a002
+Partitions spanned (on "lvm"):
+naa.60080e50001f83d4000003075576b218:1
+Is Native Snapshot Capable: YES
+OBJLIB-LIB: ObjLib cleanup done.
+~ # vmkfstools -Ph -v 1 /vmfs/volumes/fli-orig-3
+~ # vmkfstools --help
+----
+如果模式已列出「_publiconal_ only」這個字、則不需要進行任何補救。在上述情況下、_publicATS專屬_表示系統會啟用ATS、而且必須停用、直到匯入完成為止、之後才能重新啟用。
+
+若要停用LUN上的ATS / CAW、請使用下列命令：
+
+[listing]
+----
+# vmkfstools --configATSOnly 0 /vmfs/devices/disks/naa.xxxxxxxxxxxxxxx
+----
+若要重新啟用ATS / CAW、請在移轉完成後、使用：
+
+[listing]
+----
+# vmkfstools --configATSOnly 1 /vmfs/devices/disks/naa.xxxxxxxxxxxxxxx
+----

@@ -1,0 +1,27 @@
+---
+permalink: san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html 
+sidebar: sidebar 
+keywords: fli, 7-mode, ontap, transition, workflow 
+summary: 本節提供FLI 7-Mode to ONTAP VMware移轉工作流程的範例。轉換工作流程可以執行為線上或離線工作流程。 
+---
+= FLI 7-Mode to ONTAP VMware移轉工作流程
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節提供FLI 7-Mode to ONTAP VMware移轉工作流程的範例。轉換工作流程可以執行為線上或離線工作流程。
+
+如果來源LUN裝載於32位元Aggregate和/或LUN未對齊、建議使用FLI轉換。FLI 7-Mode to ONTAP VMware Transition能夠將LUN從7-Mode移轉至ONTAP VMware、同時修正LUN對齊、並將LUN從32位元集合體移轉至64位元集合體。其他轉換LUN的方法、包括7-Mode Transition Tool（7MTT）、可能需要修正LUN對齊及（或）在轉換ONTAP 至VMware®之前、將32位元的Aggregate轉換為64位元的Aggregate。
+
+FLI 7-Mode to ONTAP VMware移轉工作流程可以是線上或離線工作流程。這些工作流程在功能上與兩個對應的FLI離線和線上移轉工作流程相同、但來源陣列為NetApp 7-Mode儲存陣列除外。這兩種工作流程的規則和程序、都與移轉對等項目相同。這包括FLI線上工作流程主機操作支援清單。
+
+所提供的範例應徹底瀏覽FLI 7-Mode to ONTAP VMware流程。FLI 7-mode to ONTAP VMware移轉流程包括下列工作：
+
+. 準備來源陣列和目的地陣列
+. 執行中斷轉換
+. 匯入資料
+. 驗證移轉結果
+. FLI移轉後的移轉工作
+

@@ -1,0 +1,36 @@
+---
+permalink: san-migration/task_removing_source_luns_from_host.html 
+sidebar: sidebar 
+keywords: remove, source, luns, hosts 
+summary: 下列步驟說明如何在完成FLI移轉之後、從主機移除來源LUN。 
+---
+= 從主機移除來源LUN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+下列步驟說明如何在完成FLI移轉之後、從主機移除來源LUN。
+
+
+NOTE: 本工作使用範例中的_HDS AMS2100陣列。如果您使用不同的陣列或不同版本的陣列GUI、則工作可能會有所不同。
+
+若要從主機移除來源LUN、請完成下列步驟：
+
+.步驟
+. 登入Hitachi Storage Navigator模組化。
+. 選取要移轉的主機、然後選取*編輯主機群組*。
++
+image::../media/remove_source_luns_from_host_1.png[從主機1移除來源LUN]
+
+. 選取*連接埠*並選取*強制設定*至所有選取的連接埠。
++
+image::../media/remove_source_luns_from_host_2.png[從主機2移除來源LUN]
+
+. 選取從指派的邏輯LUN移轉的主機LUN。使用來源LUN工作表中提及的每個主機的LUN名稱。在此處選取Windows 2012主機的LUN、然後選取*移除*。
++
+image::../media/remove_source_luns_from_host_3.png[從主機3移除來源LUN]
+
+. 針對Linux和VMware ESX主機重複上述步驟。
+

@@ -1,0 +1,164 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, destination storage devices tab 
+summary: 在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含目的地儲存裝置的相關資訊。 
+---
+= 站台調查與規劃工作表的「目的地儲存裝置」索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含目的地儲存裝置的相關資訊。
+
+[cols="6*"]
+|===
+6+| 儲存系統 
+
+
+ a| 
+叢集名稱
+ a| 
+IP位址
+ a| 
+陣列模式
+ a| 
+ONTAP
+ a| 
+Vserver
+ a| 
+連接埠類型
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+資料
+ a| 
+目標
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+資料
+ a| 
+目標
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+DataMig-01
+ a| 
+啟動器
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+DataMig-01
+ a| 
+啟動器
+
+|===
+[cols="5*"]
+|===
+5+| 儲存系統 
+
+
+ a| 
+連接埠名稱
+ a| 
+LIF名稱
+ a| 
+WWPN
+ a| 
+網路名稱
+ a| 
+目標類型
+
+
+
+ a| 
+0C
+ a| 
+偏移1
+ a| 
+20：01：00：a0：98：2f：xx：xx
+ a| 
+產品A
+ a| 
+目標
+
+
+
+ a| 
+0D
+ a| 
+偏移2.
+ a| 
+20：01：00：a0：98：2f：xx：xx
+ a| 
+產品B
+ a| 
+目標
+
+
+
+ a| 
+0A
+ a| 
+不適用
+ a| 
+50：0A：09：81：00：xx：xx：xx
+ a| 
+產品A
+ a| 
+目標
+
+
+
+ a| 
+0B
+ a| 
+不適用
+ a| 
+50：0A：09：81：00：xx：xx：xx
+ a| 
+產品B
+ a| 
+目標
+
+|===
+以下是如何設定「目的地儲存裝置」索引標籤的範例。

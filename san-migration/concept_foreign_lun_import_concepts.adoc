@@ -1,0 +1,32 @@
+---
+permalink: san-migration/concept_foreign_lun_import_concepts.html 
+sidebar: sidebar 
+keywords: foreign, lun, import, concepts 
+summary: 瞭解基本的FLI概念有助於正常運作、並減少初始組態工作。 
+---
+= 外部LUN匯入概念
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+瞭解基本的FLI概念有助於正常運作、並減少初始組態工作。
+
+* *外部陣列*
++
+外部陣列是無法執行ONTAP 功能不正常的儲存設備。這也稱為第三方陣列或來源陣列。如果是7-Mode to ONTAP VMware移轉、則異陣列將是由NetApp執行ONTAP VMware 7-Mode所產生的陣列。
+
+* *外部LUN*
++
+外部LUN是一個LUN、其中包含使用該陣列原生磁碟格式、裝載在協力廠商陣列上的使用者資料。
+
+* * FLI LUN關係*
++
+FLI LUN關係是來源與目的地儲存設備之間的持續配對、用於資料匯入。來源端點和目的地端點是LUN。
+
+* * LUN匯入*
++
+LUN匯入是將外部LUN中的資料從協力廠商格式傳輸至原生NetApp格式LUN的程序。
+
+

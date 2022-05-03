@@ -1,0 +1,20 @@
+---
+permalink: san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html 
+sidebar: sidebar 
+keywords: present, source luns, ontap storage, fli 
+summary: 在離線FLI程序中、您必須將來源LUN展示到ONTAP 您的不必要儲存設備。 
+---
+= 在ONTAP FLI期間、將來源LUN呈現給整個儲存區
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在離線FLI程序中、您必須將來源LUN展示到ONTAP 您的不必要儲存設備。
+
+.步驟
+. 登入來源陣列。
+. 將NetApp啟動器新增至計畫階段所建立的主機群組。
+. 選取需要從可用邏輯LUN移轉的主機LUN。針對站台調查與規劃工作表的來源LUN區段中提及的每個主機使用LUN名稱。
+

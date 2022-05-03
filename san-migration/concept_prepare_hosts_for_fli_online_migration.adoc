@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_prepare_hosts_for_fli_online_migration.html 
+sidebar: sidebar 
+keywords: prepare, hosts, fli, online, migration 
+summary: FLI線上執行階段包括準備移轉主機、以便採用支援的組態。 
+---
+= 準備主機進行FLI線上移轉
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI線上執行階段包括準備移轉主機、以便採用支援的組態。
+
+在許多情況下、可能會在此步驟之前執行此修正。如果沒有、您可以在這裡執行任何主機補救、例如安裝主機附加套件或DSM。從分析階段、您將會有一個落差清單、列出每個主機需要執行的項目、以便該主機使用ONTAP 支援的組態使用支援的功能。視執行的移轉類型而定、主機可能會先進行修復、然後重新開機、或只是進行補救。

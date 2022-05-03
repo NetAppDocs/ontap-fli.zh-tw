@@ -1,0 +1,67 @@
+---
+permalink: san-migration/task_fli_online_performing_a_disruptive_cutover.html 
+sidebar: sidebar 
+keywords: fli online, perform, disruptive, cutover 
+summary: 此範例提供執行FLI線上移轉程序中斷轉換的一般步驟。 
+---
+= FLI線上：執行中斷轉換
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此範例提供執行FLI線上移轉程序中斷轉換的一般步驟。
+
+如需Windows、Linux和ESXi的主機補救措施逐步解說、請參閱本指南的後續章節、以及主機作業系統和主機附加套件文件。
+
+.步驟
+. 在外部陣列上、顯示來源LUN對應的儲存群組。
++
+請參閱廠商文件以取得適當的命令。
+
+. 如果要匯入的LUN適用於ESXi主機、請檢閱並遵循_ESXi CAW/ATS修正主題的指示。
+. 從主機取消對應來源LUN。
++
+[NOTE]
+====
+中斷時間從這裡開始。
+
+====
++
+執行「unmap」命令之後、就會立即開始中斷作業。一般而言、中斷時間可在幾分鐘內測量。中斷時間是指將主機重新指向新的NetApp目標並掃描LUN所需的時間。
+
++
+您必須確保這是唯一對應至此igroup的LUN、因為從igroup移除主機（啟動器）會影響對應到igroup的其他LUN。請參閱廠商文件以取得適當的命令。
+
+. 驗證主機啟動器是否不再存在。
+. 在實體叢集上、將目的地LUN上線、然後確認其已對應。ONTAP
++
+[listing]
+----
+cluster::*> lun online -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
+----
+. 驗證LUN是否在線上。
++
+[listing]
+----
+cluster::*> lun show -vserver fli
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fli       /vol/fli_vol/OnlineFLI_LUN      online  mapped   windows_2008  1TB
+----
+. 重新掃描主機上的磁碟、在ONTAP 支援對象上找到LUN、然後確認DSM已宣告LUN。
++
+[NOTE]
+====
+中斷時間到此結束。
+
+====
+. 請確認您可以查看所有預期路徑、並檢查事件記錄以確認不存在任何錯誤。
++
+此時、此移轉作業的中斷部分已經完成、除非有未完成的主機補救工作（在您的分析和規劃階段中加以識別）會造成中斷。
+
++
+LUN已連線並對應、主機現在正在掛載新的ONTAP託管LUN。讀取內容會透過ONTAP the sunse-Array傳送到來源LUN、寫入內容會寫入新的ONTAP託管LUN和原始來源LUN。來源LUN和目的地LUN會保持同步、直到移轉完成且LUN關係中斷為止。
+
+

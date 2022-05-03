@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_fli_online_post_migration_tasks.html 
+sidebar: sidebar 
+keywords: fli, online, post-migration, tasks 
+summary: 任何未在移轉前執行的伺服器補救、都會在移轉後執行。 
+---
+= FLI線上移轉後工作
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+任何未在移轉前執行的伺服器補救、都會在移轉後執行。
+
+任何第三方軟體都會移除。NetApp軟體已安裝並設定完成。如需特定主機類型的移轉後補救範例、請參閱主機補救。
+
+檢閱記錄檔中是否有錯誤、檢查路徑、並執行任何應用程式測試、以驗證移轉是否順利完成。

@@ -1,0 +1,37 @@
+---
+permalink: san-migration/concept_initiator_group_configuration.html 
+sidebar: sidebar 
+keywords: initiator, group, configuration 
+summary: 正確的LUN遮罩組態是正確運作的關鍵。所有的啟動器連接埠（在兩個節點上）ONTAP 都必須位於相同的igroup中。 
+---
+= 啟動器群組組態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+正確的LUN遮罩組態是正確運作的關鍵。所有的啟動器連接埠（在兩個節點上）ONTAP 都必須位於相同的igroup中。
+
+FLI移轉需要NetApp儲存設備存取來源儲存LUN。若要啟用分區以外的存取、則必須使用目的地儲存設備啟動器連接埠的全球連接埠名稱（WWPN）、在來源儲存設備上建立啟動器群組。
+
+
+NOTE: 本節範例使用Hitachi Data Systems（HDS）AMS陣列、因此外部陣列命令會因您要移轉的協力廠商陣列而異。
+
+請務必在NetApp陣列的啟動器群組上啟用非對稱邏輯單元存取（ALUA）。
+
+啟動器群組依廠商和產品的不同名稱而定。例如：
+
+* Hitachi Data Systems（HDS）使用「host group」（主機群組）。
+* NetApp E系列使用「主機入門級」。
+* EMC使用「啟動器記錄」或「儲存群組」。
+* NetApp使用「igroup.」
+
+
+無論命名規則為何、啟動器群組的用途都是透過共用相同LUN對應的WWPN來識別啟動器。
+
+若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱《FlexArray 第三方儲存設備的_》《_》《虛擬化實作指南》、以瞭解第三方儲存組態需求。
+
+*相關資訊*
+
+https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["適用於協力廠商儲存設備的虛擬化實作FlexArray"]

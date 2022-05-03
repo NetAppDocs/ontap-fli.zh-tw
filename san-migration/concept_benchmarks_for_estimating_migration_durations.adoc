@@ -1,0 +1,23 @@
+---
+permalink: san-migration/concept_benchmarks_for_estimating_migration_durations.html 
+sidebar: sidebar 
+keywords: benchmarks, estimating, migration, durations 
+summary: 為了規劃目的、某些假設可用來預估資料移轉的工作程度和持續時間。 
+---
+= 評估移轉持續時間的基準測試
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+為了規劃目的、某些假設可用來預估資料移轉的工作程度和持續時間。
+
+若要準確評估實際效能、您應該執行數種不同規模的測試移轉作業、以便針對特定環境取得正確的效能數據。
+
+[NOTE]
+====
+下列基準測試嚴格用於規劃目的、對於特定環境而言不太可能特別準確。
+
+====
+假設：每個主機移轉5小時、以8個LUN、總共2 TB資料的主機為基礎。這些參數提供每小時約400 GB的規劃數量。

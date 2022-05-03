@@ -1,0 +1,34 @@
+---
+permalink: san-migration/concept_data_migration_options.html 
+sidebar: sidebar 
+keywords: data, migration, options 
+summary: 在選擇資料移轉選項時、需要考量的是使用資料傳輸設備或應用程式型移轉。 
+---
+= 資料移轉選項
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在選擇資料移轉選項時、需要考量的是使用資料傳輸設備或應用程式型移轉。
+
+雖然FLI可能是大多數移轉作業的最佳選擇、但其他選項可能會在不中斷營運的情況下執行、因此可能較使用FLI執行移轉更為理想。您應該考量自己的選項、並針對每項移轉選擇適當的工具。所有這些工具都可用於最適合的部分移轉作業。
+
+* 使用資料傳輸設備（DTA）
++
+DTA是NetApp品牌的應用裝置、連線至SAN架構、獲得每TB資料移轉授權、並支援離線和線上移轉。
+
+* 主機作業系統或應用程式型移轉
++
+有多種主機作業系統或應用程式型資料移轉選項、包括：
+
++
+** VMware Storage VMotion
+** 邏輯Volume Manager（LVM）解決方案
+** DD（Linux）和Robocopy（Windows）等公用程式
+
+
+
+
+無論選擇何種程序和工具、您都可以而且應該使用資料移轉方法來規劃、規劃及記錄移轉選項和工作。

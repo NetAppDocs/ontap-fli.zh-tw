@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_fli_offline_post_migration_tasks.html 
+sidebar: sidebar 
+keywords: fli, offline, post-migration, tasks 
+summary: 任何未在移轉之前執行的未完成伺服器補救、都會在移轉後執行。 
+---
+= FLI離線移轉後工作
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+任何未在移轉之前執行的未完成伺服器補救、都會在移轉後執行。
+
+刪除第三方軟體、安裝並設定NetApp軟體、然後主機存取NetApp上的LUN。如需特定主機類型的移轉後補救範例、請參閱主題_Host補救_。
+
+檢閱記錄檔中是否有錯誤、檢查路徑、並執行任何應用程式測試、以驗證移轉是否順利完成。

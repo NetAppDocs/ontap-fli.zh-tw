@@ -1,0 +1,111 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, fas config tab 
+summary: 在您的「場地調查與規劃」工作表中、您應該有一個索引標籤、其中包含FAS 有關您的一套系統的資訊。 
+---
+= Site Survey and Planning工作表FAS 單「Config」（組態）索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在您的「場地調查與規劃」工作表中、您應該有一個索引標籤、其中包含FAS 有關您的一套系統的資訊。
+
+以下是如何設定FAS 「還原組態」標籤的範例。
+
+|===
+| 叢集名稱 | 叢集管理IP位址 | 提供叢集管理認證 2+| 系統管理程式主機ONTAP 
+
+
+|  |  |  | * IP位址* | *提供認證資料* 
+
+
+|  |  |  |  |  
+|===
+|===
+6+| 網路連接埠 
+
+
+| 節點 | 介面名稱 | 連接埠類型 | 連接埠速度 | VLAN名稱/ ID | IFGRP 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+| SVM名稱 | 類型 | 通訊協定 | Aggregate | SVM根Volume 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+| SVM | Volume | Aggregate | 尺寸 | SAN 
+
+
+|  |  |  | * LUN名稱* | * LUN大小* 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| SVM網路介面 
+
+
+| SVM | 介面名稱 | 介面角色 | IP位址/子網路遮罩 | 主節點/主連接埠 | 容錯移轉群組 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| SVM FCP目標連接埠 
+
+
+| SVM | FCP連接埠名稱 | WWPN | WWNN | 主節點 | 主連接埠 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| 節點FCP啟動器連接埠 
+
+
+| 節點名稱 | FCP連接埠名稱 | WWPN | WWN | 主節點 | 主連接埠 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===

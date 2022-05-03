@@ -1,0 +1,64 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, switches tab 
+summary: 在「站台調查與規劃」工作表中、您應該設定包含移轉交換器資訊的索引標籤。 
+---
+= 站台調查與規劃工作表切換標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該設定包含移轉交換器資訊的索引標籤。
+
+以下是如何設定切換參數索引標籤的範例。
+
+|===
+8+| 交換器 
+
+
+ a| 
+目前
+ a| 
+NetApp推薦
+
+
+
+ a| 
+主機名稱
+ a| 
+IP位址
+ a| 
+廠商
+ a| 
+模型
+ a| 
+網路名稱
+ a| 
+VSAN/網域
+ a| 
+韌體
+ a| 
+韌體
+
+
+
+ a| 
+C9506-1-A
+ a| 
+10.x.x.x
+ a| 
+Cisco
+ a| 
+9506
+ a| 
+產品A
+ a| 
+10.
+ a| 
+3.3（5a）
+ a| 
+
+|===

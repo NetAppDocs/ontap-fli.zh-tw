@@ -1,0 +1,297 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, lun details tab 
+summary: 在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含LUN詳細資料的相關資訊。 
+---
+= 站台調查與規劃工作表LUN詳細資料索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含LUN詳細資料的相關資訊。
+
+以下是如何設定LUN詳細資料索引標籤的範例。
+
+|===
+5+| LUN詳細資料 
+
+
+ a| 
+來源
+
+
+
+ a| 
+主機名稱
+ a| 
+儲存群組
+ a| 
+作業系統
+ a| 
+叢集式
+ a| 
+儲存控制器
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+DM-rx200s6-21
+ a| 
+Microsoft Windows Server 2012 R2 Datacenter
+ a| 
+否
+ a| 
+AMS2100
+
+
+
+ a| 
+DM-rx200s6-22
+ a| 
+DM-rx200s6-22
+ a| 
+Red Hat Enterprise Linux Server版本5.10
+ a| 
+否
+ a| 
+AMS2100
+
+
+
+ a| 
+DM-rx200s6-20
+ a| 
+DM-rx200s6-20
+ a| 
+ESXi 5.5.0 build：1331820
+ a| 
+否
+ a| 
+AMS2100
+
+
+
+ a| 
+DM-rx200s6-20
+ a| 
+DM-rx200s6-20
+ a| 
+ESXi 5.5.0 build：1331820
+ a| 
+否
+ a| 
+AMS2100
+
+|===
+|===
+5+| LUN詳細資料 
+
+
+ a| 
+來源
+
+
+
+ a| 
+掛載點
+ a| 
+實體磁碟機編號
+ a| 
+連接埠
+ a| 
+匯流排
+ a| 
+目標
+
+
+
+ a| 
+C：
+ a| 
+PHYSICALDRIVE0
+ a| 
+2.
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+/
+ a| 
+SDA
+ a| 
+0
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+BootLUN_Datastore
+ a| 
+NAA.60060e801046b96004f2bf4600000014
+ a| 
+0
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+VM_Datastore
+ a| 
+NAA.60060e801046b96004f2bf4600000015
+ a| 
+0
+ a| 
+0
+ a| 
+0
+
+|===
+|===
+5+| LUN詳細資料 
+
+
+ a| 
+來源
+
+
+
+ a| 
+LUN
+ a| 
+PG80 SN
+ a| 
+pg83 SN / UID
+ a| 
+LUN大小（GB）
+ a| 
+開始偏移
+
+
+
+ a| 
+0
+ a| 
+ a| 
+60060e801046b96004f2bf460000001e
+ a| 
+40
+ a| 
+0
+
+
+
+ a| 
+0
+ a| 
+ a| 
+60060e801046b96004f2bf4600000010
+ a| 
+20
+ a| 
+
+
+
+ a| 
+0
+ a| 
+ a| 
+60060e801046b96004f2bf4600000014
+ a| 
+20
+ a| 
+
+
+
+ a| 
+1.
+ a| 
+ a| 
+60060e801046b96004f2bf4600000015
+ a| 
+40
+ a| 
+
+|===
+|===
+5+| LUN詳細資料 
+
+
+ a| 
+來源
+
+
+
+ a| 
+LUN類型
+ a| 
+一致
+ a| 
+自訂字首（區塊）
+ a| 
+自訂字首（位元組）
+ a| 
+
+
+
+ a| 
+Windows
+ a| 
+一致
+ a| 
+0
+ a| 
+0
+ a| 
+
+
+
+ a| 
+Linux
+ a| 
+一致
+ a| 
+0
+ a| 
+0
+ a| 
+
+
+
+ a| 
+VMware
+ a| 
+一致
+ a| 
+0
+ a| 
+0
+ a| 
+
+
+
+ a| 
+VMware
+ a| 
+一致
+ a| 
+0
+ a| 
+0
+ a| 
+
+|===

@@ -1,0 +1,70 @@
+---
+permalink: san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html 
+sidebar: sidebar 
+keywords: verify, source luns, destination storage, offline fli 
+summary: 在離線外部LUN匯入程序中、您必須驗證目的地儲存設備上的來源LUN。 
+---
+= 驗證目的地儲存設備上的來源LUN以供離線FLI使用
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在離線外部LUN匯入程序中、您必須驗證目的地儲存設備上的來源LUN。
+
+.步驟
+. 驗證來源LUN、並從來源儲存設備對應至目的地儲存設備。
+. 使用管理員使用者透過SSH登入ONTAP 到這個功能區。
+. 將模式變更為「進階」：「設定-權限進階」
+. 當系統詢問您是否要繼續時、請輸入「y」。
+. 探索ONTAP 有關的來源陣列。等待幾分鐘、然後重試偵測來源陣列。「torage Array show」
++
+[listing]
+----
+DataMig-cmode::*> storage array show
+Prefix                         Name   Vendor            Model Options
+-------- ---------------------------- -------- ---------------- ----------
+HIT-1                HITACHI_DF600F_1  HITACHI           DF600F
+----
++
+[NOTE]
+====
+第一次發現儲存陣列時ONTAP 、可能無法自動探索以顯示陣列。請依照下列指示、重設ONTAP 連接了交換器連接埠的交換器連接埠。
+
+====
+. 驗證是否已透過所有啟動器連接埠探索來源陣列。
++
+[listing]
+----
+DataMig-cmode::*> storage array config show -array-name HITACHI_DF600F_1
+             LUN   LUN
+Node         Group Count     Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- -----------------------
+DataMig-cmode-01 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+DataMig-cmode-02 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+----
+. 列出從Hitachi儲存設備對應的來源LUN。驗證磁碟內容和路徑。
++
+您應該會看到根據纜線所預期的路徑數目（每個來源控制器至少有兩個路徑）。您也應該在遮罩陣列LUN之後、檢查事件記錄。
+
++
+[listing]
+----
+DataMig-cmode::*> storage disk show -array-name HITACHI_DF600F_1 -fields disk, serial-number, container-type, owner, path-lun-in-use-count, import-in-progress, is-foreign
+disk     owner is-foreign container-type import-in-progress path-lun-in-use-count serial-number
+-------- ----- ---------- -------------- ------------------ --------------------- -------------
+HIT-1.2  -     false      unassigned     false        0,0,0,0,0,0,0,0       83017542001E
+HIT-1.3  -     false      unassigned     false        0,0,0,0,0,0,0,0       83017542000E
+HIT-1.14 -     false      unassigned     false        0,0,0,0,0,0,0,0       830175420019
+3 entries were displayed.
+
+DataMig-cmode::*>
+----
+

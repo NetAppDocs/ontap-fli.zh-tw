@@ -1,0 +1,26 @@
+---
+permalink: san-migration/task_document_customer_environment.html 
+sidebar: sidebar 
+keywords: document, newly, migrated, environment 
+summary: 您需要發出AutoSupport flexfcommand來記錄客戶環境。 
+---
+= 記錄新移轉的環境
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您需要發出「AutoSupport 支援」命令來記錄客戶環境。
+
+若要記錄客戶環境、請完成下列步驟：
+
+.步驟
+. 發出「AutoSupport 指令檔」來記錄最終組態。
++
+[listing]
+----
+B9CModeCluster::*> autosupport invoke -node DataMig-cmode-01 -type all –message “migration-final”
+----
+. 完整記錄新移轉的環境。
+

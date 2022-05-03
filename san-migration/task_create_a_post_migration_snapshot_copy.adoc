@@ -1,0 +1,27 @@
+---
+permalink: san-migration/task_create_a_post_migration_snapshot_copy.html 
+sidebar: sidebar 
+keywords: Create, post-migration, snapshot, copies 
+summary: 您可以建立移轉後的Snapshot複本、以便日後需要時進行還原。 
+---
+= 建立移轉後的Snapshot複本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以建立移轉後的Snapshot複本、以便日後需要時進行還原。
+
+.步驟
+. 若要建立移轉後的Snapshot複本、請執行「建立快照」命令。
++
+[listing]
+----
+DataMig-cmode::> snap create -vserver datamig -volume winvol -snapshot post-migration
+
+DataMig-cmode::> snap create -vserver datamig -volume linuxvol -snapshot post-migration
+
+DataMig-cmode::> snap create -vserver datamig -volume esxvol -snapshot post-migration
+----
+

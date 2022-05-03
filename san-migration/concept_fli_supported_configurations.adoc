@@ -1,0 +1,24 @@
+---
+permalink: san-migration/concept_fli_supported_configurations.html 
+sidebar: sidebar 
+keywords: fli, supported, configurations 
+summary: FLI環境必須以支援的方式部署、以確保正常運作及支援。由於工程設計符合新組態的資格、因此支援的組態清單將會變更。請參閱NetApp互通性對照表、以驗證特定組態的支援。 
+---
+= FLI支援的組態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI環境必須以支援的方式部署、以確保正常運作及支援。由於工程設計符合新組態的資格、因此支援的組態清單將會變更。請參閱NetApp互通性對照表、以驗證特定組態的支援。
+
+僅支援使用支援的目的地儲存設備為支援的8.3及更新版本。ONTAP不支援移轉至協力廠商儲存設備。
+
+如需支援的來源儲存陣列、交換器和韌體清單、請參閱互通性對照表。資料移轉方案將支援NetApp互通性對照表中的組態。
+
+匯入完成且所有LUN均已移轉至NetApp控制器後、請確認所有組態均受到支援。
+
+*相關資訊*
+
+https://mysupport.netapp.com/matrix["NetApp 互通性對照表工具"]

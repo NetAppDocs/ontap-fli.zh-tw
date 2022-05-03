@@ -1,0 +1,28 @@
+---
+settings:
+  name: ONTAP
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: zh-tw,us-en,ja-jp,zh-cn,ko-kr
+sidebar:
+  entries:
+  - title: 部分FLI文件ONTAP
+    url: "/index.html"
+  - section: san-migration
+  - title: 法律聲明
+    url: "/reference_legal_notices.html"
+homepage:
+  tiles:
+  - title: FLI工作流程
+    links:
+    - title: 離線工作流程
+      url: "/san-migration/concept_fli_offline_workflow.html"
+    - title: 線上工作流程
+      url: "/san-migration/concept_fli_online_workflow.html"
+    - title: FLI 7-Mode to ONTAP VMware移轉工作流程
+      url: "/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html"
+    - title: 使用工作流程自動化（WFA）的FLI
+      url: "/san-migration/concept_fli_using_workflow_automation_wfa.html"

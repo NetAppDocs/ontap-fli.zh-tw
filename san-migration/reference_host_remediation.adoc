@@ -1,0 +1,30 @@
+---
+permalink: san-migration/reference_host_remediation.html 
+sidebar: sidebar 
+keywords: host remediation 
+summary: 視移轉類型而定、主機補救可能會在移轉過程中即時進行（外部LUN線上匯入、7-Mode至ONTAP VMware）、或在移轉完成後進行（外部LUN離線匯入）。 
+---
+= 主機補救
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+視移轉類型而定、主機補救可能會在移轉過程中即時進行（外部LUN線上匯入、7-Mode至ONTAP VMware）、或在移轉完成後進行（外部LUN離線匯入）。
+
+針對不同的主機作業系統、使用進行補救步驟。請參閱您的落差分析、並在規劃與分析階段彙總、以及適當的NetApp與廠商文件、以瞭解移轉的特定步驟。
+
+[NOTE]
+====
+FLI使用與7MTT相同的補救程序。因此、使用相同的修正文件、而非在不同位置多次記錄這些程序、是很合理的做法。
+
+====
+[NOTE]
+====
+若要進行CAW補救、請使用ESXi CAW/ATS補救程序。
+
+====
+*相關資訊*
+
+https://docs.netapp.com/us-en/ontap-7mode-transition/san-host/index.html["SAN主機移轉與補救"]

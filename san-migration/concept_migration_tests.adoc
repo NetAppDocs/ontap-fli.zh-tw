@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_migration_tests.html 
+sidebar: sidebar 
+keywords: migration, tests 
+summary: 您應該執行一或多個測試移轉、以驗證陣列、交換器和主機是否已正確設定、以及是否有幾個範例可供推斷、以判斷移轉持續時間和工作層級。 
+---
+= 移轉測試
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您應該執行一或多個測試移轉、以驗證陣列、交換器和主機是否已正確設定、以及是否有幾個範例可供推斷、以判斷移轉持續時間和工作層級。

@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_fli_migration_clean_up_and_verify_phase.html 
+sidebar: sidebar 
+keywords: fli, migration, cleanup, verify, phase 
+summary: 在清理階段、您會收集FLI移轉記錄、從NetApp儲存設備移除來源儲存組態、以及從來源儲存設備移除NetApp儲存主機群組。此外、請刪除來源到目的地區域。驗證是決定移轉計畫執行準確度的點。 
+---
+= FLI移轉清除與驗證階段
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在清理階段、您會收集FLI移轉記錄、從NetApp儲存設備移除來源儲存組態、以及從來源儲存設備移除NetApp儲存主機群組。此外、請刪除來源到目的地區域。驗證是決定移轉計畫執行準確度的點。
+
+檢閱記錄檔中是否有錯誤、檢查路徑、並執行任何應用程式測試、以確認移轉是否順利完成。

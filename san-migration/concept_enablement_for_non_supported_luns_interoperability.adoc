@@ -1,0 +1,25 @@
+---
+permalink: san-migration/concept_enablement_for_non_supported_luns_interoperability.html 
+redirect: ontap-fli/san-migration/task_importing_non_fc_luns.html 
+sidebar: sidebar 
+keywords: enablement, non-supported, luns 
+summary: 請務必確認ONTAP 來源陣列的主機作業系統、HBA、交換器及支援的動作、以及您的最終組態、均列於互通性對照表中。 
+---
+= 啟用不受支援的LUN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+請務必確認ONTAP 來源陣列的主機作業系統、HBA、交換器及支援的動作、以及您的最終組態、均列於互通性對照表中。
+
+以下各節提供這些使用案例的相關資訊：
+
+* 將iSCSI LUN匯入為FC LUN
+* 將移轉的LUN移至AFF 支援平台
+
+
+*相關資訊*
+
+https://mysupport.netapp.com/matrix["NetApp 互通性對照表工具"]

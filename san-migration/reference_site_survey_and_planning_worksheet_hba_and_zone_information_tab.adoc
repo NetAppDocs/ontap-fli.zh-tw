@@ -1,0 +1,91 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, hba and zone information tab 
+summary: 在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含HBA和區域資訊的相關資訊。 
+---
+= Site Survey and Planning工作表HBA and Zone Information（HBA與區域資訊）索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含HBA和區域資訊的相關資訊。
+
+以下是如何設定HBA和區域資訊索引標籤的範例。
+
+[cols="4*"]
+|===
+4+| 網路詳細資料 
+
+
+ a| 
+主機名稱
+ a| 
+說明
+ a| 
+WWPN
+ a| 
+網路名稱
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+HBA0
+ a| 
+21：00：00：24：ff：xx：xx：xx：xx
+ a| 
+產品A
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+HBA1
+ a| 
+21：00：00：24：ff：xx：xx：xx：xx
+ a| 
+產品B
+
+|===
+[cols="4*"]
+|===
+4+| 網路詳細資料 
+
+
+ a| 
+VSAN/網域
+ a| 
+連接埠號碼
+ a| 
+移轉前的區域成員資格
+ a| 
+移轉後的區域成員資格
+
+
+
+ a| 
+10.
+ a| 
+FC2/3
+ a| 
+rx21_AMS2100
+ a| 
+rx21_flicDOT
+
+
+
+ a| 
+10.
+ a| 
+FC2/3
+ a| 
+rx21_AMS2100
+ a| 
+rx21_flicDOT
+
+|===

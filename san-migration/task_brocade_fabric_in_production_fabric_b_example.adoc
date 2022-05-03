@@ -1,0 +1,41 @@
+---
+permalink: san-migration/task_brocade_fabric_in_production_fabric_b_example.html 
+sidebar: sidebar 
+keywords: brocade, fabric, production, fabric B, example 
+summary: 以下是正式作業Fabric B中的Brocade網路範例 
+---
+= 正式作業架構B中的Brocade網路範例
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+以下是正式作業光纖B中的Brocade網路範例
+
+.步驟
+. 在正式作業架構B中建立區域
++
+[listing]
+----
+zoneCreate "rx21_flicDOT", "21:00:00:24:ff:30:14:c4"
+zoneAdd "rx21_flicDOT", "20:02:00:a0:98:2f:94:d1"
+zoneAdd "rx21_flicDOT", "20:04:00:a0:98:2f:94:d1"
+zoneCreate "rx22_flicDOT", "21:00:00:24:ff:30:04:84"
+zoneAdd "rx22_flicDOT", "20:02:00:a0:98:2f:94:d1"
+zoneAdd "rx22_flicDOT", "20:04:00:a0:98:2f:94:d1"
+zoneCreate "rx20_flicDOT", "21:00:00:24:ff:30:03:eb"
+zoneAdd "rx20_flicDOT", "20:02:00:a0:98:2f:94:d1"
+zoneAdd "rx20_flicDOT", "20:04:00:a0:98:2f:94:d1"
+----
+. 在正式作業架構B中啟動區域
++
+[listing]
+----
+cfgAdd "PROD_RIGHT", "rx21_flicDOT"
+cfgAdd "PROD_RIGHT", "rx22_flicDOT"
+cfgAdd "PROD_RIGHT", "rx20_flicDOT"
+cfgEnable "PROD_RIGHT"
+cfgSave
+----
+

@@ -1,0 +1,23 @@
+---
+permalink: san-migration/concept_fli_offline_workflow.html 
+redirect: ontap-fli/san-migration/task_rebooting_the_host_to_validate_system_state.html 
+sidebar: sidebar 
+keywords: fli, offline, workflow 
+summary: 本節提供FLI離線工作流程的範例、這是四個FLI工作流程之一。 
+---
+= FLI離線工作流程
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節提供FLI離線工作流程的範例、這是四個FLI工作流程之一。
+
+此工作流程使用HDS AMS2100陣列做為來源陣列。離線工作流程具有下列工作：
+
+. 準備轉換
+. 匯入資料
+. 驗證移轉結果（選用）
+. FLI離線移轉後工作
+

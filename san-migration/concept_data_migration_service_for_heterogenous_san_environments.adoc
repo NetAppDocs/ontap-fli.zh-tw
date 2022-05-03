@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_data_migration_service_for_heterogenous_san_environments.html 
+sidebar: sidebar 
+keywords: data, migration, service, heterogeneous, san, environments 
+summary: 適用於異質SAN環境的資料移轉服務是使用FLI技術的全方位資料移轉解決方案。SAN資料移轉服務提供軟體與服務、可減少錯誤、提高生產力、並促進NetApp與合作夥伴專業服務的資料移轉一致交付。 
+---
+= 適用於異質SAN環境的資料移轉服務
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+適用於異質SAN環境的資料移轉服務是使用FLI技術的全方位資料移轉解決方案。SAN資料移轉服務提供軟體與服務、可減少錯誤、提高生產力、並促進NetApp與合作夥伴專業服務的資料移轉一致交付。

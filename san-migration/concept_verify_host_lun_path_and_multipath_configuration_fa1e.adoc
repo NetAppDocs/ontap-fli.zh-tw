@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_verify_host_lun_path_and_multipath_configuration_fa1e.html 
+sidebar: sidebar 
+keywords: verify, host lun path, multipath, configuration 
+summary: 在移轉之前、您應該確認多重路徑的設定正確且運作正常。LUN的所有可用路徑都應為作用中。 
+---
+= 驗證主機LUN路徑和多重路徑組態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在移轉之前、您應該確認多重路徑的設定正確且運作正常。LUN的所有可用路徑都應為作用中。

@@ -1,0 +1,52 @@
+---
+permalink: san-migration/task_brocade_fabric_example.html 
+sidebar: sidebar 
+keywords: brocade, fabric, example 
+summary: 此程序顯示從Brocade網路區域集移除來源儲存設備和主機區域。 
+---
+= Brocade網路範例
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此程序顯示從Brocade網路區域集移除來源儲存設備和主機區域。
+
+[NOTE]
+====
+範例的區域名稱為_rx21_AMS2100。
+
+====
+.步驟
+. 從Fabric A的區域中移除區域
++
+[listing]
+----
+cfgDelete "PROD_LEFT", "rx21_AMS2100"
+cfgDelete "PROD_LEFT", "rx22_AMS2100"
+cfgDelete "PROD_LEFT", "rx20_AMS2100"
+----
+. 在Fabric A中啟動區域集
++
+[listing]
+----
+cfgEnable "PROD_LEFT"
+cfgSave
+----
+. 從Fabric B的區域中移除區域
++
+[listing]
+----
+cfgDelete "PROD_RIGHT", "rx21_AMS2100"
+cfgDelete "PROD_RIGHT", "rx22_AMS2100"
+cfgDelete "PROD_RIGHT", "rx20_AMS2100"
+----
+. 在Fabric B中啟動區域集
++
+[listing]
+----
+cfgEnable "PROD_RIGHT"
+cfgSave
+----
+

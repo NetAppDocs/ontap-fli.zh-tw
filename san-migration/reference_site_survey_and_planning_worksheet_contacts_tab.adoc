@@ -1,0 +1,36 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, contacts tab 
+summary: 在您的「站台調查與規劃」工作表中、您應該設定包含移轉專案聯絡資訊的索引標籤。 
+---
+= 站台調查與規劃工作表聯絡人索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在您的「站台調查與規劃」工作表中、您應該設定包含移轉專案聯絡資訊的索引標籤。
+
+以下是如何設定「聯絡人」索引標籤的範例。
+
+[cols="6*"]
+|===
+6+| 移轉專案聯絡資訊 
+
+
+ a| 
+資源名稱
+ a| 
+組織
+ a| 
+專案角色
+ a| 
+辦公室電話
+ a| 
+行動電話
+ a| 
+電子郵件
+
+|===

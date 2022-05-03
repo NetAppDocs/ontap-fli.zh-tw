@@ -1,0 +1,20 @@
+---
+permalink: san-migration/concept_7_mode_to_ontap_supported_configurations.html 
+sidebar: sidebar 
+keywords: 7-mode, ontap, fli, supported, configurations 
+summary: 請務必確認ONTAP 您最終要移轉的主機作業系統、HBA、交換器和架構陣列是否受到支援。 
+---
+= 7-Mode至ONTAP 支援的不支援FLI組態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+請務必確認ONTAP 您最終要移轉的主機作業系統、HBA、交換器和架構陣列是否受到支援。
+
+如果您使用FLI 7-Mode ONTAP 來進行轉換工作流程、則FlexArray IMT 無需驗證來源（7-Mode控制器）。這份文件不會列出、但明確支援此轉換工作流程。您仍需確認所有主機都處於支援的組態中。
+
+沒有FLI專屬平台需求。雖然Data ONTAP 版本必須支援Fibre Channel傳輸協定（FCP）、但也沒有7-Mode的最低版本。
+
+FLI可匯入的最大LUN大小為6 TB。這是根據ONTAP 目前支援的最大磁碟機大小而定的限制。如果您嘗試掛載較大的外部LUN、LUN會標示為「中斷」、您將無法在其中寫入標籤。

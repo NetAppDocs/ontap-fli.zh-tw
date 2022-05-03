@@ -1,0 +1,40 @@
+---
+permalink: san-migration/concept_migration_analyze_phase_workflow.html 
+sidebar: sidebar 
+keywords: analyze, phase, workflow 
+summary: 「分析」階段著重於移轉規劃前必須解決的項目。必須識別出互操作性對照表之外的主機組態細節。 
+---
+= 分析階段工作流程
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+「分析」階段著重於移轉規劃前必須解決的項目。必須識別出互操作性對照表之外的主機組態細節。
+
+針對每個主機、系統會識別目標組態（移轉後）、並執行落差分析、以識別不受支援的特定元件。主機分析應在完成後立即審查。必要的更新可能會中斷與每部主機上執行的應用程式的相容性。
+
+一般而言、在實際移轉事件發生之前、不會進行必要的主機變更。這是因為通常需要排程維護時間、但如果可能的話、事先進行主機變更（例如系統修補和主機匯流排介面卡（HBA）更新）通常風險較低。此外、系統更新通常會與應用程式更新協調、利用相同的維護事件來進行。一般而言、移轉前對多重路徑I/O（MPIO）組態所做的任何變更、也會影響目前儲存設備的支援。例如、目前的儲存組態可能不支援從主機移除PowerPath、並重新設定為在Linux上使用原生MPIO和非對稱邏輯單元存取（ALUA）。
+
+延遲MPIO重新設定、直到移轉完成為止、可簡化必要時的復原程序。
+
+下表列出規劃階段工作。
+
+[cols="2*"]
+|===
+| 元件 | 工作 
+
+
+ a| 
+主機
+ a| 
+. 針對每個主機執行落差分析。找出所需的熱修復/修補程式、作業系統更新、HBA驅動程式和韌體升級、以符合NetApp IMT 支援系統上所選的目標組態。此外SnapDrive 、還SnapManager 應考量此主機上安裝其他NetApp軟體的需求（例如：NetApp®、簡稱「支援」）。
+. 針對每個主機（作業系統組態、MPIO、HBA詳細資料、主機公用程式套件版本）、決定目標組態（移轉後）。
+. 判斷其他NetApp產品需求SnapDrive （例如、NetApp SnapManager ）。
+
+
+|===
+*相關資訊*
+
+https://mysupport.netapp.com/NOW/products/interoperability["NetApp互通性"]

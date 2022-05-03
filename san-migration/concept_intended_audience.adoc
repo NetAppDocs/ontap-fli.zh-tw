@@ -1,0 +1,26 @@
+---
+permalink: san-migration/concept_intended_audience.html 
+sidebar: sidebar 
+keywords: intended, audience 
+summary: 本指南適用於有興趣將資料從外部陣列移轉至ONTAP VMware或有興趣將LUN從NetApp 7-Mode陣列移轉至ONTAP VMware的NetApp客戶。 
+---
+= 目標對象
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+本指南適用於有興趣將資料從外部陣列移轉至ONTAP VMware或有興趣將LUN從NetApp 7-Mode陣列移轉至ONTAP VMware的NetApp客戶。
+
+本指南的其他對象如下：
+
+* NetApp異質儲存區域網路（HeSAN）移轉服務的客戶
+* NetApp銷售工程師（SE）
+* 諮詢銷售工程師（CSE）
+* 專業服務工程師（PSE）
+* 專業服務顧問（PSC）
+* 通路合作夥伴工程師
+
+
+本指南讀者應熟悉常見的SAN概念與程序、包括分區、LUN遮罩、需要移轉LUN的主機作業系統、ONTAP 以及來源協力廠商陣列。

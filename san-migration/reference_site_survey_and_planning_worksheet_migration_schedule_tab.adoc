@@ -1,0 +1,39 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, migration schedule tab 
+summary: 在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含移轉排程的相關資訊。 
+---
+= 站台調查與規劃工作表移轉排程索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含移轉排程的相關資訊。
+
+以下是如何設定「移轉排程」索引標籤的範例。
+
+|===
+8+| 移轉排程 
+
+
+ a| 
+移轉日期
+ a| 
+主機
+ a| 
+作業系統
+ a| 
+應用程式
+ a| 
+儲存控制器
+ a| 
+LUN UID
+ a| 
+LUN大小
+ a| 
+狀態
+
+|===

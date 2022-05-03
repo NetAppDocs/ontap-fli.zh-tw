@@ -1,0 +1,153 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, source storage devices tab 
+summary: 在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含移轉來源儲存裝置的相關資訊。 
+---
+= 站台調查與規劃工作表來源儲存設備索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含移轉來源儲存裝置的相關資訊。
+
+以下是如何設定來源儲存裝置索引標籤的範例。
+
+|===
+5+| 儲存系統 
+
+
+ a| 
+陣列名稱
+ a| 
+IP位址
+ a| 
+廠商
+ a| 
+陣列模型
+ a| 
+微碼韌體/ ONTAP 功能
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+|===
+|===
+5+| 儲存系統 
+
+
+ a| 
+控制器/節點
+ a| 
+連接埠名稱
+ a| 
+WWPN
+ a| 
+網路名稱
+ a| 
+目標類型
+
+
+
+ a| 
+控制器0
+ a| 
+0A
+ a| 
+50060E80xxxxxxxx
+ a| 
+正式作業架構A
+ a| 
+來源
+
+
+
+ a| 
+控制器0
+ a| 
+0E
+ a| 
+50060E80xxxxxxxx
+ a| 
+正式作業架構B
+ a| 
+來源
+
+
+
+ a| 
+控制器1.
+ a| 
+1A.
+ a| 
+50060E80xxxxxxxx
+ a| 
+正式作業架構A
+ a| 
+來源
+
+
+
+ a| 
+控制器1.
+ a| 
+1E
+ a| 
+50060E80xxxxxxxx
+ a| 
+正式作業架構A
+ a| 
+來源
+
+|===

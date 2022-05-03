@@ -1,0 +1,25 @@
+---
+permalink: san-migration/task_fli_online_cleanup.html 
+sidebar: sidebar 
+keywords: clean up, fli, online migration 
+summary: 完成FLI線上移轉之後、您就會移除LUN匯入關係。 
+---
+= 清除FLI線上移轉
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+完成FLI線上移轉之後、您就會移除LUN匯入關係。
+
+準備好之後、LUN匯入關係可以安全移除、因為主機現在正在存取新ONTAP 的NetApp陣列、以便將所有I/O存取至新的物件LUN、而且來源LUN不再使用。
+
+.步驟
+. 刪除LUN匯入關係。
++
+[listing]
+----
+lun import delete -vserver fli_72C -path /vol/flivol/72Clun1
+----
+

@@ -1,0 +1,71 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, storage groups tab 
+summary: 在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含儲存群組的相關資訊。 
+---
+= 站台調查與規劃工作表儲存群組索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含儲存群組的相關資訊。
+
+以下是如何設定「儲存群組」索引標籤的範例。
+
+|===
+4+| 儲存群組 
+
+
+ a| 
+來源
+ a| 
+目的地
+
+
+
+ a| 
+主機名稱
+ a| 
+儲存群組
+ a| 
+WWPN
+ a| 
+igroup命令
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+DM-rx200s6-21
+ a| 
+21：00：00：24：ff：30：14：C5221：00：24：ff：30：14：c4
+ a| 
+「igroup create -ostype" windows `-protocol' FCP `-vserver' datamig `-igroup' dm-rx200s6-21 `-initiator’21：00：00：24：ff：30：14：c4、21：00：24：ff：30：14：c5
+
+
+
+ a| 
+DM-rx200s6-22
+ a| 
+DM-rx200s6-22
+ a| 
+21：00：00：24：ff：30：04：8521：00：24：ff：30：04：84
+ a| 
+「igroup create -ostype" Linux「-Protocol」FCP「-vserver」datamig「-igroup」dm-rx200s6-22「-initiator」21：00：24：ff：30：04：85、21：00：24：ff：30：04：84
+
+
+
+ a| 
+DM-rx200s6-20
+ a| 
+DM-rx200s6-20
+ a| 
+21：00：00：24：ff：30：03：ea21：00：24：ff：30：03：EB
+ a| 
+'igroup create -ostype" VMware '-Protocol（協議）FCP '-vserver' datamig -'igroup' dm-rx200s6-20 '-initiator（啟動器）21：00：24：00：30：03：ea、21：00：24：ff：30：03：EB
+
+|===

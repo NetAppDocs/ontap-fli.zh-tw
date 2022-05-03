@@ -1,0 +1,24 @@
+---
+permalink: san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html 
+sidebar: sidebar 
+keywords: check, supported configurations, fli, using, san lun migrate app 
+summary: 從ONTAP 供應到支援的9.9版開始、您可以使用SAN LUN移轉應用程式來驗證FLI的外部來源陣列。如果FLI IMT 不列出所需的外部陣列、則可使用SAN LUN移轉應用程式。 
+---
+= 使用SAN LUN移轉應用程式檢查FLI支援的組態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+從ONTAP 供應到支援的9.9版開始、您可以使用SAN LUN移轉應用程式來驗證FLI的外部來源陣列。如果FLI IMT 不列出所需的外部陣列、則可使用SAN LUN移轉應用程式。
+
+.步驟
+. 前往NetApp支援網站。
+. 在*依類別篩選*下、選取*移轉*。
+. 在「* SAN LUN Migration *」下、按一下「* Download App*」。
+. 從具有區塊存取來源陣列的FC或iSCSI Linux主機執行應用程式。
++
+如果外部來源陣列可以符合資格、則會顯示綠色核取符號。如果外部來源陣列無法符合資格、則會顯示紅色X。如果您的陣列不符合資格、您可以聯絡NetApp支援部門以取得其他協助。
+
+

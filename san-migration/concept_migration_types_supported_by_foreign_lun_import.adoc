@@ -1,0 +1,24 @@
+---
+permalink: san-migration/concept_migration_types_supported_by_foreign_lun_import.html 
+sidebar: sidebar 
+keywords: migration, types, supported, foreign, lun, import 
+summary: FLI支援四種主要移轉工作流程：線上、離線、移轉和自動化。您選擇要使用的工作流程取決於您的組態和其他因素。 
+---
+= 外部LUN匯入支援的移轉類型
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI支援四種主要移轉工作流程：線上、離線、移轉和自動化。您選擇要使用的工作流程取決於您的組態和其他因素。
+
+* 在線上移轉中、從協力廠商陣列移轉的FLI可讓用戶端系統在移轉期間保持連線（需要Windows、Linux或ESXi主機作業系統）。
+* 在離線移轉中、來自協力廠商陣列的FLI會使用戶端系統離線、並將資料複製到新的LUN、然後再重新連線。
+* 在轉換移轉過程中、FLI會將ONTAP 以7-Mode運作的功能從功能轉換為ONTAP 功能。除了來源陣列ONTAP 是指不一樣的程序、這項功能完全相同。轉換工作流程可在線上或離線模式下使用。
+* 在自動化移轉中、FLI使用工作流程自動化（WFA）軟體來自動化部分移轉程序。配備WFA的FLI可在線上或離線模式下使用。
+
+
+在架構上、這三項移轉作業與移轉工作流程相當類似。所有四個都仰賴NetApp FlexArray 的支援技術、讓ONTAP 您的支援區塊控制器在來源陣列前做為啟動器、並使用該位置將來源區塊的LUN區塊複製到目的地ONTAP 不支援區陣列上的LUN。
+
+工作流程之間的差異、必須與轉換發生時間、中斷時間長度、自動化使用、或來源陣列是執行ONTAP VMware 7-Mode或協力廠商陣列的NetApp陣列有關。

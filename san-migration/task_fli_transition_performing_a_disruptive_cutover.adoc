@@ -1,0 +1,73 @@
+---
+permalink: san-migration/task_fli_transition_performing_a_disruptive_cutover.html 
+sidebar: sidebar 
+keywords: perform, disruptive, cutover, fli 7-mode, ontap 
+summary: 此範例提供執行FLI轉換程序中斷轉換的一般步驟。 
+---
+= 執行將FLI 7-Mode轉換為ONTAP VMware的中斷執行
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此範例提供執行FLI轉換程序中斷轉換的一般步驟。
+
+如需Windows、Linux和ESXi主機的主機補救措施逐步解說、請參閱本指南的相關主題、以及主機作業系統和主機附加套件文件。
+
+.步驟
+. 在7-Mode系統上、顯示來源LUN對應的igroup。
++
+[listing]
+----
+stme-7ma> igroup show
+    FLI_on_fcp (FCP) (ostype: windows):
+        10:00:00:00:c9:e6:e2:79 (logged in on: 0c, vtic)
+        50:0a:09:81:00:96:43:70 (logged in on: 0c, vtic)
+        50:0a:09:81:00:96:3c:f0 (logged in on: 0c, vtic)
+----
++
+[NOTE]
+====
+執行unmap命令後、系統會立即開始中斷作業。一般而言、中斷時間可在幾分鐘內測量。這是將主機移至新NetApp目標並掃描LUN所需的時間長度。
+
+====
+. 如果要匯入的LUN適用於ESXi主機、請檢閱並遵循_ESXi CAW/ATS修正主題中的指示。
+. 使用「unmap」命令、將LUN從主機移出。（中斷時間從這裡開始。）
++
+[listing]
+----
+stme-7ma> igroup remove -f FLI_on_fcp 10:00:00:00:c9:e6:e2:79
+----
+. 驗證主機啟動器是否不再存在。
++
+[listing]
+----
+stme-7ma> igroup show
+    FLI_on_fcp (FCP) (ostype: windows):
+        50:0a:09:81:00:96:43:70 (logged in on: 0c, vtic)
+        50:0a:09:81:00:96:3c:f0 (logged in on: 0c, vtic)
+----
+. 在實體叢集上、將目的地LUN上線、然後確認其對應。ONTAP
++
+[listing]
+----
+cluster::*> lun online -vserver fli_72C -path /vol/flivol/72Clun1
+
+cluster::*> lun show -path /vol/flivol/72Clun1
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fli_72C   /vol/flivol/72Clun1             online  mapped   windows_2008
+                                                                      3.00GB
+----
+. 重新掃描主機上的磁碟；在ONTAP 支援對象上找到LUN。
++
+[NOTE]
+====
+中斷時間到此結束。
+
+====
++
+LUN已上線並對應、主機現在正在安裝新ONTAP 的以供代管的LUN。讀取內容會透過ONTAP the s還原 陣列傳遞至來源LUN、寫入內容會同時寫入新ONTAP 的支援服務LUN和原始來源LUN。在移轉完成且LUN關係中斷之前、來源和目的地LUN都會保持同步。
+
+

@@ -1,0 +1,36 @@
+---
+permalink: san-migration/concept_data_migration_methodology.html 
+sidebar: sidebar 
+keywords: data migration methodology 
+summary: 資料移轉程序由提供已測試方法的階段所組成。您可以使用資料移轉方法來規劃、規劃及記錄移轉選項和工作。 
+---
+= 資料移轉方法
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+資料移轉程序由提供已測試方法的階段所組成。您可以使用資料移轉方法來規劃、規劃及記錄移轉選項和工作。
+
+. 探索階段
++
+收集環境中主機、儲存設備和架構的相關資訊。
+
+. 分析階段
++
+檢查收集到的資料、並針對每個主機或儲存陣列判斷適當的移轉方法。
+
+. 規劃階段
++
+建立並測試移轉計畫、配置目的地儲存設備、以及設定移轉工具。
+
+. 執行階段
++
+移轉資料並執行主機修復。
+
+. 驗證階段
++
+驗證新的系統組態並提供文件。
+
+

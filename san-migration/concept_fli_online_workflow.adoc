@@ -1,0 +1,30 @@
+---
+permalink: san-migration/concept_fli_online_workflow.html 
+sidebar: sidebar 
+keywords: fli, online, workflow 
+summary: 這是涵蓋FLI線上移轉的四個FLI工作流程範例中的第二個。 
+---
+= FLI線上工作流程
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+這是涵蓋FLI線上移轉的四個FLI工作流程範例中的第二個。
+
+本範例中的來源陣列是EMC VNX5500。所提供的範例應徹底瀏覽FLI線上程序、並設計為與本指南先前部分所討論的一般資訊和程序搭配使用。線上工作流程具有下列工作：
+
+. 準備LUN路徑
+. 執行中斷轉換
+. 匯入來源LUN資料
+. 驗證移轉結果
+. 清除FLI線上移轉
+. FLI線上移轉後工作
+
+
+[NOTE]
+====
+如果NetApp控制器目的地MetroCluster 是一個不景點、請勿使用線上工作流程。如果在作用中的線上匯入期間發生站台容錯移轉、則寫入到來源陣列的傳遞可能會失敗、進而導致驗證失敗和可能的資料遺失。如果目的地MetroCluster 是不全、請使用FLI離線程序。
+
+====

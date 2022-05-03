@@ -1,0 +1,29 @@
+---
+permalink: san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html 
+sidebar: sidebar 
+keywords: variables, affect, foreign lun import, migration, performance 
+summary: 有許多變數會影響特定移轉的完成速度。 
+---
+= 影響外部LUN匯入移轉效能的變數
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+有許多變數會影響特定移轉的完成速度。
+
+這些變數包括：
+
+* 指定來源與目的地之間執行的並行移轉數
+* 來源陣列功能
+* 來源陣列負載
+* 目的地陣列功能
+* 目的地陣列負載
+* 移轉期間、LUN產生多少I/O
+* 前端架構的類型、頻寬和連入/連出
+
+
+為獲得最佳效能、每個節點最多可同時執行16次FLI移轉。
+
+根據影響移轉效能的變數數量、建議執行多項測試移轉。一般而言、測試樣本越大、特性分析就越好。因此、我們建議您執行多項不同規模的測試移轉、以取得正確的處理量效能取樣。然後、這些測試的效能資料可用來推斷規劃的正式作業移轉的時間和持續時間。

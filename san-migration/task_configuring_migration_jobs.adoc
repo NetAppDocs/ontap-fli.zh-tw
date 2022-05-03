@@ -1,0 +1,194 @@
+---
+permalink: san-migration/task_configuring_migration_jobs.html 
+sidebar: sidebar 
+keywords: configure, migration, jobs 
+summary: FLI離線工作流程需要設定來源LUN和目的地LUN。 
+---
+= 設定移轉工作
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI離線工作流程需要設定來源LUN和目的地LUN。
+
+.步驟
+. 對於FLI移轉、來源LUN必須標示為Foreign（外部）。使用序號將來源LUN標示為外部LUN。
++
+[listing]
+----
+
+DataMig-cmode::*> storage disk set-foreign-lun { -serial-number 83017542001E }
+                   -is-foreign true
+DataMig-cmode::*> storage disk set-foreign-lun { -serial-number 83017542000E }
+                   -is-foreign true
+DataMig-cmode::*> storage disk set-foreign-lun { -serial-number 83017542000F }
+                   -is-foreign true
+----
+. 驗證來源LUN是否標記為「Foreign（外部）」。
++
+[listing]
+----
+DataMig-cmode::*> storage disk show -array-name HITACHI_DF600F_1 -fields disk, serial-number, container-type, owner,import-in-progress, is-foreign
+disk     owner is-foreign container-type import-in-progress serial-number
+-------- ----- ---------- -------------- ------------------ -------------
+HIT-1.2  -     true       foreign        false              83017542001E
+HIT-1.3  -     true       foreign        false              83017542000E
+HIT-1.4  -     true       foreign        false              83017542000F
+3 entries were displayed.
+----
+. 建立目的地Volume。
++
+[listing]
+----
+DataMig-cmode::*> vol create -vserver datamig winvol aggr1 -size 100g
+[Job 5606] Job succeeded: Successful
+----
+. 停用每個磁碟區的預設Snapshot原則。如果在FLI移轉之前存在預設的Snapshot複本、則磁碟區需要額外空間來儲存變更的資料。
++
+[listing]
+----
+DataMig-cmode::> volume modify -vserver datamig -volume winvol -snapshot-policy none
+
+Warning: You are changing the Snapshot policy on volume winvol to none.  Any Snapshot copies on this volume from the previous policy will not be deleted by
+         this new Snapshot policy.
+Do you want to continue? {y|n}: y
+Volume modify successful on volume winvol of Vserver datamig.
+----
+. 將每個磁碟區的「fresse_rereserveoption」設為「0」、並將Snapshot原則設為「NONE」。
++
+[listing]
+----
+DataMig-cmode::> vol modify -vserver datamig -volume * -fractional-reserve 0 –snapshot-policy none
+Volume modify successful on volume winvol of Vserver datamig.
+----
+. 檢查您的Volume設定。
++
+[listing]
+----
+DataMig-cmode::> vol show -vserver datamig -volume * -fields fractional-reserve,snapshot-policy
+vservervolumesnapshot-policyfractional-reserve
+-----------------------------------------------
+datamig datamig_rootnone0%
+datamigwinvolnone0%
+Volume modify successful on volume winvol of Vserver datamig.
+----
+. 刪除任何現有的Snapshot複本。
++
+[listing]
+----
+DataMig-cmode::> set advanced; snap delete –vserver datamig –vol winvol –snapshot * -force true
+1 entry was acted on.
+----
++
+[NOTE]
+====
+FLI移轉會修改目標LUN的每個區塊。如果在FLI移轉之前磁碟區上存在預設或其他Snapshot複本、則磁碟區會被填滿。需要進行FLI移轉之前、請先變更原則並移除任何現有的Snapshot複本。可在移轉後再次設定Snapshot原則。
+
+====
++
+[NOTE]
+====
+LUN create命令會根據分割區偏移量來偵測大小和對齊方式、並使用Foreign磁碟選項來建立LUN。如需檢閱、請參閱NetApp知識庫文章*什麼是未對齊的I/O？*、也請注意、某些I/O永遠會顯示為部分寫入、因此看起來並未對齊。例如資料庫記錄。
+
+====
++
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_is_an_unaligned_I%2F%2FO%3F["什麼是未對齊的I/O？"]
+
+. 使用外部LUN建立目的地LUN。
++
+[listing]
+----
+DataMig-cmode::*> lun create -vserver datamig -path /vol/winvol/bootlun -ostype windows_2008 -foreign-disk 83017542001E
+
+Created a LUN of size 40g (42949672960)
+
+Created a LUN of size 20g (21474836480)
+DataMig-cmode::*> lun create -vserver datamig -path /vol/linuxvol/lvmlun1 -ostype linux -foreign-disk 830175420011
+
+Created a LUN of size 2g (2147483648)
+DataMig-cmode::*> lun create -vserver datamig -path /vol/esxvol/bootlun -ostype vmware -foreign-disk 830175420014
+
+Created a LUN of size 20g (21474836480)
+----
+. 列出目的地LUN、並使用來源LUN驗證LUN的大小。
++
+[listing]
+----
+DataMig-cmode::*> lun show -vserver datamig
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+datamig   /vol/esxvol/bootlun             online  unmapped vmware       20GB
+datamig   /vol/esxvol/linuxrdmvlun        online  unmapped linux         2GB
+datamig   /vol/esxvol/solrdmplun          online  unmapped solaris       2GB
+datamig   /vol/winvol/gdrive              online  unmapped windows_2008  3GB
+4 entries were displayed.
+
+DataMig-cmode::*>
+----
++
+[NOTE]
+====
+對於FLI離線移轉、LUN必須對應至igroup、然後在建立LUN匯入關係之前先離線。
+
+====
+. 建立傳輸協定FCP的主機igroup並新增啟動器。在「站台調查規劃工作表」的「儲存群組」區段中尋找啟動器WWPN。
++
+[listing]
+----
+DataMig-cmode::*> lun igroup create -ostype windows -protocol fcp -vserver datamig -igroup dm-rx200s6-21 -initiator 21:00:00:24:ff:30:14:c4,21:00:00:24:ff:30:14:c5
+
+DataMig-cmode::*> lun igroup create -ostype linux -protocol fcp -vserver datamig  -igroup dm-rx200s6-22 -initiator 21:00:00:24:ff:30:04:85,21:00:00:24:ff:30:04:84
+
+DataMig-cmode::*> lun igroup create -ostype vmware -protocol fcp -vserver datamig -igroup dm-rx200s6-20 -initiator 21:00:00:24:ff:30:03:ea,21:00:00:24:ff:30:03:eb
+----
++
+[NOTE]
+====
+使用與來源相同的LUN ID。請參閱現場調查規劃工作表的來源LUN區段。
+
+====
+. 將目的地LUN對應至igroup。
++
+[listing]
+----
+DataMig-cmode::*> lun map -vserver datamig -path /vol/winvol/bootlun -igroup dm-rx200s6-21 -lun-id 0
+DataMig-cmode::*> lun map -vserver datamig -path /vol/linuxvol/bootlun -igroup dm-rx200s6-22 -lun-id 0
+DataMig-cmode::*> lun map -vserver datamig -path /vol/esxvol/bootlun -igroup dm-rx200s6-20 -lun-id 0
+----
+. 使目的地LUN離線。
++
+[listing]
+----
+DataMig-cmode::*> lun offline -vserver datamig -path /vol/esxvol/bootlun
+DataMig-cmode::*> lun offline -vserver datamig -path /vol/esxvol/linuxrdmvlun
+DataMig-cmode::*> lun offline -vserver datamig -path /vol/esxvol/solrdmplun
+----
+. 建立與目的地LUN和來源LUN的匯入關係。
++
+[listing]
+----
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/winvol/bootlun -foreign-disk 83017542001E
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/linuxvol/ext3lun -foreign-disk 830175420013
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/esxvol/linuxrdmvlun -foreign-disk 830175420018
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/esxvol/solrdmplun -foreign-disk 830175420019
+----
+. 驗證匯入工作建立。
++
+[listing]
+----
+DataMig-cmode::*> lun import show -vserver datamig
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+datamig 83017542000E   /vol/winvol/fdrive  import    stopped
+                                                           stopped            0
+datamig 83017542000F   /vol/winvol/gdrive  import    stopped
+                                                           stopped            0
+datamig 830175420010   /vol/linuxvol/bootlun
+                                           import    stopped
+                                                           stopped            0
+3 entries were displayed.
+----
+

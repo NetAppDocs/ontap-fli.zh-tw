@@ -1,0 +1,128 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, source luns tab 
+summary: 在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含來源LUN的相關資訊。 
+---
+= 站台調查與規劃工作表來源LUN索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含來源LUN的相關資訊。
+
+以下是如何設定來源LUN索引標籤的範例。
+
+|===
+5+| 來源LUN 
+
+
+ a| 
+遮罩LUN
+
+
+
+ a| 
+儲存群組名稱
+ a| 
+主機LUN ID
+ a| 
+陣列LUN ID
+ a| 
+厚/薄
+ a| 
+UID
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+0
+ a| 
+30
+ a| 
+厚
+ a| 
+60060e801046b96004f2bf460000001e
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+1.
+ a| 
+14
+ a| 
+厚
+ a| 
+60060e801046b96004f2bf460000000e
+
+
+
+ a| 
+DM-rx200s6-21
+ a| 
+2.
+ a| 
+15
+ a| 
+厚
+ a| 
+60060e801046b96004f2bf460000000f
+
+|===
+|===
+5+| 來源LUN 
+
+
+ a| 
+所有LUN .2a
+| 自訂首碼 
+
+
+ a| 
+LUN名稱
+ a| 
+UID
+ a| 
+起始區段
+ a| 
+分割區偏移
+ a| 
+
+
+
+| LUN30  a| 
+ a| 
+ a| 
+368050176
+ a| 
+0
+
+
+
+ a| 
+LUN14
+ a| 
+ a| 
+ a| 
+33619968
+ a| 
+0
+
+
+
+ a| 
+LUN15
+ a| 
+ a| 
+ a| 
+33619968
+ a| 
+0
+
+|===

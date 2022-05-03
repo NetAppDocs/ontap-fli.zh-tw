@@ -1,0 +1,32 @@
+---
+permalink: san-migration/task_checking_supported_configuration_for_fli_using_imt.html 
+sidebar: sidebar 
+keywords: check, supported configurations, fli using imt 
+summary: 您應該使用互通性對照表工具IMT （NetApp）來尋找與符合NetApp資格的協力廠商產品和元件搭配使用的NetApp產品組態相關資訊。 
+---
+= 使用IMT 支援的功能表檢查FLI組態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您應該使用互通性對照表工具IMT （NetApp）來尋找與符合NetApp資格的協力廠商產品和元件搭配使用的NetApp產品組態相關資訊。
+
+[NOTE]
+====
+從ONTAP 0：9.9.1開始、如果您的陣列未列IMT 在支援範圍內、您可以使用NetApp支援網站上的SAN LUN移轉應用程式來判斷您的陣列是否受到支援。
+
+====
+.步驟
+. 前往互通性對照表工具。
+. 搜尋陣列模型。
+. 選擇解決方案*外部LUN匯入（FLI）後端互通性*。
+. 選擇* FAS 支援的模型*和* ONTAP 支援的版本*來決定支援的組態。
+. 如需前端支援的主機組態、請按一下*建置端點對端點檢視（使用ONTAP ESAN host*）。
+. 如需交換器支援的組態、請從* ONTAP 《SAN主機*》索引標籤按一下「SAN交換器*的*建置端點對端點檢視」。
+
+
+*相關資訊*
+
+https://mysupport.netapp.com/NOW/products/interoperability["NetApp互通性"]

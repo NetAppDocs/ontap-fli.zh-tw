@@ -1,0 +1,21 @@
+---
+permalink: san-migration/concept_best_practices_for_fli_migration.html 
+sidebar: sidebar 
+keywords: best practices, foreign lun, import migration 
+summary: NetApp強烈建議提供專業服務或合作夥伴專業服務、參與範圍及規劃移轉、以及訓練客戶人員如何使用Foreign LUN Import（FLI）7-Mode移轉ONTAP 至VMware。 
+---
+= 外部LUN匯入移轉的最佳實務做法
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp強烈建議提供專業服務或合作夥伴專業服務、參與範圍及規劃移轉、以及訓練客戶人員如何使用Foreign LUN Import（FLI）7-Mode移轉ONTAP 至VMware。
+
+* 至少在移轉專案開始前一週執行一或多項測試移轉、以驗證組態、連線能力及處理量、找出任何其他問題、並驗證您的方法。
+* 為達到最大處理量、每個節點並行執行的移轉數量不得超過16個。
+* 不需要驗證、但我們建議您驗證匯入/移轉的LUN子集、以驗證匯入程序。
+* 使用測試移轉中觀察到的處理量來規劃正式作業移轉期間。
+* 為獲得最佳效能、請在非尖峰需求期間移轉LUN。
+

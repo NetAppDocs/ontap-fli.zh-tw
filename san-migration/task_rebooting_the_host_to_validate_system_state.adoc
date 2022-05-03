@@ -1,0 +1,22 @@
+---
+permalink: san-migration/task_rebooting_the_host_to_validate_system_state.html 
+sidebar: sidebar 
+keywords: reboot, host, validate, system state 
+summary: 移轉主機會在變更其組態之前重新開機。在繼續移轉之前、請先確認系統處於已知的正常狀態。 
+---
+= 重新啟動主機以驗證系統狀態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+移轉主機會在變更其組態之前重新開機。在繼續移轉之前、請先確認系統處於已知的正常狀態。
+
+若要確認伺服器組態在重新開機後持續且不變、請完成下列步驟：
+
+.步驟
+. 關閉所有開啟的應用程式。
+. 重新啟動主機。
+. 檢閱記錄以找出錯誤。
+

@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_how_to_configure_source_arrays.html 
+sidebar: sidebar 
+keywords: configure, source, arrays 
+summary: 請參閱來源陣列的陣列文件、以新增啟動器連接埠的主機項目（NetApp參數中的LUN遮罩、igroup）。您可以從「站台調查與規劃」工作表的「儲存群組」區段擷取此資訊。 
+---
+= 如何設定來源陣列
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+請參閱來源陣列的陣列文件、以新增啟動器連接埠的主機項目（NetApp參數中的LUN遮罩、igroup）。您可以從「站台調查與規劃」工作表的「儲存群組」區段擷取此資訊。

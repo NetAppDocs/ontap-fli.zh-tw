@@ -1,0 +1,90 @@
+---
+permalink: san-migration/task_unzoning_source_and_destination_array.html 
+sidebar: sidebar 
+keywords: unzone, source, destination, array 
+summary: 完成所有移轉、移轉和驗證之後、您就可以取消來源陣列和目的地陣列的分區。 
+---
+= 取消來源陣列和目的地陣列的分區
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+完成所有移轉、移轉和驗證之後、您就可以取消來源陣列和目的地陣列的分區。
+
+若要取消來源陣列和目的地陣列的分區、請從兩個Fabric移除來源儲存設備到目的地區域。
+
+Brocade網路範例
+
+.步驟
+. 從Fabric A的區域中移除區域
++
+[listing]
+----
+cfgDelete "PROD_LEFT", "ZONE_AMS2100_cDOT_Initiator_fabA"
+zoneDelete "ZONE_AMS2100_cDOT_Initiator_fabA"
+----
+. 在Fabric A中啟動區域
++
+[listing]
+----
+cfgEnable "PROD_LEFT"
+cfgSave
+----
+. 從Fabric B的區域中移除區域
++
+[listing]
+----
+cfgDelete "PROD_RIGHT", "ZONE_AMS2100_cDOT_Initiator_fabB"
+zoneDelete "ZONE_AMS2100_cDOT_Initiator_fabA"
+----
+. 在Fabric B中啟動區域
++
+[listing]
+----
+cfgEnable "PROD_RIGHT"
+cfgSave
+----
+
+
+Cisco Fabric範例
+
+.步驟
+. 從Fabric A的區域中移除區域
++
+[listing]
+----
+conf t
+zoneset name PROD_LEFT vsan 10
+no member ZONE_AMS2100_cDOT_Initiator_fabA
+no zone name ZONE_AMS2100_cDOT_Initiator_fabA vsan 10
+exit
+----
+. 在Fabric A中啟動區域
++
+[listing]
+----
+zoneset activate name PROD_LEFT vsan 10
+end
+copy running-config startup-config
+----
+. 從Fabric B的區域中移除區域
++
+[listing]
+----
+conf t
+zoneset name PROD_RIGHT vsan 10
+no member ZONE_AMS2100_cDOT_Initiator_fabB
+no zone name ZONE_AMS2100_cDOT_Initiator_fabB vsan 10
+exit
+----
+. 在Fabric B中啟動區域
++
+[listing]
+----
+zoneset activate name PROD_RIGHT vsan 10
+end
+Copy running-config startup-config
+----
+

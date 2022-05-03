@@ -1,0 +1,31 @@
+---
+permalink: san-migration/concept_analyze_phase_procedures.html 
+sidebar: sidebar 
+keywords: analyze, phase, imt, best practices 
+summary: 「分析」階段著重於移轉活動之前必須先處理的項目。主機組態資訊必須與NetApp互通性對照表IMT （NetApp Interoperability Matrix、簡稱「NetApp互通性對照表」）中所述的支援組態進行比較。 
+---
+= 分析階段IMT 的最佳實務做法
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+「分析」階段著重於移轉活動之前必須先處理的項目。主機組態資訊必須與NetApp互通性對照表IMT （NetApp Interoperability Matrix、簡稱「NetApp互通性對照表」）中所述的支援組態進行比較。
+
+此功能為網路型公用程式、可搜尋與NetApp合格協力廠商產品和元件搭配使用之NetApp產品組態的相關資訊。IMT此支援與認證的NetApp組態均包含在內。IMT支援的組態必須符合NetApp的資格。認證組態是指符合第三方公司使用NetApp元件資格的組態。
+
+
+
+== 最佳實務做法IMT
+
+* 在IMT 規劃工作表的「交換器和主機」區段中、輸入所需軟體和升級的NetApp解決方案建議。
+* 首先、將ONTAP 靜態資訊（例如、靜止OS、傳輸協定和CF模式）輸入IMT 到這個功能。然後、使用站台調查做為篩選指南、輸入主機作業系統、Volume Manager和HBA資訊。
+* 請勿太具體、以免傳回任何結果；最好檢視多個傳回的結果、然後選擇最適合的結果。
+* 主機HBA有時會在OEM零件編號上報告、而且在輸入IMT 到該等主機HBA之前、必須交叉參考。
+* 請對照IMT 支援功能檢查每個主機。
+
+
+*相關資訊*
+
+https://mysupport.netapp.com/NOW/products/interoperability["NetApp互通性"]

@@ -1,0 +1,77 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, netapp lun layouts tab 
+summary: 在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含LUN配置的資訊。 
+---
+= 站台調查與規劃工作表NetApp LUN配置索引標籤
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含LUN配置的資訊。
+
+以下是如何設定NetApp LUN配置索引標籤的範例。
+
+|===
+7+| NetApp LUN資訊 
+
+
+ a| 
+儲存控制器
+ a| 
+Aggregate
+ a| 
+Volume名稱
+ a| 
+Volume大小
+ a| 
+Volume保證
+ a| 
+SnapReserve
+ a| 
+LUN名稱
+
+|===
+|===
+7+| NetApp LUN資訊 
+
+
+ a| 
+S/N
+ a| 
+LUN類型
+ a| 
+自訂首碼
+ a| 
+LUN說明
+ a| 
+GB大小
+ a| 
+LUN保留
+ a| 
+部分保留
+
+|===
+|===
+7+| NetApp LUN資訊 
+
+
+ a| 
+Volume自動調整大小
+ a| 
+抓取自動刪除
+ a| 
+igroup
+ a| 
+LUN ID
+ a| 
+主機類型
+ a| 
+磁碟機代號
+ a| 
+主機
+
+|===

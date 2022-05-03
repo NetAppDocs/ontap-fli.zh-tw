@@ -1,0 +1,22 @@
+---
+permalink: san-migration/concept_plan_phase_procedures.html 
+sidebar: sidebar 
+keywords: plan, prepare, phase, procedures 
+summary: FLI規劃階段著重於建立詳細移轉計畫、以及為實際移轉做好客戶環境準備所需的工作。在此階段會執行一或多個測試移轉、以驗證外部LUN匯入的安裝與設定。 
+---
+= 規劃及準備階段程序
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI規劃階段著重於建立詳細移轉計畫、以及為實際移轉做好客戶環境準備所需的工作。在此階段會執行一或多個測試移轉、以驗證外部LUN匯入的安裝與設定。
+
+以下是在計畫階段中要完成的工作：
+
+* 在「站台調查與規劃」工作表的「LUN詳細資料」區段中、輸入每個儲存陣列的儲存對應資訊、以建立來源和目的地LUN的對應。
+* 根據規劃資訊、將來源儲存設備連線至網路。
+* 設定交換器區域。
+* 執行一或多項測試移轉、以驗證安裝與設定。
+

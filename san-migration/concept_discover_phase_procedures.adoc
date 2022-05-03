@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_discover_phase_procedures.html 
+sidebar: sidebar 
+keywords: discover, phase, data, collection, procedures 
+summary: 探索階段會收集成功移轉規劃與執行所需的客戶環境資訊。 
+---
+= 探索階段資料收集程序
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+探索階段會收集成功移轉規劃與執行所需的客戶環境資訊。
+
+在資料收集階段使用Active IQ OneCollect如需完整詳細資料、請參閱Active IQ OneCollect 《關於 https://mysupport.netapp.com/site/tools["文件"]。

@@ -1,0 +1,33 @@
+---
+permalink: san-migration/concept_fli_interoperability_and_support_criteria.html 
+sidebar: sidebar 
+keywords: fli, interoperability, support, criteria 
+summary: FLI互通性對照表IMT （點菜）與FlexArray IMT 此類似、但新增為截然不同的互通性工具、以便更好地支援NetApp認證的來源陣列、與FLI搭配運作。 
+---
+= FLI互通性與支援條件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI互通性對照表IMT （點菜）與FlexArray IMT 此類似、但新增為截然不同的互通性工具、以便更好地支援NetApp認證的來源陣列、與FLI搭配運作。
+
+在執行外部LUN匯入之前、需要檢查兩個互通性領域：
+
+* 檢查是否支援FLI。您可以檢閱FLI IMT 才能做到這一點。
+* 在匯入完成後、檢查完整的端點對端點組態是否為支援的組態。這是從FAS/AFF IMT 支援中完成的。
+
+
+此外、請對照目標ONTAP 版本檢查這三項條件：
+
+* 來源儲存平台模式與微碼版本。
+* SAN交換器機型和微碼版本。
+* 移轉後掛載LUN的NetApp控制器、客戶環境（交換器、HBA、韌體、伺服器硬體等）和SAN附加用戶端。
+
+
+如果這三個元件中的任何一個不受支援、則可能需要進行一些補救措施、以確保在移轉過程中和之後都能獲得完整的成功和支援。
+
+*相關資訊*
+
+https://mysupport.netapp.com/NOW/products/interoperability["NetApp互通性"]

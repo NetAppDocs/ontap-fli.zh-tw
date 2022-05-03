@@ -1,0 +1,26 @@
+---
+permalink: san-migration/concept_foreign_lun_import_features.html 
+sidebar: sidebar 
+keywords: foreign, lun, import, features 
+summary: FLI功能可讓您將資料從第三方SAN儲存設備移轉至ONTAP 各種系統。FLI移轉功能可支援各種程序和系統。 
+---
+= 外部LUN匯入功能
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI功能可讓您將資料從第三方SAN儲存設備移轉至ONTAP 各種系統。FLI移轉功能可支援各種程序和系統。
+
+* 支援線上和離線移轉。
+* 獨立於作業系統：區塊層級的資料移轉不仰賴Volume Manager或作業系統公用程式。
+* 光纖通道架構獨立性：FLI與Brocade和Cisco FC架構完全相容。
+* 支援大部分的Fibre Channel儲存陣列。如需支援的陣列清單、請參閱互通性對照表。
+* 支援原生多重路徑和負載平衡。
+* CLI型管理：
+
+
+*相關資訊*
+
+https://mysupport.netapp.com/matrix["NetApp 互通性對照表工具"]

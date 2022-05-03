@@ -1,0 +1,60 @@
+---
+permalink: san-migration/task_cisco_fabric_example.html 
+sidebar: sidebar 
+keywords: cisco, fabric, example 
+summary: 本程序說明從Cisco Fabric區域集移除來源儲存設備和主機區域。 
+---
+= Cisco Fabric範例
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+本程序說明從Cisco Fabric區域集移除來源儲存設備和主機區域。
+
+[NOTE]
+====
+範例的區域名稱為_rx21_AMS2100。
+
+====
+.步驟
+. 從Fabric A的區域中移除區域
++
+[listing]
+----
+conf t
+zoneset name PROD_LEFT vsan 10
+no member rx21_AMS2100
+no member rx22_AMS2100
+no member rx20_AMS2100
+exit
+----
+. 在Fabric A中啟動區域集
++
+[listing]
+----
+zoneset activate name PROD_LEFT vsan 10
+end
+copy running-config startup-config
+----
+. 從Fabric B的區域中移除區域
++
+[listing]
+----
+conf t
+zoneset name PROD_RIGHT vsan 10
+no member rx21_AMS2100
+no member rx22_AMS2100
+no member rx20_AMS2100
+exit
+----
+. 在Fabric B中啟動區域集
++
+[listing]
+----
+zoneset activate name PROD_RIGHT vsan 10
+end
+copy running-config startup-config
+----
+

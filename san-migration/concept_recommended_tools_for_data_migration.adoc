@@ -1,0 +1,57 @@
+---
+permalink: san-migration/concept_recommended_tools_for_data_migration.html 
+sidebar: sidebar 
+keywords: recommended, tools, data, migration 
+summary: 服務工具提供標準化的方法、可執行遠端資料收集、組態及儲存管理等實用功能。 
+---
+= 建議的資料移轉工具
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+服務工具提供標準化的方法、可執行遠端資料收集、組態及儲存管理等實用功能。
+
+下列服務工具可用來收集及剖析資料：
+
+* *《*》OneCollect
++
+NetApp Active IQ OneCollect 功能可搭配網路型UI或CLI使用、協助您從SAN和NAS環境中的儲存設備、主機、架構和交換器收集資料。收集的資料可用於疑難排解、解決方案驗證、資料移轉及升級評估。您的環境相關診斷內容可傳送至NetApp進行進一步分析或內部分析。
+
+* * NetApp資料移轉Solaris Relabeler*
++
+Solaris Relabeler是命令列公用程式、可在移轉後更新Volume目錄（VTOC）磁碟上的Ascii標籤。
+
++
+在初始VTOC磁碟初始化常式期間、Solaris format命令會針對磁碟執行SCSI查詢、並將廠商專屬資訊（製造商、產品和修訂版）寫入磁碟標籤。所有進一步的查詢都會導向磁碟標籤、而非實際裝置。區塊層級移轉會將此磁碟標籤複製到新磁碟、而舊的SCSI查詢資料仍會顯示在系統工具和記錄中。重新篩選器會在移轉後以新的查詢資料更新磁碟。
+
+
+
+這些工具和公用程式也適用於FLI移轉專案：
+
+* *互通性對照表*
++
+互通性對照表工具IMT （NetApp Interoperability Matrix Tool、簡稱「互通性對照表」）是一種NetApp網路型公用程式、可用於對NetApp、FlexArray NetApp、以及第三方軟體元件進行互通性檢查。
+
+* *《系統管理程式》* ONTAP
++
+利用圖形介面、支援NetApp支援系統的遠端儲存管理功能。ONTAP FAS
+
+* *《*》OnCommand Workflow Automation
++
+WFA是一套軟體解決方案、可讓您建立儲存工作流程、並自動化儲存管理工作、例如資源配置、移轉、汰換及複製儲存設備。
+
+
+
+*相關資訊*
+
+https://mysupport.netapp.com/site/tools["NetApp工具"]
+
+http://mysupport.netapp.com/NOW/download/tools/ndcp/["NetApp工具：資料中心規劃人員"]
+
+https://mysupport.netapp.com/matrix["NetApp 互通性對照表工具"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61372["NetApp文件：OnCommand 《系統管理程式》（最新版本）"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61550["NetApp文件：OnCommand Workflow Automation 功能（最新版本）"]

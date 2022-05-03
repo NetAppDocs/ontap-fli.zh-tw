@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_data_migration_challenges.html 
+sidebar: sidebar 
+keywords: data, migration, challenges 
+summary: 資料移轉所帶來的一些挑戰包括延長停機時間、潛在風險、資源匱乏及專業知識不足。 
+---
+= 資料移轉挑戰
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+資料移轉所帶來的一些挑戰包括延長停機時間、潛在風險、資源匱乏及專業知識不足。
+
+資料可用度要求越來越嚴苛、停機時間也越來越難以接受、因此業務營運部門必須推動資料移轉程序。任何資料移轉程序都會考量效能對正式作業系統的影響、潛在的資料毀損和遺失等風險因素。

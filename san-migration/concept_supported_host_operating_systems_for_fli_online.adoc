@@ -1,0 +1,42 @@
+---
+permalink: san-migration/concept_supported_host_operating_systems_for_fli_online.html 
+sidebar: sidebar 
+keywords: supported, host, operating, systems, fli, online 
+summary: FLI線上工作流程可用於連接至執行下列其中一種作業系統之主機的LUN。 
+---
+= FLI線上支援的主機作業系統
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI線上工作流程可用於連接至執行下列其中一種作業系統之主機的LUN。
+
+. Microsoft（支援列出的所有伺服器版本）：
++
+** Windows Server 2008（包括Windows Server容錯移轉叢集）
+** Microsoft Hyper-V Server 2008
+** Windows Server 2012（包括Windows Server 2012叢集）
+** Microsoft Hyper-V Server 2012
+
+
+. VMware：
++
+** 所有ESXi 5.x版本
+
+
+. Linux：
++
+** Red Hat Enterprise Linux（RHEL）5.x / 6.x
+
+
+
+
+請考慮將FLI離線工作流程用於前述清單中未列出的主機作業系統。
+
+[NOTE]
+====
+如果NetApp控制器目的地MetroCluster 是一個不景點、請勿使用線上工作流程。如果在作用中的線上匯入期間發生站台容錯移轉、則寫入到來源陣列的傳遞可能會失敗、進而導致驗證失敗和可能的資料遺失。如果目的地MetroCluster 是不支援的、請使用FLI離線程序、無論主機作業系統為何。
+
+====

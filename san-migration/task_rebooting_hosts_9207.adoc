@@ -1,0 +1,23 @@
+---
+permalink: san-migration/task_rebooting_hosts_9207.html 
+sidebar: sidebar 
+keywords: reboot, hosts 
+summary: 您可以選擇在啟動此工作流程之前重新開機主機、以驗證主機是否處於已知的正常狀態。 
+---
+= 重新開機主機
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以選擇在啟動此工作流程之前重新開機主機、以驗證主機是否處於已知的正常狀態。
+
+這也是拍攝Snapshot複本的好時機、以便日後需要時進行還原。若要確認伺服器組態在重新開機後持續且不變、請完成下列步驟：
+
+.步驟
+. 關閉所有開啟的應用程式。
+. 檢閱記錄以找出錯誤。
+. 驗證主機是否能看到其所有路徑。
+. 重新啟動主機。
+

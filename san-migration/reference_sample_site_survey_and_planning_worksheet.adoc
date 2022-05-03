@@ -1,0 +1,33 @@
+---
+permalink: san-migration/reference_sample_site_survey_and_planning_worksheet.html 
+sidebar: sidebar 
+keywords: sample, site, survey and planning, worksheet 
+summary: 在移轉方法的分析與規劃階段、您需要使用「站台調查與規劃」工作表來記錄現有的組態、目標組態、落差和補救計畫。 
+---
+= 場地調查與規劃工作表範例
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在移轉方法的分析與規劃階段、您需要使用「站台調查與規劃」工作表來記錄現有的組態、目標組態、落差和補救計畫。
+
+本節提供場地調查與規劃試算表應包含的資訊類型範例。建議使用下列索引標籤：
+
+* 聯絡人
+* 問卷
+* 交換器
+* 儲存設備（來源）
+* 儲存設備（目的地）
+* 主機
+* HBA與區域資訊
+* 來源LUN
+* 儲存群組
+* LUN詳細資料
+* NetApp LUN配置
+* 移轉排程
+* Aggregate狀態
+* 部分組態FAS
+* SDS CLI指令碼
+

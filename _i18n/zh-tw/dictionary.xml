@@ -1,0 +1,1349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blocks>
+  <block id="3be720072e03679f7ed0f85258130b70" category="summary">物件外部LUN匯入ONTAP</block>
+  <block id="dbd3f1a817d137c052ec01ef60940131" category="doc">不對外的LUN匯入文件ONTAP</block>
+  <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="summary">法律聲明提供版權聲明、商標、專利等存取權限。</block>
+  <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">法律聲明</block>
+  <block id="6016a2b341113bf496b719905398ecd2" category="section-title">版權</block>
+  <block id="d41d8cd98f00b204e9800998ecf8427e" category="inline-link"></block>
+  <block id="de6edae22bc37b97b38a15c7f8af62e2" category="paragraph"><block ref="de6edae22bc37b97b38a15c7f8af62e2" category="inline-link-rx"></block></block>
+  <block id="126a02652da6de02962cf1b654fd6376" category="section-title">商標</block>
+  <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NetApp 、 NetApp 標誌及 NetApp 商標頁面上列出的標章均為 NetApp 、 Inc. 的商標。其他公司與產品名稱可能為其各自所有者的商標。</block>
+  <block id="a93bc0a57623c2facaa010825c808507" category="paragraph"><block ref="a93bc0a57623c2facaa010825c808507" category="inline-link-rx"></block></block>
+  <block id="be89498d2f8a22ce47c02ba9795fe2af" category="section-title">專利</block>
+  <block id="d0b19d36be2c5f16e9aef46c8a452d3d" category="paragraph">如需最新的 NetApp 擁有專利清單、請參閱：</block>
+  <block id="547ea2e305891e64d8e744949b0aca2c" category="paragraph"><block ref="547ea2e305891e64d8e744949b0aca2c" category="inline-link-rx"></block></block>
+  <block id="56c34c6410dd45c5cec44149ad0ce037" category="section-title">隱私權政策</block>
+  <block id="50921fca0d376fca62102a5e608994e2" category="paragraph"><block ref="50921fca0d376fca62102a5e608994e2" category="inline-link-rx"></block></block>
+  <block id="b4de17ead867a3cf0b9d11e57e562672" category="section-title">機器翻譯</block>
+  <block id="dd3918c571093dff2b94f7cef5066d01" category="inline-link-macro">netapp.com</block>
+  <block id="5db028f960e19ec42098e3252e4fb1e3" category="paragraph">如需當地語系化內容的重要資訊、請參閱 <block ref="7e89bb7928e951b6f80ad1dab5c58475" category="inline-link-macro-rx"></block></block>
+  <block id="0815db692d92e6b68693c7dc13e0e8e1" category="summary">任何未在移轉前執行的伺服器補救、都會在移轉後執行。</block>
+  <block id="6793732288bb5f2142753d1aacd2e36d" category="doc">FLI線上移轉後工作</block>
+  <block id="a39f5c618e0d64c8fd6478de7c699877" category="paragraph">任何第三方軟體都會移除。NetApp軟體已安裝並設定完成。如需特定主機類型的移轉後補救範例、請參閱主機補救。</block>
+  <block id="e729cdc318bd95286f3bd093cabb1aaf" category="paragraph">檢閱記錄檔中是否有錯誤、檢查路徑、並執行任何應用程式測試、以驗證移轉是否順利完成。</block>
+  <block id="e75c7cc6ff41cba5786c866d7f69d05a" category="summary">以下是正式作業Fabric B中的Brocade網路範例</block>
+  <block id="0505e7f794974cbeee07456e18a040f2" category="doc">正式作業架構B中的Brocade網路範例</block>
+  <block id="8697c0c725de1e904a42295b75507814" category="paragraph">以下是正式作業光纖B中的Brocade網路範例</block>
+  <block id="f3a29486bed19a90f2da6d007818b427" category="list-title">步驟</block>
+  <block id="0f935f59620d67f39f5a7c3deccdda56" category="list-text">在正式作業架構B中建立區域</block>
+  <block id="1fdab799789df4703c0465cc9b2beb1b" category="list-text">在正式作業架構B中啟動區域</block>
+  <block id="3bbc7678c52bd0801017ddfa4f16d674" category="summary">NetApp與合作夥伴專業服務使用經過時間測試的方法、引導SAN移轉完成所有主要階段。</block>
+  <block id="3174d5c84d2e904799612ab35441237b" category="doc">SAN移轉解決方案的專業服務</block>
+  <block id="309370af78f0a18542f150a9e1094f53" category="paragraph">NetApp FLI技術加上協力廠商資料移轉軟體、在資料移轉方面創造了專業技能、讓專業服務部門能夠在全球成功執行SAN資料移轉專案。透過NetApp與合作夥伴專業服務、客戶可釋出內部資源、將停機時間降至最低、並降低風險。</block>
+  <block id="e5dfd6a0c376fd042680bac52d8b5ea3" category="paragraph">有了這個功能、專業服務執行的移轉作業不再是必要的。ONTAP不過、NetApp仍強烈建議專業服務或合作夥伴專業服務參與、以涵蓋範圍並規劃移轉作業、並訓練客戶人員如何使用FLI執行資料移轉。</block>
+  <block id="00c90fb59f1e33aa67f42b7b9099b00f" category="summary">請務必確認ONTAP 您最終要移轉的主機作業系統、HBA、交換器和架構陣列是否受到支援。</block>
+  <block id="2843856fe1aedc468540254858bf6c10" category="doc">7-Mode至ONTAP 支援的不支援FLI組態</block>
+  <block id="b5b71cee20299cfbb2af31994283f0bf" category="paragraph">如果您使用FLI 7-Mode ONTAP 來進行轉換工作流程、則FlexArray IMT 無需驗證來源（7-Mode控制器）。這份文件不會列出、但明確支援此轉換工作流程。您仍需確認所有主機都處於支援的組態中。</block>
+  <block id="ae26af74c65eb30e105c96f274d4516a" category="paragraph">沒有FLI專屬平台需求。雖然Data ONTAP 版本必須支援Fibre Channel傳輸協定（FCP）、但也沒有7-Mode的最低版本。</block>
+  <block id="6cdd3c73f6b04848b0836f249b29d749" category="paragraph">FLI可匯入的最大LUN大小為6 TB。這是根據ONTAP 目前支援的最大磁碟機大小而定的限制。如果您嘗試掛載較大的外部LUN、LUN會標示為「中斷」、您將無法在其中寫入標籤。</block>
+  <block id="79b081d55e98281705f8677fb6465c45" category="summary">NetApp建議在移轉正式作業資料之前、先在客戶測試環境中測試所有組態。</block>
+  <block id="f8c08b09572160353cea85f9ae28ae2b" category="doc">執行測試移轉的理由</block>
+  <block id="1585e4206a075d373f907f93054449ca" category="paragraph">在執行正式作業移轉之前、您應該執行一系列不同規模的測試移轉。在正式作業移轉之前執行測試移轉、可讓您：</block>
+  <block id="fa13673bea0cb5ea356861d193432fdf" category="list-text">確認儲存設備和網路組態是否正確。</block>
+  <block id="84cab5537192c936629a0d5b18e695dc" category="list-text">預估移轉的持續時間與效能。</block>
+  <block id="b40a28cc609ab9c5e1d130e67f6752ea" category="paragraph">使用測試移轉結果、您可以預估正式作業移轉可能需要多久時間、以及預期的處理量。否則、移轉所需時間的變數數量將難以準確估計。</block>
+  <block id="3aaf598b1ad74fb245a34429e548468a" category="paragraph">測試移轉應在正式作業資料移轉開始前至少一週執行。這將有足夠的時間來解決可能的問題、例如存取、儲存連線和授權。</block>
+  <block id="fa8dc6899d89e51526213a2a8ab9aa76" category="summary">移轉程序的「驗證」階段著重於移轉後的清除作業、並確認移轉計畫的執行準確度。來源儲存設備上的啟動器記錄、以及來源和目的地區域之間的區域、都會移除。</block>
+  <block id="fdb87b07dc517f2422992acdcbaba2ce" category="doc">確認階段工作流程</block>
+  <block id="c95e22746ae7f51fc92fdffd42f07397" category="paragraph">下圖顯示驗證階段工作流程。</block>
+  <block id="95c41a387e815b4edb965c3074645f2e" category="image-alt">驗證階段1</block>
+  <block id="37e5739527f14abd34423792a642951a" category="paragraph">下表列出驗證階段工作。</block>
+  <block id="2cb05e4bb7830be982f0922fed86b4cd" category="cell">元件</block>
+  <block id="ef615563c8e8ea902c7fcac3cd2c4246" category="cell">工作</block>
+  <block id="c2ca16d048ec66e04bca283eab048ec2" category="paragraph">主機</block>
+  <block id="f988327a3c5a7e8c3d4cfc29a4a8d770" category="paragraph">客戶執行應用程式測試。</block>
+  <block id="0ac79129f2a7ba5db5e1f4d755cb3231" category="paragraph">網路</block>
+  <block id="b3f821f9020a8f4c34451218062e4928" category="list-text">從區域集移除主機到來源儲存區域。</block>
+  <block id="4e186740c8ed9d9da08a71a1e7972b09" category="list-text">移除來源儲存設備至目的地區域。</block>
+  <block id="b710e65d106e44e23416360abb993186" category="list-text">備份新的區域集。</block>
+  <block id="dfd8648adfee6cda1db76a90bd87a139" category="paragraph">目的地儲存設備</block>
+  <block id="4f898f9ff7575048ae18731b51f01e50" category="list-text">驗證LUN對齊。</block>
+  <block id="308ccca670502104950a1f6d472c9b3e" category="list-text">從事件記錄收集FLI匯入記錄。</block>
+  <block id="ca4d4e3e481571abfbef114495129d74" category="list-text">移除移轉程序期間使用的手動建立Snapshot複本。</block>
+  <block id="f6c9dc6f588c3b56a7c547b6a36f656c" category="list-text">移除來源陣列。</block>
+  <block id="b5922f7a2dcd5576a7a5d8ca6c389d46" category="list-text">記錄最終組態。</block>
+  <block id="c6a31ba05909ce78983fa0c110cd3243" category="paragraph">來源儲存設備</block>
+  <block id="08a40bafb5e2db7781fe0e4d18424e7c" category="list-text">移除主機儲存啟動器群組。</block>
+  <block id="320928b8c8e19e9f23a00694a5f75023" category="list-text">移除目的地儲存啟動器群組。</block>
+  <block id="ed7cbae072fb6b5459833b1aaf0b2b9c" category="summary">Foreign LUN Import（FLI）功能內建ONTAP 於此功能中、可讓使用者以簡單且有效率的方式、將資料從外部陣列LUN匯入NetApp LUN。</block>
+  <block id="bd6d110624152bef80bfb3a40415afcb" category="doc">外部LUN匯入總覽</block>
+  <block id="5ae42afc477ebe652aee70c0421e761c" category="paragraph">所有FLI移轉作業均在LUN層級運作。FLI是嚴格的區塊型工具、不支援檔案、記錄、NFS及CIFS型移轉。如需檔案層級傳輸協定（例如NFS和CIFS/SMB）的其他移轉方法討論、請參閱_資料移轉工具快速參考指南_。</block>
+  <block id="e545390b6a02c90809e3ba41d6cd0d49" category="paragraph">FLI運用NetApp FlexArray ®解決方案來探索外部RAID陣列LUN、並從中提取資料。支援NetApp的支援功能、可在一或多個第三方陣列前做為啟動器。FlexArray ONTAP可將這些陣列中的LUN掛載為後端儲存設備、然後將這些LUN中的空間呈現為NetApp統一化儲存設備（允許FCP、FCoE、iSCSI、NFS及CIFS/SMB傳輸協定存取）、以供SAN或NAS環境中的主機使用。FlexArray</block>
+  <block id="19f6373fc1d63d6ca70966941c8c6838" category="paragraph">FLI不需要FlexArray 使用不必要的授權。FLI運用FlexArray VMware技術將外部LUN複製到NetApp ONTAP 的支援陣列、然後讓使用該LUN的主機和應用程式指向目前裝載該LUN的NetApp陣列。雖然不再需要專業服務執行的移轉作業、但NetApp強烈建議專業服務參與範圍、規劃及訓練、以協助所有移轉作業（最簡單的移轉作業）ONTAP 。</block>
+  <block id="603139ad94ee4b366078d1718edd6cc8" category="paragraph">FLI的開發目的是將SAN LUN移轉至ONTAPFLI支援多種移轉需求、包括但不限於下列項目：</block>
+  <block id="8f9080da05de4c15ecad29c5259754e0" category="list-text">根據支援的功能、將資料從EMC、Hitachi、HP及其他廠商移轉至NetApp。FlexArray</block>
+  <block id="63fcf874938b3f8a8d09eea8f4e717fd" category="list-text">在資料中心重新配置、整合及更換陣列期間、簡化並加速區塊資料移轉。</block>
+  <block id="99abf425200601a606145e997abba074" category="list-text">將移轉和LUN重新配置整合至單一工作流程。</block>
+  <block id="587d7ded98be7df0f5f867261e578e9e" category="paragraph">此外、7-Mode to ONTAP VMware移轉程序可將32位元集合體轉換為64位元集合體、修正對齊問題、並將LUN移轉為單一作業。</block>
+  <block id="e54685159c7474efa74aedc4b8c29106" category="inline-xref-macro">LUN需求與限制</block>
+  <block id="4c905b9a5d9837a1d1309ec0bbc65581" category="paragraph">FLI可讓NetApp儲存設備探索要匯入以進行資料移轉的LUN。外部LUN會在NetApp儲存設備上顯示為磁碟、而且不會自動指派任何擁有權、因此不會誤覆使用者資料。包含外部陣列LUN的磁碟必須標示為Foreign（外部）。必須嚴格遵守外部陣列LUN的設定規則、才能將FLI用於NetApp儲存設備。請參閱主題： <block ref="0c1805ddb0e0c88224858f6489806cc7" category="inline-xref-macro-rx"></block>。</block>
+  <block id="e848157e470882bb6cecc83cbc92062d" category="paragraph">FLI在每個控制器上至少需要一個實體FC連接埠、並以啟動器模式直接移轉LUN。建議使用兩個連接埠（每個光纖各一個）、但可以使用單一連接埠。這些連接埠用於連接來源陣列、需要分區和遮罩、才能查看和掛載來源LUN。如果您需要將連接埠從目標變更為啟動器、請參閱《_ FlexArray 》《虛擬化安裝要求與參考指南》_、以瞭解將FC連接埠從目標轉換為啟動器的程序。</block>
+  <block id="eab5ce4cf7af1499d92d1389fefa2f66" category="paragraph">FLI移轉作業可以離線執行、這會在匯入期間中斷營運、或是在線上執行、這主要是不中斷營運的。</block>
+  <block id="b0b8376daf73a10ceae233832249516f" category="paragraph">此圖顯示FLI離線資料移轉、讓主機離線進行移轉。NetApp陣列會直接從協力廠商陣列複製資料。</block>
+  <block id="3b1a98b47b97af6d96e1b57d86c0ef45" category="image-alt">FLI資料移轉總覽</block>
+  <block id="4ab82376627d3c92c29ab3d0e5562860" category="paragraph">此圖顯示FLI線上資料移轉。主機連接至NetApp控制器、新LUN現在位於該控制器的主控位置。然後、主機作業可在匯入期間繼續執行。</block>
+  <block id="d33f2a600ba4fe43084a26e95e4908c0" category="paragraph">*相關資訊*</block>
+  <block id="41472df39787eec959ea5cef1aad8ef3" category="inline-link">資料移轉工具快速參考指南</block>
+  <block id="b4ad04dd5f331d7793a4a573eb0f12cc" category="paragraph"><block ref="b4ad04dd5f331d7793a4a573eb0f12cc" category="inline-link-rx"></block></block>
+  <block id="70894d5c0a41692947485c0d0a19e60a" category="inline-link">介紹虛擬化安裝需求與參考資料FlexArray</block>
+  <block id="458876feaed6a906ecafed4badb622d0" category="paragraph"><block ref="458876feaed6a906ecafed4badb622d0" category="inline-link-rx"></block></block>
+  <block id="51f2e41bb63f7f5322285ec16e482fc4" category="summary">您必須在SAN交換器上建立必要的區域、才能將來源儲存設備連接至目的地儲存設備。</block>
+  <block id="2db659b3a2e07ad5c7de559b02fa99f7" category="doc">設定交換器區域</block>
+  <block id="958e4f48302b02f7c537ff8fd451cc1e" category="list-text">備份正式作業和移轉架構中每個交換器上的現有區域集。</block>
+  <block id="6a4f77f6f9a27b89b9301edbb98a259b" category="list-text">將來源儲存設備和目的地儲存設備分區、如下所示。</block>
+  <block id="4a618c5c2602d5ddfad401068e45ed05" category="image-alt">來源與目的地儲存分區</block>
+  <block id="22ab174b3f01f885d9278e65099951a5" category="list-text">建立區域、並將其新增至正式作業Fabric A的區域集</block>
+  <block id="4c14e412c6c919c8b9cc1320ec6e0797" category="paragraph">以下是正式作業區域的範例：適用於區域的正式作業架構A _AMS2100 _cDOT_Initiator、fabA。</block>
+  <block id="b94141d4fe2f2d88bcdad136fc07a3b7" category="cell">WWPN</block>
+  <block id="4e7836bfd254f423a3ba0d14d99cd248" category="cell">區域成員</block>
+  <block id="bf3c5489c33b59824c4bd80dbd544bb9" category="list-text">在Fabric A中啟動區域集</block>
+  <block id="2e70399d78d82a699896a3d03d23e9ac" category="list-text">建立區域、並將其新增至正式作業架構B的區域集</block>
+  <block id="edaef3673bb57ee478c3f9610dcf56c8" category="paragraph">以下是正式作業區域的範例：適用於區域的正式作業架構A _AMS2100 _cDOT_Initiator、fabB。</block>
+  <block id="424264e863b1a9b6542d03ccb78dc2eb" category="list-text">在正式作業架構B中啟動區域網路</block>
+  <block id="c9838de04898435a42a4c0f79df5b474" category="summary">您可以建立移轉後的Snapshot複本、以便日後需要時進行還原。</block>
+  <block id="bf178123a273dcbafcda5c352db6bd5e" category="doc">建立移轉後的Snapshot複本</block>
+  <block id="48c7c41b72e1d678923ce3571aa65b2d" category="list-title">步驟</block>
+  <block id="9591f95b6bfc5019e71eef4292d7e21d" category="list-text">若要建立移轉後的Snapshot複本、請執行「建立快照」命令。</block>
+  <block id="d27fb9bbea51069b68ab2f5432543521" category="summary">瞭解基本的FLI概念有助於正常運作、並減少初始組態工作。</block>
+  <block id="11ce7ca493874241e6de73f36e76dc33" category="doc">外部LUN匯入概念</block>
+  <block id="a635e4870c056f10cc8a4a774c87a454" category="list-text">*外部陣列*</block>
+  <block id="1142ed06cc52da94575e331106808cdd" category="paragraph">外部陣列是無法執行ONTAP 功能不正常的儲存設備。這也稱為第三方陣列或來源陣列。如果是7-Mode to ONTAP VMware移轉、則異陣列將是由NetApp執行ONTAP VMware 7-Mode所產生的陣列。</block>
+  <block id="a99a6b5b20318a751b15e43d73141d18" category="list-text">*外部LUN*</block>
+  <block id="2fe29a93f3a3eab21182d5a81bc99563" category="paragraph">外部LUN是一個LUN、其中包含使用該陣列原生磁碟格式、裝載在協力廠商陣列上的使用者資料。</block>
+  <block id="55d647a56891fd09add9e72e442e56dc" category="list-text">* FLI LUN關係*</block>
+  <block id="dedb6b3b975741af7cf74bbb7e594172" category="paragraph">FLI LUN關係是來源與目的地儲存設備之間的持續配對、用於資料匯入。來源端點和目的地端點是LUN。</block>
+  <block id="ac7c22231860f72fd69473ba39e8faf6" category="list-text">* LUN匯入*</block>
+  <block id="bf135405a6d006313580e0907e9bcefc" category="paragraph">LUN匯入是將外部LUN中的資料從協力廠商格式傳輸至原生NetApp格式LUN的程序。</block>
+  <block id="3e93c4ba8debcbb0556af1cd7ab1b741" category="summary">在開始FLI移轉之前、您的LUN應符合下列需求。</block>
+  <block id="e80e48acabbfbfabe9d26f77e6893f2e" category="list-text">FLI需要每個控制器上至少一個FC連接埠、並以啟動器模式直接移轉LUN。</block>
+  <block id="1aa4f2a052fd81ec3e8e4d05af38fa3d" category="list-text">在目的地陣列上、外部LUN必須標示為Foreign（外部LUN）、以防止指派ONTAP 項目執行。</block>
+  <block id="9aa3188a54765c6430f32b9c1bd813fd" category="list-text">在開始匯入之前、外部LUN必須處於匯入關係中。</block>
+  <block id="44aa1f7a817892effc0c87066a63421e" category="list-text">LUN的大小必須與外部LUN相同、而且磁碟區塊大小必須相同。在LUN建立步驟中、這兩項要求都已妥善處理。</block>
+  <block id="712ab059b692b9bc1b27b9cc4debdd19" category="list-text">LUN不得擴充或外包。</block>
+  <block id="28346dfebd33c0a30bb74655c8205c5e" category="list-text">LUN必須至少對應至一個igroup。</block>
+  <block id="1be37e9706ae71ec79642c4a74ddb6e4" category="list-text">NetApp LUN應在建立關係之前離線。不過、建立LUN關係之後、就能在線上FLI的情況下重新連線。</block>
+  <block id="e646e16bee8b32e6ea29e30d01970a6c" category="section-title">限制</block>
+  <block id="9f0253275fe68858c0af6b82677674c0" category="list-text">所有移轉均位於LUN層級。</block>
+  <block id="627efaeda3a2eeb48c8581eb26bd2021" category="list-text">FLI僅支援光纖通道（FC）連線。</block>
+  <block id="9abb410f41517924252f8ab199b93f86" category="list-text">FLI不直接支援iSCSI連線。若要使用FLI移轉iSCSI LUN、必須將LUN類型變更為FC。移轉完成後、LUN類型會變更回iSCSI。</block>
+  <block id="9c91be7c4284b0caf7411de855e051a0" category="summary">下列步驟說明如何ONTAP 在移轉完成後、從您的功能區移除來源LUN。</block>
+  <block id="8dfef620bd63a19de922d6fd5b7e1a14" category="doc">移除ONTAP 來源LUN的不穩定性儲存設備</block>
+  <block id="2f26d82fcc492ff87e69a65f6fe142ef" category="admonition">本工作使用範例中的_HDS AMS2100陣列。如果您使用不同的陣列或不同版本的陣列GUI、則工作可能會有所不同。</block>
+  <block id="15f2ef2f14473a3fed75c7c31afd6115" category="list-text">登入Hitachi Storage Navigator模組化。</block>
+  <block id="9c2f631c3b248015706fac8c951d9c2e" category="list-text">選取ONTAP 在計畫階段建立的支援主機群組、然後選取*編輯主機群組*。</block>
+  <block id="7dc0f85f089ebdfce9f7c48b0fa94ae9" category="image-alt">主機群組</block>
+  <block id="55f9a6545253be753da13bfa19ed39bb" category="list-text">選取*連接埠*並選取*強制設定*至所有選取的連接埠。</block>
+  <block id="d1d7ad384c51ea55bb59ff5d43a8d68d" category="image-alt">編輯主機群組</block>
+  <block id="65dff2da7c6b1d550ddea5c786a3c66b" category="list-text">選取從指派的邏輯LUN移轉的主機LUN。使用來源LUN工作表中提及的每個主機的LUN名稱。在此處、選取Windows 2012、RHEL 5.10和ESXi 5.5主機的LUN、然後選取*移除*。</block>
+  <block id="018e6717cb26bb683acaeb00a2666e18" category="image-alt">移除ONTAP 來源LUN的不二資料儲存設備3</block>
+  <block id="d0ae902543b17dc39935b9f9ff10caf9" category="summary">不支援所有版本的不支援任何版本的不支援。AFF FlexArray ONTAP在這些版本中、您必須將外部LUN匯入（FLI）分段至同一個叢集上的非AFF高可用度（HA）配對AFF 、並搭配使用此功能。</block>
+  <block id="4d2c8e2d52b2d1e27a2032516bde2b24" category="doc">使用Foreign LUN Import（外部LUN匯入）將LUN匯入AFF 到物件庫</block>
+  <block id="678b11ba8ef0148b72870cd8ab43c178" category="paragraph">從功能支援的起、就是支援FLI。ONTAP AFF您可以使用FKU將LUN從其他陣列直接匯入ONTAP 到物件叢集。</block>
+  <block id="1d1decf73b3514198e759fb813b2f31e" category="paragraph">從版本8.3.2開始ONTAP 、AFF 透過核准的程序差異申請（PVR）、支援FLI。請聯絡您的NetApp客戶團隊、提交PVR以供核准。核准後、提交者（通常是NetApp系統工程師）會收到核准信、並指示啟用FLI功能。</block>
+  <block id="03120ec505b2fc02252feb3c2947d24a" category="paragraph">針對ONTAP 8.3.2之前的版本、AFF 由於FlexArray 已進行部分寫入最佳化、所以目前不支援使用某些版本的功能。您需要將FLI匯入登錄至同一個叢集AFF 上的非AFF HA配對、並使用此功能進行執行。完成移轉之後、您就可以使用不中斷營運（nn）、例如vol或LUN Move、將移轉的LUN移至AFF 支援區。如果AFF 您的叢集沒有任何非AFF節點、請與您的客戶團隊討論借用揮桿設備的可能性、以利達成此目標。</block>
+  <block id="ef65c159255abade95e057cfcf3aa501" category="summary">任何未在移轉之前執行的未完成伺服器補救、都會在移轉後執行。</block>
+  <block id="2c9d6f9fe74e21cf8104c62c4ad61ceb" category="doc">FLI離線移轉後工作</block>
+  <block id="cf4e13b9b7146fa58901a5bc51850ed3" category="paragraph">刪除第三方軟體、安裝並設定NetApp軟體、然後主機存取NetApp上的LUN。如需特定主機類型的移轉後補救範例、請參閱主題_Host補救_。</block>
+  <block id="365518f89953ce6275308d4727cae73a" category="summary">您可以選擇確認LUN已從FLI 7-Mode正確移轉至ONTAP VMware。</block>
+  <block id="d2f81b636a69103d1ca4925b272ed2d2" category="doc">驗證FLI 7-Mode以ONTAP 驗證移轉結果</block>
+  <block id="c0f4e671971b3d7af486117ca521aad5" category="paragraph">啟動驗證工作以比較來源和目的地LUN。監控驗證進度。驗證中的LUN在驗證工作階段期間必須離線。驗證工作階段可能會冗長、因為它是來源LUN與目的地LUN之間的區塊對區塊的比較。移轉所需的時間應與移轉所需的時間大致相同。不需要驗證、但我們建議您驗證匯入/移轉的LUN子集、以瞭解匯入程序。</block>
+  <block id="90b54dd0fd35f6452d1b6c6464d9cfe6" category="paragraph">LUN匯入驗證必須先明確停止、才能使LUN恢復連線。否則、LUN線上失敗。此行為將在即將推出ONTAP 的更新版本中改變。</block>
+  <block id="ecd3bf53d542cc1fc8055b3c20fff418" category="list-text">離線待驗證的LUN。</block>
+  <block id="a84256d94c5d7dc207681d16b3b74f9c" category="list-text">啟動LUN驗證。</block>
+  <block id="8a06e7cadf858c88a55293291b1df731" category="list-text">顯示LUN驗證狀態。</block>
+  <block id="372699135a2ba75e0a9de39820284f6a" category="paragraph">LUN匯入驗證必須先明確停止、才能使LUN恢復連線。否則、LUN線上失敗。請參閱下列CLI輸出。</block>
+  <block id="4430041a866393962bf0ca6a22b8c82f" category="list-text">停止LUN驗證。即使狀態顯示已完成驗證、仍需手動執行此步驟。</block>
+  <block id="2cdc70de3fe5b5fb6f8cf38d2c2c45d5" category="list-text">驗證完成後將LUN連線。</block>
+  <block id="23321edbb4f7e3b1befd67b860a1b8cd" category="summary">您應該使用互通性對照表工具IMT （NetApp）來尋找與符合NetApp資格的協力廠商產品和元件搭配使用的NetApp產品組態相關資訊。</block>
+  <block id="53dd876eedeaea76ed1102ca50d7640a" category="doc">使用IMT 支援的功能表檢查FLI組態</block>
+  <block id="cc62db77ffdb8047d1bbd7fd4c1187af" category="paragraph">從ONTAP 0：9.9.1開始、如果您的陣列未列IMT 在支援範圍內、您可以使用NetApp支援網站上的SAN LUN移轉應用程式來判斷您的陣列是否受到支援。</block>
+  <block id="cfa91e2daad15c0a21a421633f79ec89" category="list-text">前往互通性對照表工具。</block>
+  <block id="41a52d397d383cba9d812eb2b4f72df9" category="list-text">搜尋陣列模型。</block>
+  <block id="ecbd3fc8e53ae81e46a44ebbaef27e25" category="list-text">選擇解決方案*外部LUN匯入（FLI）後端互通性*。</block>
+  <block id="35bbbc8e718a18a4a6c659f82feb49b7" category="list-text">選擇* FAS 支援的模型*和* ONTAP 支援的版本*來決定支援的組態。</block>
+  <block id="9a164cb97c547085a3cb4c26131c9ff6" category="list-text">如需前端支援的主機組態、請按一下*建置端點對端點檢視（使用ONTAP ESAN host*）。</block>
+  <block id="4e335933ad262c6d858fc345312ead0e" category="list-text">如需交換器支援的組態、請從* ONTAP 《SAN主機*》索引標籤按一下「SAN交換器*的*建置端點對端點檢視」。</block>
+  <block id="10f02f59043b28fac9ff50a9e24e6044" category="inline-link">NetApp互通性</block>
+  <block id="8ae1a8b6dc4a3df150f27ca419fb9a6c" category="paragraph"><block ref="8ae1a8b6dc4a3df150f27ca419fb9a6c" category="inline-link-rx"></block></block>
+  <block id="8c0b0439d6366451bf78824af79d5085" category="summary">FLI規劃階段著重於建立詳細移轉計畫、以及為實際移轉做好客戶環境準備所需的工作。在此階段會執行一或多個測試移轉、以驗證外部LUN匯入的安裝與設定。</block>
+  <block id="1710e939bc78370d1721b65cfede5318" category="doc">規劃及準備階段程序</block>
+  <block id="4f7f184473b2f286bdfb0f5c8ccc0ba7" category="paragraph">以下是在計畫階段中要完成的工作：</block>
+  <block id="93be49ca71ad60de6e62a8a80d6ffe26" category="list-text">在「站台調查與規劃」工作表的「LUN詳細資料」區段中、輸入每個儲存陣列的儲存對應資訊、以建立來源和目的地LUN的對應。</block>
+  <block id="b3888438e095e5e09a171355cea8bc36" category="list-text">根據規劃資訊、將來源儲存設備連線至網路。</block>
+  <block id="9a90fd64b87ec5e09f9317f2ce0ecbeb" category="list-text">設定交換器區域。</block>
+  <block id="b7f781b04092f1cfe1f95b7cbcefb36d" category="list-text">執行一或多項測試移轉、以驗證安裝與設定。</block>
+  <block id="bbe386f48597d37f98c1fa83d2290817" category="summary">您需要發出AutoSupport flexfcommand來記錄客戶環境。</block>
+  <block id="612c6ba81aba3ac58aded1a4788f669e" category="doc">記錄新移轉的環境</block>
+  <block id="4b01ccfdb3280d21ab30c98722404e14" category="paragraph">您需要發出「AutoSupport 支援」命令來記錄客戶環境。</block>
+  <block id="eab8fbcbd63b2bcc58a738edcf07ee89" category="paragraph">若要記錄客戶環境、請完成下列步驟：</block>
+  <block id="4ad1ced7e20a50ce9a61f18de8cc52c9" category="list-text">發出「AutoSupport 指令檔」來記錄最終組態。</block>
+  <block id="0170954f27b1bc746248a2082fc577ca" category="list-text">完整記錄新移轉的環境。</block>
+  <block id="56974059d9ee790239eb1cc88f741d04" category="summary">在離線FLI程序中、您必須將來源LUN展示到ONTAP 您的不必要儲存設備。</block>
+  <block id="ff23a41cd33e051678a0d0995e9c8dae" category="doc">在ONTAP FLI期間、將來源LUN呈現給整個儲存區</block>
+  <block id="0f9adcd13bdf5b9f6f1d3db9db15f56f" category="list-text">登入來源陣列。</block>
+  <block id="a277df2255d894e78843388d4e90d2e1" category="list-text">將NetApp啟動器新增至計畫階段所建立的主機群組。</block>
+  <block id="4222b76d4a25bcc92a87948edbca2f97" category="list-text">選取需要從可用邏輯LUN移轉的主機LUN。針對站台調查與規劃工作表的來源LUN區段中提及的每個主機使用LUN名稱。</block>
+  <block id="812fbde33504c45051c067a08f4f1901" category="summary">若要設定ONTAP 適用於FLI移轉的靜態儲存設備、您應該根據規劃資訊和建議的最佳實務做法、將來源儲存設備連線至光纖網路。</block>
+  <block id="84a737f44c8713a3904d04f2744e05c1" category="doc">連接FLI移轉的最佳實務做法</block>
+  <block id="2fe64cf0bee4b9242f1610457f3a8f7b" category="paragraph">在設定ONTAP 用於FLI移轉的薦下列線路最佳實務做法。</block>
+  <block id="a3657ccc6f7b25ff55686936a35a931e" category="list-text">使用雙Fabric提供備援。</block>
+  <block id="efa0799fdc3f808c7096ea68ee54281c" category="list-text">從每個目的地儲存設備使用至少兩個啟動器和兩個目標連接埠進行FLI移轉。</block>
+  <block id="0430522243e9082d45951a9bcc240e1b" category="list-text">請勿將目的地儲存啟動器連接埠與主機分區。啟動器ONTAP 連接埠的功能可用於連接來源儲存設備的目標連接埠。</block>
+  <block id="7b34bb3d8f1a19645dd2d939a4b96eae" category="paragraph">以下是正式作業網路中來源儲存設備和目的地儲存設備的佈線範例。</block>
+  <block id="60bcf16ad809a3a8205871e9029cb7af" category="image-alt">用於生產中的來源與目的地儲存設備的配線</block>
+  <block id="9959b7832841b74a075ba035a3d2d4f5" category="summary">FLI線上執行階段包括準備移轉主機、以便採用支援的組態。</block>
+  <block id="b23f141a2493517a43f026db60403405" category="doc">準備主機進行FLI線上移轉</block>
+  <block id="608137ad1506580d67490886c0ab3b18" category="paragraph">在許多情況下、可能會在此步驟之前執行此修正。如果沒有、您可以在這裡執行任何主機補救、例如安裝主機附加套件或DSM。從分析階段、您將會有一個落差清單、列出每個主機需要執行的項目、以便該主機使用ONTAP 支援的組態使用支援的功能。視執行的移轉類型而定、主機可能會先進行修復、然後重新開機、或只是進行補救。</block>
+  <block id="c632a2963796cd48a9b8a626c8123e1c" category="summary">在預先移轉外部LUN匯入（FLI）期間、驗證並驗證主機和來源LUN路徑。主機重新開機後、系統會關閉、以準備移轉。</block>
+  <block id="e0392900ac00a70004ae9fcb4493a9f8" category="doc">FLI離線：準備轉換</block>
+  <block id="a95f1872da1f9f11940ae232dedf1d12" category="paragraph">完成移轉與補救後、主機便可連線至新的目的地儲存設備、終端使用者也可驗證應用程式。</block>
+  <block id="c1744442ef55c9ff65cf3426c67c5eca" category="summary">服務工具提供標準化的方法、可執行遠端資料收集、組態及儲存管理等實用功能。</block>
+  <block id="bfb6025fc2746984a9993cd7237a49f9" category="doc">建議的資料移轉工具</block>
+  <block id="b7cd36c5d52a8d12d57f9cc6a6df8d2b" category="paragraph">下列服務工具可用來收集及剖析資料：</block>
+  <block id="d5b1d34a64bc8430c8f7bb0eae4c9b1a" category="list-text">*《*》OneCollect</block>
+  <block id="810cb9f438afdb044ce76221234163ae" category="paragraph">NetApp Active IQ OneCollect 功能可搭配網路型UI或CLI使用、協助您從SAN和NAS環境中的儲存設備、主機、架構和交換器收集資料。收集的資料可用於疑難排解、解決方案驗證、資料移轉及升級評估。您的環境相關診斷內容可傳送至NetApp進行進一步分析或內部分析。</block>
+  <block id="29f3ee77e5c443665a3fc71eafe7b37e" category="list-text">* NetApp資料移轉Solaris Relabeler*</block>
+  <block id="406217eeb24435efe18388dd15ea5a4c" category="paragraph">Solaris Relabeler是命令列公用程式、可在移轉後更新Volume目錄（VTOC）磁碟上的Ascii標籤。</block>
+  <block id="13ebdf331e696ec36ce21332b70ff56a" category="paragraph">在初始VTOC磁碟初始化常式期間、Solaris format命令會針對磁碟執行SCSI查詢、並將廠商專屬資訊（製造商、產品和修訂版）寫入磁碟標籤。所有進一步的查詢都會導向磁碟標籤、而非實際裝置。區塊層級移轉會將此磁碟標籤複製到新磁碟、而舊的SCSI查詢資料仍會顯示在系統工具和記錄中。重新篩選器會在移轉後以新的查詢資料更新磁碟。</block>
+  <block id="3a63df31c7c07052260a745267ccc673" category="paragraph">這些工具和公用程式也適用於FLI移轉專案：</block>
+  <block id="9169b858c9b6edfe9b59c84b47b04338" category="list-text">*互通性對照表*</block>
+  <block id="f2d4045460d1a1983c44cb974e219db3" category="paragraph">互通性對照表工具IMT （NetApp Interoperability Matrix Tool、簡稱「互通性對照表」）是一種NetApp網路型公用程式、可用於對NetApp、FlexArray NetApp、以及第三方軟體元件進行互通性檢查。</block>
+  <block id="a6a077b904bacb12d48c41c5c73204a8" category="list-text">*《系統管理程式》* ONTAP</block>
+  <block id="a9d0aa8b103e4adf8ae15e7f25516585" category="paragraph">利用圖形介面、支援NetApp支援系統的遠端儲存管理功能。ONTAP FAS</block>
+  <block id="63f145a157a4de507f52e0defe916b43" category="list-text">*《*》OnCommand Workflow Automation</block>
+  <block id="314466fdc9350ebf7ec10c814395d315" category="paragraph">WFA是一套軟體解決方案、可讓您建立儲存工作流程、並自動化儲存管理工作、例如資源配置、移轉、汰換及複製儲存設備。</block>
+  <block id="41906f366d54c43ed11596a26fede0c4" category="inline-link">NetApp工具</block>
+  <block id="ecd381cf83e11898e675dbdba4cb2661" category="paragraph"><block ref="ecd381cf83e11898e675dbdba4cb2661" category="inline-link-rx"></block></block>
+  <block id="d1ed20623d06a5575b5bebe97eb3c03a" category="inline-link">NetApp工具：資料中心規劃人員</block>
+  <block id="82330aa0d5032553b20acd353259792c" category="paragraph"><block ref="82330aa0d5032553b20acd353259792c" category="inline-link-rx"></block></block>
+  <block id="9ed4a475dd3705157a9fed8811f63ce2" category="inline-link">NetApp 互通性對照表工具</block>
+  <block id="687d97208bee730c33801be1d460abf6" category="paragraph"><block ref="687d97208bee730c33801be1d460abf6" category="inline-link-rx"></block></block>
+  <block id="4313112e38e2034aae406f4730087905" category="inline-link">NetApp文件：OnCommand 《系統管理程式》（最新版本）</block>
+  <block id="0fb89981f1f59ac6c2fc1a6cad5da0e0" category="paragraph"><block ref="0fb89981f1f59ac6c2fc1a6cad5da0e0" category="inline-link-rx"></block></block>
+  <block id="62580aa51e9dd22e6410288365e0cfae" category="inline-link">NetApp文件：OnCommand Workflow Automation 功能（最新版本）</block>
+  <block id="385f2125f2c2eed2ad18d00d78cfc7d4" category="paragraph"><block ref="385f2125f2c2eed2ad18d00d78cfc7d4" category="inline-link-rx"></block></block>
+  <block id="753b4debef9758f946c62b3504aa0e5a" category="summary">以下是正式作業網路B中的Cisco Fabric範例</block>
+  <block id="03056dc3bfcca9e8b9f3ea7cf4739428" category="doc">生產架構B中的Cisco Fabric範例</block>
+  <block id="7bfb20a5608131c667ff17d3d2437e06" category="summary">在選擇資料移轉選項時、需要考量的是使用資料傳輸設備或應用程式型移轉。</block>
+  <block id="f850d5f072b99065b8b14f209d28b6f2" category="doc">資料移轉選項</block>
+  <block id="2d8d3a311af001eea82b4a3e0dd98983" category="paragraph">雖然FLI可能是大多數移轉作業的最佳選擇、但其他選項可能會在不中斷營運的情況下執行、因此可能較使用FLI執行移轉更為理想。您應該考量自己的選項、並針對每項移轉選擇適當的工具。所有這些工具都可用於最適合的部分移轉作業。</block>
+  <block id="e39a0d96f37ea57f939fc2ae5fb8be1e" category="list-text">使用資料傳輸設備（DTA）</block>
+  <block id="c006b7eb74ed38d8c69ba790215c384f" category="paragraph">DTA是NetApp品牌的應用裝置、連線至SAN架構、獲得每TB資料移轉授權、並支援離線和線上移轉。</block>
+  <block id="610a1a28b24096c631488b707572b519" category="list-text">主機作業系統或應用程式型移轉</block>
+  <block id="9162f92284cb6b109036b74027ef9601" category="paragraph">有多種主機作業系統或應用程式型資料移轉選項、包括：</block>
+  <block id="086f57c37727d9bc487647a8d43a1be4" category="list-text">VMware Storage VMotion</block>
+  <block id="b4abe4db6e39565bdc600774360fa710" category="list-text">邏輯Volume Manager（LVM）解決方案</block>
+  <block id="59cf240a8ee41bc6f1f96607d821c6f7" category="list-text">DD（Linux）和Robocopy（Windows）等公用程式</block>
+  <block id="4af7c0342e04d5cb5d82c864c44468ed" category="paragraph">無論選擇何種程序和工具、您都可以而且應該使用資料移轉方法來規劃、規劃及記錄移轉選項和工作。</block>
+  <block id="430bb9de60ed37ded761bc53823e00d8" category="summary">以下是將資料從來源LUN匯入目的地LUN的步驟。</block>
+  <block id="8a3d18b4a87fce9fd30e1b06c8c97dd1" category="doc">線上FLI：匯入資料</block>
+  <block id="671cd4b2e80816faac52efc2dd60f3c0" category="list-text">開始匯入移轉。</block>
+  <block id="fcd58d8ff11fa75a65432bee980f3a36" category="list-text">顯示FLI狀態。</block>
+  <block id="6e25df31da1e71534f8796a6f959ba6c" category="summary">落差分析是客戶目前與NetApp建議環境的報告。它會針對移轉後所需的客戶環境、提供所有建議的升級。</block>
+  <block id="ec322643bc7f184bacaaffdb6d7f8792" category="doc">落差分析報告</block>
+  <block id="7167080c13bc68f5d5ca3606a811cf8f" category="paragraph">落差分析是客戶目前與NetApp建議環境的報告。它會針對移轉後所需的客戶環境、提供所有建議的升級。</block>
+  <block id="18b01b4a7bc63c856f7bfc605d4c1db3" category="paragraph">目標組態（移轉後）包含每個主機的詳細資料（OS組態、MPIO、HBA詳細資料、主機公用程式套件版本等）。如SnapDrive 需其他NetApp所需產品的相關資訊、例如：功能表和SnapManager 功能表。</block>
+  <block id="9d394fd64d52277e34b6478f3116be34" category="paragraph">由於通常需要排程維護時間、因此在實際移轉事件發生之前、通常不會進行必要的變更。一般而言、在移轉之前對MPIO組態所做的任何變更、也會影響目前儲存設備的支援。</block>
+  <block id="3980e7fb5116c733aeb5a4fc02fad438" category="paragraph">「站台調查與規劃」工作表的「主機」區段中、完整的NetApp建議區段將做為落差分析報告。必須針對移轉專案所包含的每個主機完成落差分析。完成的落差分析報告必須與客戶一起審查。</block>
+  <block id="9c778c3c375b04ff9f5870bdd4a07e73" category="paragraph">以下是差距分析報告範例。</block>
+  <block id="313a854fd8839de2bdf22552f3bc8fb2" category="image-alt">建立落差分析報告1</block>
+  <block id="35b043ebc171de32d54be5dbeae52dd3" category="summary">執行階段著重於執行FLI離線或線上移轉的LUN移轉工作。</block>
+  <block id="964a0546e66ef43fd51704954c30ee65" category="doc">執行階段工作流程</block>
+  <block id="0371a2b790b684d89139aa01a9d899dd" category="paragraph">系統會檢閱主機事件記錄、以找出並修正任何問題、並降低風險。重新啟動主機、以確保在發生重大重新設定之前、主機不會發生任何潛在問題。</block>
+  <block id="9a2d7036802624ba03c75b07ef21f584" category="paragraph">在目的地儲存設備上看到來源LUN之後、即可建立及執行移轉工作。完成移轉（FLI離線）或建立FLI LUN關係（FLI線上）之後、主機會分區至目的地儲存設備。系統會對應新的LUN、並開始針對驅動程式、多重路徑軟體及分析階段中識別的任何其他更新進行主機修復。</block>
+  <block id="b84408b5a0a0c7cc2f546b003567651a" category="summary">在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含HBA和區域資訊的相關資訊。</block>
+  <block id="e73883227bd8b82a32f523f166de0ff8" category="doc">Site Survey and Planning工作表HBA and Zone Information（HBA與區域資訊）索引標籤</block>
+  <block id="b40869fd3c3553f482c858fa5ac4d4f6" category="paragraph">以下是如何設定HBA和區域資訊索引標籤的範例。</block>
+  <block id="09eaea7cdd5eb7f40566ce88dd148114" category="cell">網路詳細資料</block>
+  <block id="1c07f24dbaeb847f4662960d2691d528" category="paragraph">主機名稱</block>
+  <block id="b5a7adde1af5c87d7fd797b6245c2a39" category="paragraph">說明</block>
+  <block id="48ea07c17b81374f4e31405454d61cf0" category="paragraph">網路名稱</block>
+  <block id="802f2bf667be29e0ca8082ad52482254" category="paragraph">DM-rx200s6-21</block>
+  <block id="ed26b50bfdb1bad24bf0f76a3843a1b3" category="paragraph">HBA0</block>
+  <block id="2edc3dd62d95f42450ddbf1e08da6de1" category="paragraph">21：00：00：24：ff：xx：xx：xx：xx</block>
+  <block id="0ea88051ccace8518cd7faf783839e20" category="paragraph">產品A</block>
+  <block id="297f3049aa909c9901940e5720c5bca1" category="paragraph">HBA1</block>
+  <block id="b6d39500f5651e5bab0adc006de3ba76" category="paragraph">產品B</block>
+  <block id="b4cafd0ce791b930f1587ef7c7e3367b" category="paragraph">VSAN/網域</block>
+  <block id="b81dbdcd51802845e275c5bd54d84e17" category="paragraph">連接埠號碼</block>
+  <block id="7062fcace8121fbf5348403fec9b3488" category="paragraph">移轉前的區域成員資格</block>
+  <block id="e1712e7a9b166a65ebaf4f58e3bec384" category="paragraph">移轉後的區域成員資格</block>
+  <block id="d3d9446802a44259755d38e6d163e820" category="paragraph">10.</block>
+  <block id="1ee30c99361970780c683ad9bcc54178" category="paragraph">FC2/3</block>
+  <block id="5f3087cbd50e3ef143e7c737a425867a" category="paragraph">rx21_AMS2100</block>
+  <block id="ec194d0acc244f4d9246902066321e8e" category="paragraph">rx21_flicDOT</block>
+  <block id="1c1b0e617e80d3e2dbae61aacaedca3e" category="summary">從ONTAP 供應到支援的9.9版開始、您可以使用SAN LUN移轉應用程式來驗證FLI的外部來源陣列。如果FLI IMT 不列出所需的外部陣列、則可使用SAN LUN移轉應用程式。</block>
+  <block id="af164dd8145e1764ed12737fe49cab35" category="doc">使用SAN LUN移轉應用程式檢查FLI支援的組態</block>
+  <block id="a1a90dff83c0faf191818ad546b59252" category="list-text">前往NetApp支援網站。</block>
+  <block id="fe9b94814e39a3c7f451e4e91676e2a1" category="list-text">在*依類別篩選*下、選取*移轉*。</block>
+  <block id="803493b6d9dbe590ab30e0e80a8e1b97" category="list-text">在「* SAN LUN Migration *」下、按一下「* Download App*」。</block>
+  <block id="159d7130f3d54d274afe13039b4ede40" category="list-text">從具有區塊存取來源陣列的FC或iSCSI Linux主機執行應用程式。</block>
+  <block id="26e7b511886f2cfa073850c2af28b79e" category="paragraph">如果外部來源陣列可以符合資格、則會顯示綠色核取符號。如果外部來源陣列無法符合資格、則會顯示紅色X。如果您的陣列不符合資格、您可以聯絡NetApp支援部門以取得其他協助。</block>
+  <block id="88342d3bc522d34c0d7d4b696af5ecbe" category="summary">FLI功能可讓您將資料從第三方SAN儲存設備移轉至ONTAP 各種系統。FLI移轉功能可支援各種程序和系統。</block>
+  <block id="4a3f341a06b2f81b12a06ac327ed46ae" category="doc">外部LUN匯入功能</block>
+  <block id="295debfc2712e7f9df807131dc4e4332" category="list-text">支援線上和離線移轉。</block>
+  <block id="806b5a0cfabbcce4b9c185870dcdd879" category="list-text">獨立於作業系統：區塊層級的資料移轉不仰賴Volume Manager或作業系統公用程式。</block>
+  <block id="4a22b7c1adb1bceeb5ae5998e9d63ea5" category="list-text">光纖通道架構獨立性：FLI與Brocade和Cisco FC架構完全相容。</block>
+  <block id="0935f8777ca963eb7423694b02e249c4" category="list-text">支援大部分的Fibre Channel儲存陣列。如需支援的陣列清單、請參閱互通性對照表。</block>
+  <block id="cab8969abddd17bed082bfec1d0ac04b" category="list-text">支援原生多重路徑和負載平衡。</block>
+  <block id="834b11b5984bac06416d6e8768628ce1" category="list-text">CLI型管理：</block>
+  <block id="cb3628a430baab7a93ffd421b659b087" category="summary">在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含移轉來源儲存裝置的相關資訊。</block>
+  <block id="66d379978b8364c9b7e4cace88b5bf8f" category="doc">站台調查與規劃工作表來源儲存設備索引標籤</block>
+  <block id="e11ebb23473888246705e815adf2fb83" category="paragraph">以下是如何設定來源儲存裝置索引標籤的範例。</block>
+  <block id="5c6ab1284b6b7a5a7102854a969c99be" category="cell">儲存系統</block>
+  <block id="55fe6d37857f38fc5f2d32415d6be244" category="paragraph">陣列名稱</block>
+  <block id="5b8c99dad1893a85076709b2d3c2d2d0" category="paragraph">IP位址</block>
+  <block id="ec9ceefe0c19f4c029008c23e3c947b7" category="paragraph">廠商</block>
+  <block id="30bc81580630f6d911cfee5d6263cf74" category="paragraph">陣列模型</block>
+  <block id="2ed6bfa07172eba7ba146d891930dd89" category="paragraph">微碼韌體/ ONTAP 功能</block>
+  <block id="7f4e435c9932b651ff456e49ed6d2d3f" category="paragraph">AMS2100</block>
+  <block id="fbe81839497361b2bc3142e1922a671e" category="paragraph">10.x.x.x</block>
+  <block id="c76e5f5afd86d0ca4d39ff7bb3fd722d" category="paragraph">Hitachi</block>
+  <block id="39742290629deaa24fb4da25f39e3f3c" category="paragraph">AMS 2100</block>
+  <block id="8619d3dcc4c85973cf93d7a20cba74e8" category="paragraph">0893/B-X</block>
+  <block id="09743c6a43ce1cb7cde1627cfbb65d1c" category="paragraph">控制器/節點</block>
+  <block id="bc3c828cce582fafd1e35e77b8c84327" category="paragraph">連接埠名稱</block>
+  <block id="b682dc481b1877dbaaec615eaed0b7d8" category="paragraph">目標類型</block>
+  <block id="ed2a0557a5215eaf11b83a42b8df0448" category="paragraph">控制器0</block>
+  <block id="e99bb33727d338314912e86fbdec87af" category="paragraph">0A</block>
+  <block id="15b9f4876fc8489ef5516bc1b9985dcc" category="paragraph">50060E80xxxxxxxx</block>
+  <block id="a31602925d8b996c2869e769b407a9bc" category="paragraph">正式作業架構A</block>
+  <block id="f31bbdd1b3e85bccd652680e16935819" category="paragraph">來源</block>
+  <block id="e50c0cb9a8def39e67ea2d350ab19773" category="paragraph">0E</block>
+  <block id="1081e3cb1cbc255f00400d2727adf660" category="paragraph">正式作業架構B</block>
+  <block id="6a1ab89ed912a96429c83ff1ba0f48d0" category="paragraph">控制器1.</block>
+  <block id="efaa153b0f682ae5170a3184fa0df28c" category="paragraph">1A.</block>
+  <block id="c5f590d18e1ea128362eeafb7192cc21" category="paragraph">1E</block>
+  <block id="22e769e6dfe56bc3b7fec8d36e575f71" category="summary">FLI離線執行階段包括移轉主機的準備工作。</block>
+  <block id="540aa6d6b05b87237a5035773dc7ce09" category="doc">準備主機進行FLI離線移轉</block>
+  <block id="5f51d20e71b9fee9d17896df728cf25f" category="paragraph">在許多情況下、可能會在此步驟之前執行此修正。如果沒有、您可以在這裡執行任何主機補救、例如安裝主機附加套件或DSM。從分析階段、您將會有一個落差清單、列出每個主機需要執行的項目、以便該主機使用ONTAP 支援的組態使用支援的功能。視執行的移轉類型而定、主機可能會先進行修復、然後重新開機（從線上FLI/7-Mode移轉至ONTAP FLI）、或是在移轉程序完成之前（離線FLI）進行修復、然後關閉。</block>
+  <block id="82beca5dd3e21da8b12776479d520195" category="summary">在「站台調查與規劃」工作表中、您應該設定包含移轉交換器資訊的索引標籤。</block>
+  <block id="9924c373f5e060d3e81782c12188defd" category="doc">站台調查與規劃工作表切換標籤</block>
+  <block id="e309370bdd52477ef0d27ea92e98564d" category="paragraph">以下是如何設定切換參數索引標籤的範例。</block>
+  <block id="0052efad5d260a806d52bfcfe640936f" category="cell">交換器</block>
+  <block id="222a267cc5778206b253be35ee3ddab5" category="paragraph">目前</block>
+  <block id="2fc6fbf9fba075ae2c24a4af4477f7f0" category="paragraph">NetApp推薦</block>
+  <block id="a559b87068921eec05086ce5485e9784" category="paragraph">模型</block>
+  <block id="a940a548ba41bc988f99d51fd02f21de" category="paragraph">韌體</block>
+  <block id="97f43739abccd9753ce69e154a443f9b" category="paragraph">C9506-1-A</block>
+  <block id="7b1d1185b835814de783483f686e9825" category="paragraph">Cisco</block>
+  <block id="babcff88f8be8c4795bd6f0f8cccca61" category="paragraph">9506</block>
+  <block id="8532afb409ba7a990336bdee27558254" category="paragraph">3.3（5a）</block>
+  <block id="f67b39704d7ba7e8c70385ece8fabad0" category="summary">在離線外部LUN匯入程序中、您必須驗證目的地儲存設備上的來源LUN。</block>
+  <block id="bdc246f75e0b7cb0910efac99821e4d4" category="doc">驗證目的地儲存設備上的來源LUN以供離線FLI使用</block>
+  <block id="16432777987df48d84f1d6b78c74fe0c" category="list-text">驗證來源LUN、並從來源儲存設備對應至目的地儲存設備。</block>
+  <block id="caffab80dc21f2445acd19f6551110ea" category="list-text">使用管理員使用者透過SSH登入ONTAP 到這個功能區。</block>
+  <block id="5974308baaa765decb4dca2586d474ab" category="list-text">將模式變更為「進階」：「設定-權限進階」</block>
+  <block id="5f91021d271bc951faffb84c865af2e4" category="list-text">當系統詢問您是否要繼續時、請輸入「y」。</block>
+  <block id="ef369b8a18ae9000f3ef049c0af23f31" category="list-text">探索ONTAP 有關的來源陣列。等待幾分鐘、然後重試偵測來源陣列。「torage Array show」</block>
+  <block id="883000da1c165b2e9103461f4f129399" category="paragraph">第一次發現儲存陣列時ONTAP 、可能無法自動探索以顯示陣列。請依照下列指示、重設ONTAP 連接了交換器連接埠的交換器連接埠。</block>
+  <block id="576bea06d886b9a2fa68f1f700b329a2" category="list-text">驗證是否已透過所有啟動器連接埠探索來源陣列。</block>
+  <block id="eb203702882ce5219436695b36021041" category="list-text">列出從Hitachi儲存設備對應的來源LUN。驗證磁碟內容和路徑。</block>
+  <block id="7cd0a1343bd368fb35ed72c387afdaa5" category="paragraph">您應該會看到根據纜線所預期的路徑數目（每個來源控制器至少有兩個路徑）。您也應該在遮罩陣列LUN之後、檢查事件記錄。</block>
+  <block id="e61c2744635e0ead09ed814faf13c8bc" category="summary">本節提供FLI 7-Mode to ONTAP VMware移轉工作流程的範例。轉換工作流程可以執行為線上或離線工作流程。</block>
+  <block id="5622dcadbb8a7ee925f9431d7f32bf92" category="doc">FLI 7-Mode to ONTAP VMware移轉工作流程</block>
+  <block id="a033f4d0615f80cc9a96ca353f5716c3" category="paragraph">如果來源LUN裝載於32位元Aggregate和/或LUN未對齊、建議使用FLI轉換。FLI 7-Mode to ONTAP VMware Transition能夠將LUN從7-Mode移轉至ONTAP VMware、同時修正LUN對齊、並將LUN從32位元集合體移轉至64位元集合體。其他轉換LUN的方法、包括7-Mode Transition Tool（7MTT）、可能需要修正LUN對齊及（或）在轉換ONTAP 至VMware®之前、將32位元的Aggregate轉換為64位元的Aggregate。</block>
+  <block id="ce17710d1a5ef97860c3ed605057e8ad" category="paragraph">FLI 7-Mode to ONTAP VMware移轉工作流程可以是線上或離線工作流程。這些工作流程在功能上與兩個對應的FLI離線和線上移轉工作流程相同、但來源陣列為NetApp 7-Mode儲存陣列除外。這兩種工作流程的規則和程序、都與移轉對等項目相同。這包括FLI線上工作流程主機操作支援清單。</block>
+  <block id="96e5e27ccd9119890b490f0a6581514b" category="paragraph">所提供的範例應徹底瀏覽FLI 7-Mode to ONTAP VMware流程。FLI 7-mode to ONTAP VMware移轉流程包括下列工作：</block>
+  <block id="03b433884d8ecdd978e2277adf7713ba" category="list-text">準備來源陣列和目的地陣列</block>
+  <block id="de95ff0b767f79557fe9a9b692d65ab1" category="list-text">執行中斷轉換</block>
+  <block id="ca63dcfd0f9848e972e7ac63e9bf3494" category="list-text">匯入資料</block>
+  <block id="ad8b1deda6773a7334e6ada18297afc4" category="list-text">驗證移轉結果</block>
+  <block id="8129cc4d9aa314cede44f0db47578d65" category="list-text">FLI移轉後的移轉工作</block>
+  <block id="5ee8c627194be9305eb2f195346bf13e" category="summary">若要準備FLI 7-mode to ONTAP VMware移轉、請驗證主機和來源LUN路徑及其他詳細資料。</block>
+  <block id="7892998f6cd1a85180c0b47cb02c2b6c" category="doc">準備要移轉的來源陣列和目的地陣列</block>
+  <block id="62915faa86ce0270957550462ab778f3" category="list-text">在本系統中、改為「進階」權限等級。ONTAP</block>
+  <block id="dc7514532bed3a4a24eee1600be36a25" category="list-text">確認來源陣列可在目的地控制器上看到。</block>
+  <block id="6957ef5bef3e2b05030e2f318c20f70e" category="list-text">檢視所列任何儲存錯誤的詳細資料。某些錯誤可能需要先採取行動才能繼續。不過、下列範例「此裝置是ONTAP（R）LUN」中顯示的錯誤可以安全地忽略。</block>
+  <block id="b8e20808df451129caa39264a050e4ae" category="paragraph">錯誤訊息「此裝置為ONTAP（R\）LUN」。這是因為FLI仰賴FlexArray 不支援虛擬ONTAP 化功能的不支援虛擬化的ONTAPFLI能夠匯入LUN、FlexArray 但不支援虛擬化LUN。</block>
+  <block id="714f5c3f42e6d50fa3a07a75065ed6bc" category="list-text">顯示來源LUN詳細資料。</block>
+  <block id="e5810d56320059c0373293d0da4050c0" category="list-text">列出從7-Mode儲存設備對應的LUN。驗證磁碟內容和路徑。</block>
+  <block id="70bb1cc8e593f7eb9d8240ff24d61769" category="list-text">驗證來源LUN是否標記為「Foreign（外部）」。</block>
+  <block id="2bc692441e597927901b155531aa7b0b" category="list-text">在FLI LUN匯入命令中使用序號。列出所有外部LUN及其序號。</block>
+  <block id="c4d603e30723f5c0bb46df3db3fd8bc6" category="list-text">建立目標LUN。「LUN create」命令會根據分割區偏移量來偵測大小和對齊方式、然後使用Foreign磁碟引數來建立LUN</block>
+  <block id="02b44137acae3cb866151edc5d8bec0b" category="list-text">驗證Volume。</block>
+  <block id="97c500043e97619a7cdae1db7eb50436" category="list-text">建立目標LUN。</block>
+  <block id="dd9967c7a136ea2fa96f2a1bc02ea6ad" category="list-text">驗證新LUN。</block>
+  <block id="908c0c1ea3cecf46c6d311f6e01738b0" category="list-text">使用主機啟動器建立傳輸協定FCP的群組。</block>
+  <block id="785fe114b1b46895afc9982f8587b494" category="list-text">將測試LUN對應至測試igroup。</block>
+  <block id="07bf6de22d85337808d6babd2bfc8074" category="list-text">離線測試LUN。</block>
+  <block id="3338b7cacb43fdfbf43af2fd97583993" category="list-text">在新LUN與外部LUN之間建立匯入關係。</block>
+  <block id="7b7dd1ebbfa00e3f7abbb8856a056b68" category="summary">資料移轉程序由提供已測試方法的階段所組成。您可以使用資料移轉方法來規劃、規劃及記錄移轉選項和工作。</block>
+  <block id="38346e2f91e39b3fc13cc551fd4078a3" category="doc">資料移轉方法</block>
+  <block id="d1dcea3e0a85c462dc11103e6886176f" category="list-text">探索階段</block>
+  <block id="51023a36eaba7a9dd7996d766e07e915" category="paragraph">收集環境中主機、儲存設備和架構的相關資訊。</block>
+  <block id="ec018b890a64a03de77740782e573260" category="list-text">分析階段</block>
+  <block id="d7a41e203b08492752f4eef6bf0bb17d" category="paragraph">檢查收集到的資料、並針對每個主機或儲存陣列判斷適當的移轉方法。</block>
+  <block id="b37cddc7ce7610ad2a8a0431f068fc7c" category="list-text">規劃階段</block>
+  <block id="9ae842fc5e8004ac52ce415f80e0fda5" category="paragraph">建立並測試移轉計畫、配置目的地儲存設備、以及設定移轉工具。</block>
+  <block id="1b6dec684aa1f6e66018baa0a87b5a75" category="list-text">執行階段</block>
+  <block id="950811ad7d76389f44bfbc3ce4ed97db" category="paragraph">移轉資料並執行主機修復。</block>
+  <block id="4a906f3b5858522ee75dd08c0279ffaa" category="list-text">驗證階段</block>
+  <block id="14af639fbf9d5e97f36e602336dd8493" category="paragraph">驗證新的系統組態並提供文件。</block>
+  <block id="bc459bf79d66c5b179790918378f3182" category="summary">在「Foreign LUN Import（FLI）（外部LUN匯入（FLI）））」程序中、您應該確認主機上的多重路徑已設定且正常運作。</block>
+  <block id="ee39d65a1817160f3851b1ca24746c37" category="doc">Windows主機的多重路徑驗證</block>
+  <block id="a4354633cd0119e1314f471d610ea422" category="paragraph">針對Windows主機完成下列步驟。</block>
+  <block id="7ae3521b4795a0df6960b48844b8bede" category="list-text">開放式磁碟管理：</block>
+  <block id="36a890df783d05afe153f32ada876698" category="list-text">在Windows桌面上、按一下* Start*。</block>
+  <block id="d0148f5ec81506fa10252eb7af3017af" category="list-text">在「Start Search（開始搜尋）」欄位中、輸入「diskmgmt.msc」。</block>
+  <block id="39ddfcd62e9a6f642a082e4825c6ff4f" category="list-text">在「程式集」清單中、按一下「diskmgmt」。</block>
+  <block id="8b103231da97e357c81333af4cc4b45e" category="list-text">在您要驗證多個路徑的每個磁碟上按一下滑鼠右鍵、然後按一下「*內容*」。</block>
+  <block id="c0829f1bd784906bc2260964e7df8fcc" category="list-text">在MPIO索引標籤的Select the MPIO policy（選取MPIO原則）清單中、按一下所有作用中的路徑。</block>
+  <block id="08531ca1dfb960884b4522ff558a0b0d" category="image-alt">Windows MPIO內容</block>
+  <block id="ef7d878aad6a3854d597cac990e1eb38" category="paragraph">若要使用命令列驗證多重路徑、請完成下列步驟：</block>
+  <block id="411ebc979cd3a229976869daa9547a33" category="list-text">開啟Windows命令提示字元。</block>
+  <block id="d4680a9ea0a2cb04b104f631e80d8264" category="list-text">執行mpclaim.exe -v c：\multipathconfig.txt以擷取多重路徑組態。</block>
+  <block id="0494482584ffb3a3845ebc27d94cf2c6" category="summary">離線移轉工作流程會在移轉程序的執行階段執行。離線工作流程圖顯示在主機、架構、目的地儲存設備和來源儲存設備上執行的工作。</block>
+  <block id="6696f8ecf38c4df0054e0dc95a616d3d" category="doc">離線移轉工作流程</block>
+  <block id="9295fcebcba793fecd195c670dd2da3b" category="image-alt">離線移轉1.</block>
+  <block id="3aa626aa3e52fc795314efbdb381efd0" category="paragraph">下表列出離線工作流程工作。</block>
+  <block id="df0069e14eb07d2a819349dd58bd76d3" category="list-text">重新啟動主機、並確認所有檔案系統均已掛載、所有LUN路徑均可用、且服務已啟動。</block>
+  <block id="39da6748c115a968eefbc1de1e2b9541" category="list-text">準備並關閉主機。</block>
+  <block id="7ffed12e17b32e17f8a38483f2198be6" category="list-text">移轉完成後、請開啟主機電源。</block>
+  <block id="4dcb8a1f0ffb02c6a6406ffb7f665672" category="list-text">將HBA設定為使用新的SAN開機LUN（僅限SAN開機）。</block>
+  <block id="9122ffb191708d707e29ae39997a7198" category="list-text">解除安裝協力廠商MPIO。</block>
+  <block id="d628b84fc468d86804cc06ba1ca5f9e3" category="list-text">安裝NetApp主機軟體並設定多重路徑。</block>
+  <block id="d13f1707dd4540ab89e46f932307b91e" category="list-text">驗證SAN開機LUN的所有路徑是否正常（僅適用於SAN開機）。</block>
+  <block id="4bc9c19bba8144b4f9a2a55e122ac715" category="list-text">更新系統檔案和組態以反映新裝置。</block>
+  <block id="7d9e9ba26600e47839078e9f2193d829" category="list-text">驗證所有LUN的所有路徑是否正常。</block>
+  <block id="dc65a262582faca85cd89f8164508b0a" category="list-text">重新啟用所有服務並重新開機主機（確認主機已備份、所有檔案系統均已掛載、所有服務均已啟動）。</block>
+  <block id="edde6aa783bd49b9a936ad7b450b769b" category="list-text">使用第二個路徑設定HBA、以存取新的SAN開機LUN（僅限SAN開機）。</block>
+  <block id="89cc65834beb6315d71e8bdaa6383b99" category="list-text">從來源儲存設備取消主機的分區。</block>
+  <block id="dbae8470bfb3042ecb4aa5dcab43ff77" category="list-text">建立主機對目的地儲存區域。</block>
+  <block id="33f9ea2477a1989746032a8b07f426ee" category="list-text">探索來源陣列和新LUN。</block>
+  <block id="50516e6e433cc6f7b8b04de730c51db4" category="list-text">將來源LUN標示為外部。</block>
+  <block id="5ffa0936b36ca05aba5b60f19ec05a42" category="list-text">使用外部LUN建立目的地LUN。</block>
+  <block id="c72e6804056053c287f81890c0afc323" category="list-text">建立主機啟動器igroup並將目的地LUN對應至igroup.移 轉Snapshot複本。</block>
+  <block id="92d04913d95e567db0eade77a2f62268" category="list-text">離線目的地LUN。</block>
+  <block id="3ec9f32db2a115e19e6b34327d82cd0c" category="list-text">建立匯入關係並開始匯入工作。</block>
+  <block id="ebb66c8c0fcbb645571f0570953e6511" category="list-text">建立驗證工作（選用）。</block>
+  <block id="4b85dae6890278fbe66752fc32084f13" category="list-text">刪除匯入關係。</block>
+  <block id="66f58964deb38b50e554671332547aae" category="list-text">將Foreign LUN（外部LUN）屬性標記為假。</block>
+  <block id="39cd355d97dce28f5e026aa23fc28f8f" category="list-text">線上目的地LUN。</block>
+  <block id="4939d1526ca79dca71526ac7f1e673a7" category="list-text">建立Snapshot®複本、以便復原目的地LUN。</block>
+  <block id="817503e6670519bc05ab7d4a1d4778bd" category="list-text">限制單一路徑的連線（僅限SAN開機）。</block>
+  <block id="a78fb88d77cf2dc16ee621112b80228d" category="list-text">將SAN開機LUN指派給主機；此時請勿指派資料LUN（僅限SAN開機）。</block>
+  <block id="ca4cc554a8366b8748dda87d750afb7d" category="list-text">確認所有主機連接埠均已登入。</block>
+  <block id="78272b6163e5a4b60e6d492152d66126" category="list-text">建立週期性Snapshot複本、以便復原目的地SAN開機LUN（僅限SAN開機）。</block>
+  <block id="69c3f43d2201d7905f27fddbec2c0326" category="list-text">啟用SAN開機LUN的所有路徑（僅SAN開機）。</block>
+  <block id="cf402b2796a184dcb647b18c5de9cb99" category="list-text">將資料LUN指派給主機。</block>
+  <block id="098bf1f091c0f909ac0d0455e4f33c73" category="list-text">建立最終Snapshot複本。</block>
+  <block id="342af600e8c0a79a1330e878e7932b92" category="list-text">將來源LUN指派給目的地儲存設備。</block>
+  <block id="41e9311c19ecdfb8da021abc760f8751" category="list-text">移除指派給目的地儲存設備的來源LUN。</block>
+  <block id="66c7867758c2b3c498c775a41f71905a" category="summary">此範例提供執行FLI轉換程序中斷轉換的一般步驟。</block>
+  <block id="2e25e3df612551716b573bfc4e48254c" category="doc">執行將FLI 7-Mode轉換為ONTAP VMware的中斷執行</block>
+  <block id="e751e6c6b3387c32a87a8633b44a7256" category="paragraph">如需Windows、Linux和ESXi主機的主機補救措施逐步解說、請參閱本指南的相關主題、以及主機作業系統和主機附加套件文件。</block>
+  <block id="a4d212c349a12dc67caaf1bdfa5e4d19" category="list-text">在7-Mode系統上、顯示來源LUN對應的igroup。</block>
+  <block id="db44befee07d23bb1b809e30950d2c3c" category="paragraph">執行unmap命令後、系統會立即開始中斷作業。一般而言、中斷時間可在幾分鐘內測量。這是將主機移至新NetApp目標並掃描LUN所需的時間長度。</block>
+  <block id="fa405c1c690c46367f1ef1157ddf641c" category="list-text">如果要匯入的LUN適用於ESXi主機、請檢閱並遵循_ESXi CAW/ATS修正主題中的指示。</block>
+  <block id="603c38097d9812f10e39fcf68d323217" category="list-text">使用「unmap」命令、將LUN從主機移出。（中斷時間從這裡開始。）</block>
+  <block id="17b0701d0156a56f3b06f4e8ca360a2d" category="list-text">驗證主機啟動器是否不再存在。</block>
+  <block id="81b4eb05f5436ff7d6fa2f03ab1c0cf7" category="list-text">在實體叢集上、將目的地LUN上線、然後確認其對應。ONTAP</block>
+  <block id="e62bb1753cacdbef374c3d6549f43f42" category="list-text">重新掃描主機上的磁碟；在ONTAP 支援對象上找到LUN。</block>
+  <block id="7cdc445c58172c8471e7b465bfbb2534" category="paragraph">中斷時間到此結束。</block>
+  <block id="54abc54782ef4714657f07e14443d8c1" category="paragraph">LUN已上線並對應、主機現在正在安裝新ONTAP 的以供代管的LUN。讀取內容會透過ONTAP the s還原 陣列傳遞至來源LUN、寫入內容會同時寫入新ONTAP 的支援服務LUN和原始來源LUN。在移轉完成且LUN關係中斷之前、來源和目的地LUN都會保持同步。</block>
+  <block id="b12a5b7eee8ff7bd1c62aa880f664e33" category="doc">Linux主機的多重路徑驗證</block>
+  <block id="aff363cb3b8ffb0d5a7f74faf9bf2325" category="paragraph">完成下列Linux主機步驟。</block>
+  <block id="fc4bfef573d1b61d7320da239869e523" category="list-text">若要驗證DM-MP多重路徑在Linux主機上是否已設定且正常運作、請執行下列命令：「multiPath-ll」</block>
+  <block id="d14e2b5319e65fca6ba432616eac77a8" category="summary">探索階段會收集成功移轉規劃與執行所需的客戶環境資訊。</block>
+  <block id="0cfaebcf4a89b4193b480502a8ca8d20" category="doc">探索階段資料收集程序</block>
+  <block id="55876228853abf632dec9346a4f372ec" category="inline-link">文件</block>
+  <block id="c9b0b0cdb99c109d54409d115823f6ca" category="paragraph">在資料收集階段使用Active IQ OneCollect如需完整詳細資料、請參閱Active IQ OneCollect 《關於<block ref="2f8e9d10eb7fb637d135022d03c2adab" category="inline-link-rx"></block>。</block>
+  <block id="b120b560a2fc94a9e5e45c4bda99e3ff" category="summary">正確的LUN遮罩組態是正確運作的關鍵。所有的啟動器連接埠（在兩個節點上）ONTAP 都必須位於相同的igroup中。</block>
+  <block id="dce719a9aac895b223304c1967dcde5c" category="doc">啟動器群組組態</block>
+  <block id="383c1da8f04fd86a0902b7f31225d32c" category="paragraph">FLI移轉需要NetApp儲存設備存取來源儲存LUN。若要啟用分區以外的存取、則必須使用目的地儲存設備啟動器連接埠的全球連接埠名稱（WWPN）、在來源儲存設備上建立啟動器群組。</block>
+  <block id="9e1efd8e3cc0da27fe19ca79fe307b28" category="admonition">本節範例使用Hitachi Data Systems（HDS）AMS陣列、因此外部陣列命令會因您要移轉的協力廠商陣列而異。</block>
+  <block id="6c375c86cc2d8da87fe6c53b02d86f3a" category="paragraph">請務必在NetApp陣列的啟動器群組上啟用非對稱邏輯單元存取（ALUA）。</block>
+  <block id="ecafb7bbe8ac6138b3bcaa4dbb87cdf4" category="paragraph">啟動器群組依廠商和產品的不同名稱而定。例如：</block>
+  <block id="68277581787c51534c39da3272275a4c" category="list-text">Hitachi Data Systems（HDS）使用「host group」（主機群組）。</block>
+  <block id="217090161a01082dfc5d14e0fb182f04" category="list-text">NetApp E系列使用「主機入門級」。</block>
+  <block id="a240b24dd20a7186ef47310e58829086" category="list-text">EMC使用「啟動器記錄」或「儲存群組」。</block>
+  <block id="62cc656c82973e8ebe8c1a1926a6d435" category="list-text">NetApp使用「igroup.」</block>
+  <block id="425d84ebe29c9da22fd1d2621c3dc21e" category="paragraph">無論命名規則為何、啟動器群組的用途都是透過共用相同LUN對應的WWPN來識別啟動器。</block>
+  <block id="de3f6d89ed583f1dd9cf88e665b994b9" category="paragraph">若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱《FlexArray 第三方儲存設備的_》《_》《虛擬化實作指南》、以瞭解第三方儲存組態需求。</block>
+  <block id="2e97596bf006ab4a63eb1ab1532e9166" category="inline-link">適用於協力廠商儲存設備的虛擬化實作FlexArray</block>
+  <block id="cac75528257d480d7397192a839ba0d5" category="paragraph"><block ref="cac75528257d480d7397192a839ba0d5" category="inline-link-rx"></block></block>
+  <block id="8802080a4dc2981f17e7c4648f43afe7" category="summary">在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含來源LUN的相關資訊。</block>
+  <block id="4037e8193f042717a79bf3fdefd4aae6" category="doc">站台調查與規劃工作表來源LUN索引標籤</block>
+  <block id="46fdb96658c0c805a565f783cb6eb4a2" category="paragraph">以下是如何設定來源LUN索引標籤的範例。</block>
+  <block id="2d1ef22a8170261433e49f3f13fa84f0" category="cell">來源LUN</block>
+  <block id="40336b4a1c70e07af22b9f21262986c6" category="paragraph">遮罩LUN</block>
+  <block id="05ae95ecb2f7d95ca46671f2f897261f" category="paragraph">儲存群組名稱</block>
+  <block id="810d83ecd7beb0a611c20100683a7a29" category="paragraph">主機LUN ID</block>
+  <block id="f2c1a8aa1a5dba14298dc15ab86f89fe" category="paragraph">陣列LUN ID</block>
+  <block id="0777a79b52ef0fea07a0a84f1a9dbaa1" category="paragraph">厚/薄</block>
+  <block id="e7d22294bdcb7133967c3548ece982e5" category="paragraph">UID</block>
+  <block id="cfcd208495d565ef66e7dff9f98764da" category="paragraph">0</block>
+  <block id="34173cb38f07f89ddbebc2ac9128303f" category="paragraph">30</block>
+  <block id="0a908b7941c6bfd50ba866821e83cd2b" category="paragraph">厚</block>
+  <block id="93b3ae8c057d357bb1c18b2d86e2f15d" category="paragraph">60060e801046b96004f2bf460000001e</block>
+  <block id="c4ca4238a0b923820dcc509a6f75849b" category="paragraph">1.</block>
+  <block id="aab3238922bcc25a6f606eb525ffdc56" category="paragraph">14</block>
+  <block id="9e94c459cc067652e6c139ae037e101d" category="paragraph">60060e801046b96004f2bf460000000e</block>
+  <block id="c81e728d9d4c2f636f067f89cc14862c" category="paragraph">2.</block>
+  <block id="9bf31c7ff062936a96d3c8bd1f8f2ff3" category="paragraph">15</block>
+  <block id="6c0b1505f0e4e77904908c3bd5751da6" category="paragraph">60060e801046b96004f2bf460000000f</block>
+  <block id="859bbe216d0947bdecdaf16ea962c801" category="paragraph">所有LUN .2a</block>
+  <block id="23124a0cebc0542d84709d8e266d5175" category="cell">自訂首碼</block>
+  <block id="43188da50098252bd688d8fdc94fa0c9" category="paragraph">LUN名稱</block>
+  <block id="a2028db730253321b2c891368a4720b5" category="paragraph">起始區段</block>
+  <block id="3c7344e5b218f090342709f3f664587f" category="paragraph">分割區偏移</block>
+  <block id="5d50df56461172dd7ee4729d48b65d36" category="cell">LUN30</block>
+  <block id="acb7ebb11014d0a8e3d38c764ff6f3d4" category="paragraph">368050176</block>
+  <block id="07eb13fbccaba4642b97f153c0944d33" category="paragraph">LUN14</block>
+  <block id="558325bdc5d5119e93467e7fe7fcea48" category="paragraph">33619968</block>
+  <block id="3498819c9e2fcba4d3ad19d511ca5791" category="paragraph">LUN15</block>
+  <block id="da561bf84fa67d613a7bc697632e7936" category="summary">在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含儲存群組的相關資訊。</block>
+  <block id="a2aabbf550b46ec2c7ba272d1cc49cfe" category="doc">站台調查與規劃工作表儲存群組索引標籤</block>
+  <block id="d11cedfe393a70a8914339a7ddcf0db4" category="paragraph">以下是如何設定「儲存群組」索引標籤的範例。</block>
+  <block id="e16f703e68085397177a15356b6f6195" category="cell">儲存群組</block>
+  <block id="12007e1d59f4d09c87dbe2c438256244" category="paragraph">目的地</block>
+  <block id="71e14e1f53e0c10dc815eae1e0682878" category="paragraph">儲存群組</block>
+  <block id="9507dd645d6ad56791c558168f66d3c5" category="paragraph">igroup命令</block>
+  <block id="7251b713b49e2e6be954fafc0fe27b6b" category="paragraph">21：00：00：24：ff：30：14：C5221：00：24：ff：30：14：c4</block>
+  <block id="290b88d0742b98941ed7618fe459bec1" category="paragraph">「igroup create -ostype" windows `-protocol' FCP `-vserver' datamig `-igroup' dm-rx200s6-21 `-initiator’21：00：00：24：ff：30：14：c4、21：00：24：ff：30：14：c5</block>
+  <block id="15a51affb5fc53cade38a72eb576e3ca" category="paragraph">DM-rx200s6-22</block>
+  <block id="d91d2501ebbdd78591417a13ccc46dcb" category="paragraph">21：00：00：24：ff：30：04：8521：00：24：ff：30：04：84</block>
+  <block id="c452f9aeebe9eb1d5fe45b104b9196d3" category="paragraph">「igroup create -ostype" Linux「-Protocol」FCP「-vserver」datamig「-igroup」dm-rx200s6-22「-initiator」21：00：24：ff：30：04：85、21：00：24：ff：30：04：84</block>
+  <block id="4ba5b6a831309528d9dc56c4b6c9d2bc" category="paragraph">DM-rx200s6-20</block>
+  <block id="a1f5a153bb25ffa89fc874e242492ae8" category="paragraph">21：00：00：24：ff：30：03：ea21：00：24：ff：30：03：EB</block>
+  <block id="ca4cbb35f003ffb63d5fef7c9ccb68ba" category="paragraph">'igroup create -ostype" VMware '-Protocol（協議）FCP '-vserver' datamig -'igroup' dm-rx200s6-20 '-initiator（啟動器）21：00：24：00：30：03：ea、21：00：24：ff：30：03：EB</block>
+  <block id="f9e0cb9ba50f068a2ac223e1fb2428e7" category="summary">FLI解決方案的設計旨在讓NetApp客戶享有這些優勢、並獲得卓越的價值。</block>
+  <block id="ebe284b6317268b9506fdcdb41331f0b" category="doc">基於FLI的解決方案的優點</block>
+  <block id="53d134f02bc4e40dc1a38a13c2b5f025" category="list-text">FLI內建ONTAP 於不需額外授權的功能。</block>
+  <block id="ce3b5246051a674a15f5382caab2cc12" category="list-text">FLI採用FlexArray 了不需FlexArray 使用支援的功能、但並不需要使用支援的功能。</block>
+  <block id="a6af658145c481e571f55cb606f4e3e3" category="list-text">FLI不需要額外的硬體應用裝置來進行資料移轉。</block>
+  <block id="601633186bcdcca37af13ab5aeaa6b02" category="list-text">基於FLI的解決方案可支援多種第三方儲存平台的移轉類型和組態。</block>
+  <block id="ff8176da561485db908ffcc196a65b8c" category="list-text">FLI會自動對齊LUN、並可將32位元Aggregate中的LUN移轉到ONTAP 位元組陣列上的64位元Aggregate。這使得FLI for 7-Mode成為ONTAP 將位於32位元Aggregate和/或未對齊的7-Mode託管LUN移轉的絕佳選擇。</block>
+  <block id="fdecad17e386bdc5ab1eca5d53907be3" category="summary">移轉程序的「探索」階段著重於收集用於主機補救的資訊、並在後續步驟中建立移轉計畫。大部分資訊的收集都是使用OneCollect 資料收集工具（例如：）來自動化。</block>
+  <block id="338c47dc58565ebf90b38f82b1a78ab1" category="doc">探索階段工作流程</block>
+  <block id="36bf5858463397b1ff924ea03c5822fc" category="paragraph">下圖顯示「探索」階段工作流程。</block>
+  <block id="46bc9d3fb968b4c71e1c07b8dee740c3" category="image-alt">探索階段1</block>
+  <block id="9f9080f3b976922f4cfc4db2052e5599" category="paragraph">下表列出探索階段工作。</block>
+  <block id="04320a61909653cc31562fa2760af192" category="list-text">識別HBA WWPN（用於區域建立）。</block>
+  <block id="5b9b6c7213c2067325eb7bd3d7ff0615" category="list-text">識別LUN資訊（大小、序號、分割區配置和偏移）。</block>
+  <block id="f810b0ce180c88a8eddccb8372adf0d1" category="list-text">識別第三方MPIO組態、主機作業系統、HB/CNA機型和韌體等。</block>
+  <block id="7d0ddd750a28d47551b20d6a5805295a" category="paragraph">識別主機對來源儲存區域。（移轉後移除）。</block>
+  <block id="72e7294de5e9af8aec62a686317160d0" category="paragraph">識別將用於啟動器/目標使用量之連接埠的WWPN。</block>
+  <block id="b7a0741ebdd8953defe4d1137412ce80" category="list-text">識別WWPN（用於區域建立）。</block>
+  <block id="fcf1d94475a05cdaeb4d16ce4665bc19" category="list-text">識別對應至主機的LUN。</block>
+  <block id="4db694fc7cadcfea617ef931365bbac7" category="list-text">識別主機的啟動器記錄。</block>
+  <block id="5de6b93b6bf9ec704eaeabd6643ae0c4" category="summary">FLI互通性對照表IMT （點菜）與FlexArray IMT 此類似、但新增為截然不同的互通性工具、以便更好地支援NetApp認證的來源陣列、與FLI搭配運作。</block>
+  <block id="2a37c6b1b4932254bf5792ec6f52e0fc" category="doc">FLI互通性與支援條件</block>
+  <block id="a4600dce963004a41457e38f18ab9470" category="paragraph">在執行外部LUN匯入之前、需要檢查兩個互通性領域：</block>
+  <block id="86af0a34f3847c9f63762fbabc885521" category="list-text">檢查是否支援FLI。您可以檢閱FLI IMT 才能做到這一點。</block>
+  <block id="12af4ba3cc49bf607fd7d0fb334e9167" category="list-text">在匯入完成後、檢查完整的端點對端點組態是否為支援的組態。這是從FAS/AFF IMT 支援中完成的。</block>
+  <block id="273fe665f80abbac555fbaecac2be654" category="paragraph">此外、請對照目標ONTAP 版本檢查這三項條件：</block>
+  <block id="719882350dd7f0a0d5ce924d9b280587" category="list-text">來源儲存平台模式與微碼版本。</block>
+  <block id="9b62752b414b792b6d99a22085bba7f1" category="list-text">SAN交換器機型和微碼版本。</block>
+  <block id="3280ebd308af09d428a66e6892fee625" category="list-text">移轉後掛載LUN的NetApp控制器、客戶環境（交換器、HBA、韌體、伺服器硬體等）和SAN附加用戶端。</block>
+  <block id="82666fc037e2bcc78b49a6ee9e0c7552" category="paragraph">如果這三個元件中的任何一個不受支援、則可能需要進行一些補救措施、以確保在移轉過程中和之後都能獲得完整的成功和支援。</block>
+  <block id="5944df1e5ed1e52e4fe16947c1409df9" category="summary">本程序說明從Cisco Fabric區域集移除來源儲存設備和主機區域。</block>
+  <block id="00638c4d1a05535ef1e35dda5d0df3aa" category="doc">Cisco Fabric範例</block>
+  <block id="86a4dc023813209073ffb6165caf17d6" category="paragraph">範例的區域名稱為_rx21_AMS2100。</block>
+  <block id="b5e2f9562a51f33a384ae7be1415ddac" category="list-text">從Fabric A的區域中移除區域</block>
+  <block id="43ba6657c4f4e7530405ab5336090456" category="list-text">從Fabric B的區域中移除區域</block>
+  <block id="68fe0d5323090e0130245cbabead23d6" category="list-text">在Fabric B中啟動區域集</block>
+  <block id="334f3b19fe4476b7bb42e2b23424b1b1" category="summary">如果您有Windows叢集、則需要移除仲裁磁碟的SCSI-3保留、即使所有叢集主機都離線。</block>
+  <block id="25006587c6eb133b6454333db22ccf83" category="doc">清除SCSI-3持續保留</block>
+  <block id="eaf1edb4af8f97f8b0aa752d18d9fc9c" category="paragraph">如果您嘗試將來源LUN標示為外部磁碟、將會出現下列錯誤訊息：</block>
+  <block id="fb35e3ce7ff14ee2a388ceef040b9f9b" category="paragraph">您可以使用「shorage disk remove-reservation（移除磁碟保留））指令、移除NetApp控制器上仲裁磁碟的SCSI-3保留：</block>
+  <block id="63307163e34daa85fc7fb4e76e1dc056" category="paragraph">以下是顯示此錯誤及其修正的程式碼片段：</block>
+  <block id="aaac0f62190964901b0fea7afcc7fdbd" category="summary">適用於異質SAN環境的資料移轉服務是使用FLI技術的全方位資料移轉解決方案。SAN資料移轉服務提供軟體與服務、可減少錯誤、提高生產力、並促進NetApp與合作夥伴專業服務的資料移轉一致交付。</block>
+  <block id="b7840b3a91b661e5d4610af4a93335ad" category="doc">適用於異質SAN環境的資料移轉服務</block>
+  <block id="0ac8eac04778079c6ad594b174769481" category="summary">在清理階段、您會收集FLI移轉記錄、從NetApp儲存設備移除來源儲存組態、以及從來源儲存設備移除NetApp儲存主機群組。此外、請刪除來源到目的地區域。驗證是決定移轉計畫執行準確度的點。</block>
+  <block id="20bbdcfc038dff8f2037bcceb8fba684" category="doc">FLI移轉清除與驗證階段</block>
+  <block id="867b7d1a29ec491bab311a19c0c1a0b8" category="paragraph">檢閱記錄檔中是否有錯誤、檢查路徑、並執行任何應用程式測試、以確認移轉是否順利完成。</block>
+  <block id="85dcd53bfc5f07c4a98d73313b4f570e" category="summary">FLI移轉需要NetApp儲存設備存取來源儲存LUN。這是透過將來源儲存設備的目標連接埠與目的地儲存設備的啟動器連接埠分區來達成的。</block>
+  <block id="2d7aac8e15b885459bdb591f875227ce" category="doc">目標和啟動器連接埠分區</block>
+  <block id="0563060901338899c028f626f4134563" category="paragraph">不會修改現有的來源儲存設備對主機區域、並在移轉後停用這些區域。建立主機對目的地儲存區域、以便主機從目的地儲存設備存取移轉的LUN。</block>
+  <block id="0d746ac95713ef6642cc8474a8d4baf1" category="paragraph">使用FLI的標準移轉案例需要四個不同的區域：</block>
+  <block id="90b71c66184e127a11eaca1e2a141dac" category="list-text">區域1：來源儲存設備至目的地儲存設備（正式作業架構A）</block>
+  <block id="b6030be1f62325e351d4008a1193eaac" category="list-text">區域2：來源儲存設備至目的地儲存設備（正式作業光纖B）</block>
+  <block id="c1f55c7f19961f8ad3c3d0746aa3869e" category="list-text">區域3：主機對目的地儲存設備（正式作業架構A）</block>
+  <block id="38efe369f6e22dbb3571834642ba9fd1" category="list-text">區域4：主機對目的地儲存設備（正式作業架構B）</block>
+  <block id="2523d9153706772df49042f8b87bd471" category="paragraph">請遵循以下分區最佳實務做法：</block>
+  <block id="7036856ae6a95de9965acbb4e798ff83" category="list-text">請勿將來源儲存目標連接埠與目的地儲存目標連接埠混合在同一個區域中。</block>
+  <block id="83e7878713ac249fdaf1405ee579f682" category="list-text">請勿在同一個區域中混用目的地儲存啟動器連接埠和主機連接埠。</block>
+  <block id="cd9a88973af1109a8a9828173f659fbe" category="list-text">請勿在同一個區域中混用目的地儲存目標和啟動器連接埠。</block>
+  <block id="a60871b937694e238a7fb4df8dd845dc" category="list-text">每個控制器至少有兩個連接埠的區域、以提供備援。</block>
+  <block id="82bd7f7b91a82be864fdc288e4d2942a" category="list-text">NetApp建議使用單一啟動器和單一目標分區。</block>
+  <block id="f2aa598dc9b960de0d61fb97a0f29e59" category="paragraph">將來源儲存目標連接埠與目的地儲存啟動器連接埠分區之後、使用儲存陣列show命令即可在目的地儲存設備中看到來源儲存設備。第一次探索儲存陣列時、NetApp控制器可能不會自動顯示陣列。請重設ONTAP 連接了交換器連接埠的交換器連接埠、以修正此問題。</block>
+  <block id="ee499a8b98fda959d00d7caca3584161" category="summary">由於Foreign LUN Import（FLI）採用FlexArray 了以物件為基礎的技術來掛載外部LUN、因此只能使用FCP來連線至來源陣列。FLI僅支援FC LUN。不過、有一項因應措施可讓您匯入iSCSI LUN。因為您將iSCSI LUN匯入為FC LUN、而不像其他FLI線上7-Mode匯入ONTAP 到各個工作流程、因此中斷時間會橫跨整個工作流程：</block>
+  <block id="8c83908f3246c4ea01517197b1f0a841" category="doc">匯入非FC LUN</block>
+  <block id="dc54dc0df5ad07a6c087036a2585ee52" category="paragraph">因為您將iSCSI LUN匯入為FC LUN、而不像其他FLI線上7-Mode匯入ONTAP 到各個工作流程、因此中斷時間會橫跨整個工作流程。</block>
+  <block id="e7ce7ac413ef9c629400cec0539ce23e" category="list-text">在來源陣列上、您需要從iSCSI igroup中取消對應所需的iSCSI LUN。</block>
+  <block id="842e827119a02e372de448435365debd" category="list-text">在來源陣列上、將LUN對應至FC igroup、確保目的地陣列WWPN已新增至igroup。</block>
+  <block id="0258050cca747222a2b609aa3285e960" category="list-text">匯入LUN。</block>
+  <block id="23c60b9a16c85bf54bf9deb89552d63e" category="list-text">匯入LUN之後、您可以建立新的iSCSI igroup、並將主機新增至igroup。</block>
+  <block id="e16c7b5aab5d164850b42f6028a1861d" category="list-text">在主機上、重新掃描LUN。</block>
+  <block id="2d38b1ddaadd9ebf668f48aacb8534ef" category="paragraph">請參閱IMT NetApp支援網站上的互通性對照表工具（英文）、以驗證您的特定環境是否支援本文所述的確切產品與功能版本。NetApp IMT 解決方案定義了可用於建構NetApp支援組態的產品元件和版本。具體結果取決於每位客戶依照已發佈規格所安裝的產品。</block>
+  <block id="c5d3e2252c6e6bd9e8d96c4cab706dea" category="summary">「分析」階段著重於移轉活動之前必須先處理的項目。主機組態資訊必須與NetApp互通性對照表IMT （NetApp Interoperability Matrix、簡稱「NetApp互通性對照表」）中所述的支援組態進行比較。</block>
+  <block id="8ba89e51b3d890505e472db571ec3a7c" category="doc">分析階段IMT 的最佳實務做法</block>
+  <block id="8a2a301e8347a58fa5fcec72e3e86763" category="paragraph">此功能為網路型公用程式、可搜尋與NetApp合格協力廠商產品和元件搭配使用之NetApp產品組態的相關資訊。IMT此支援與認證的NetApp組態均包含在內。IMT支援的組態必須符合NetApp的資格。認證組態是指符合第三方公司使用NetApp元件資格的組態。</block>
+  <block id="d69a23b8d6fe4971d7f2af3d695c5d42" category="section-title">最佳實務做法IMT</block>
+  <block id="c2876a5bfe1c981f3e417ec46a12c137" category="list-text">在IMT 規劃工作表的「交換器和主機」區段中、輸入所需軟體和升級的NetApp解決方案建議。</block>
+  <block id="a40164db08647aaaa21bf2393356342a" category="list-text">首先、將ONTAP 靜態資訊（例如、靜止OS、傳輸協定和CF模式）輸入IMT 到這個功能。然後、使用站台調查做為篩選指南、輸入主機作業系統、Volume Manager和HBA資訊。</block>
+  <block id="fc00cf78392da95d5c61c5338119d7cb" category="list-text">請勿太具體、以免傳回任何結果；最好檢視多個傳回的結果、然後選擇最適合的結果。</block>
+  <block id="6c33f5ffdac3f6628740f0a07c7efe16" category="list-text">主機HBA有時會在OEM零件編號上報告、而且在輸入IMT 到該等主機HBA之前、必須交叉參考。</block>
+  <block id="72478fd6b5d450d3dac62d2334efecf6" category="list-text">請對照IMT 支援功能檢查每個主機。</block>
+  <block id="86033efc4416bb3a4b039fe0b75a7246" category="summary">此範例提供執行FLI線上移轉程序中斷轉換的一般步驟。</block>
+  <block id="b2da880bb7635a9dcafebf8a42591f94" category="doc">FLI線上：執行中斷轉換</block>
+  <block id="cf4a2b53966e70213ad267a1c1279b4b" category="paragraph">如需Windows、Linux和ESXi的主機補救措施逐步解說、請參閱本指南的後續章節、以及主機作業系統和主機附加套件文件。</block>
+  <block id="9102d2bd767786e8cafc761c37a28e54" category="list-text">在外部陣列上、顯示來源LUN對應的儲存群組。</block>
+  <block id="fddddd7a97fdb8107f56ba77d9476d32" category="paragraph">請參閱廠商文件以取得適當的命令。</block>
+  <block id="9fb4f6256efe0b6b490a08f20929478c" category="list-text">如果要匯入的LUN適用於ESXi主機、請檢閱並遵循_ESXi CAW/ATS修正主題的指示。</block>
+  <block id="c8d2e983a9014f6573d14c7d2c50ff00" category="list-text">從主機取消對應來源LUN。</block>
+  <block id="69130ab4bf9fdc83bd37c5a753c370d5" category="paragraph">中斷時間從這裡開始。</block>
+  <block id="45e5cead6f4c938fd5c9b6926b5c45bc" category="paragraph">執行「unmap」命令之後、就會立即開始中斷作業。一般而言、中斷時間可在幾分鐘內測量。中斷時間是指將主機重新指向新的NetApp目標並掃描LUN所需的時間。</block>
+  <block id="a5f565c20b87b887972f662bd1f8437b" category="paragraph">您必須確保這是唯一對應至此igroup的LUN、因為從igroup移除主機（啟動器）會影響對應到igroup的其他LUN。請參閱廠商文件以取得適當的命令。</block>
+  <block id="37e04ee8948ba70cdf6dc961eba49885" category="list-text">在實體叢集上、將目的地LUN上線、然後確認其已對應。ONTAP</block>
+  <block id="9cf9f0264b885c9e40725b13ba4cd3ce" category="list-text">驗證LUN是否在線上。</block>
+  <block id="add603645f482a847ea6b7acbc0ae35e" category="list-text">重新掃描主機上的磁碟、在ONTAP 支援對象上找到LUN、然後確認DSM已宣告LUN。</block>
+  <block id="62ddf93785f8cb7e456250037b47316e" category="list-text">請確認您可以查看所有預期路徑、並檢查事件記錄以確認不存在任何錯誤。</block>
+  <block id="89b29bd795314f0b4fc8e93a0a91e106" category="paragraph">此時、此移轉作業的中斷部分已經完成、除非有未完成的主機補救工作（在您的分析和規劃階段中加以識別）會造成中斷。</block>
+  <block id="f5bfe3ff4b751a995339504356b6a691" category="paragraph">LUN已連線並對應、主機現在正在掛載新的ONTAP託管LUN。讀取內容會透過ONTAP the sunse-Array傳送到來源LUN、寫入內容會寫入新的ONTAP託管LUN和原始來源LUN。來源LUN和目的地LUN會保持同步、直到移轉完成且LUN關係中斷為止。</block>
+  <block id="0d5c34a6d2d41eb1d2d8330835270135" category="summary">資料移轉程序的規劃階段著重於建立詳細移轉計畫所需的工作、並確保所有工作都已準備好進行實際移轉。大部分的移轉工作都是在此階段執行的規劃。</block>
+  <block id="eac3a1a74e25173545de3b7efc1d8b80" category="doc">規劃階段工作流程</block>
+  <block id="0264e1e7f4ae9cc5f9ba5ebe373f57f4" category="paragraph">規劃階段是使用分析階段收集的主機落差分析資訊來擬定補救計畫。規劃時請使用主機補救資訊。驗證端點對端點連線後、會執行測試移轉、以確保在開始正式作業移轉之前、所有項目都已正確設定。</block>
+  <block id="9795dd3baed0cc837e1b9cf32a4ccc4a" category="paragraph">下圖顯示計畫工作流程。</block>
+  <block id="1946a9dc1ec2894c2234c5ba4d6a5c54" category="image-alt">規劃及準備階段1</block>
+  <block id="143c0fe5adf5779ad85956e27f8c6976" category="paragraph">下表列出規劃階段工作。</block>
+  <block id="612160c830618272ed4c07bdf0279fd3" category="list-text">備份現有的區域集。</block>
+  <block id="be13c48aabcbfa550f5272ec96d5ee4b" category="list-text">將來源儲存設備分區至目的地儲存設備。</block>
+  <block id="f91fe921e2cb5678f810267ad4821614" category="list-text">將啟動器連接埠連接至Fabric。</block>
+  <block id="8b5e513dbb2d978c90d0638d390ec7a3" category="list-text">探索來源儲存設備並測試LUN。將來源LUN標示為外部LUN。</block>
+  <block id="0ea64a2d0c2ec6081e63669e255b06b4" category="list-text">使用外部LUN建立測試LUN。</block>
+  <block id="5a228bfc3c958e8197e88901f5109173" category="list-text">建立測試igroup和對應測試LUN。</block>
+  <block id="66bfd800d23df5177030f5ced90cc5d4" category="list-text">離線測試LUN。</block>
+  <block id="3f06e7f1198ba8a2316271b777fb4a86" category="list-text">建立匯入關係並開始測試移轉。</block>
+  <block id="d0cbf31fdfc6212f4d9c6c2947bae517" category="list-text">刪除匯入關係並取消對應測試LUN。</block>
+  <block id="69490deb4a1399cd7f7cac6a9595dee0" category="list-text">移除測試LUN。</block>
+  <block id="3bdb3eeb4374f515d55cadf9b0eea48b" category="list-text">使用啟動器連接埠WWPN建立目的地儲存設備的主機群組。</block>
+  <block id="6898bdcc3b373b911a309ad3bd771de2" category="list-text">建立測試LUN（1GB）。</block>
+  <block id="cb3d5d2eaf6c7842ca58c3e41c3a5ae0" category="list-text">將（對應/遮罩）測試LUN指派給目的地儲存主機群組。</block>
+  <block id="045bb7f394081f70ce3add288d7e644b" category="summary">有許多變數會影響特定移轉的完成速度。</block>
+  <block id="505cf96304054bdc1c6da4b5668b14ff" category="doc">影響外部LUN匯入移轉效能的變數</block>
+  <block id="fd39293f93d0491f286d43a27cdaac04" category="paragraph">這些變數包括：</block>
+  <block id="3e57586f79515947b480528238ec8e5c" category="list-text">指定來源與目的地之間執行的並行移轉數</block>
+  <block id="edb5d75a567465059d799e4d6c77b513" category="list-text">來源陣列功能</block>
+  <block id="399af2247fd62e4e9b9f5a62d4fb3caf" category="list-text">來源陣列負載</block>
+  <block id="afb83782c946ec77f359d898a09f9265" category="list-text">目的地陣列功能</block>
+  <block id="bf0fae36f8059147b7c68ea63bfc081a" category="list-text">目的地陣列負載</block>
+  <block id="e883d9d4c5e2b39bedda415fc7fbcadc" category="list-text">移轉期間、LUN產生多少I/O</block>
+  <block id="b870d2cb22e176000a29b6b235963311" category="list-text">前端架構的類型、頻寬和連入/連出</block>
+  <block id="58fac9965070c2993e0dc99716fe7471" category="paragraph">為獲得最佳效能、每個節點最多可同時執行16次FLI移轉。</block>
+  <block id="97c38c351fb7d370354c3c32a08f8a79" category="paragraph">根據影響移轉效能的變數數量、建議執行多項測試移轉。一般而言、測試樣本越大、特性分析就越好。因此、我們建議您執行多項不同規模的測試移轉、以取得正確的處理量效能取樣。然後、這些測試的效能資料可用來推斷規劃的正式作業移轉的時間和持續時間。</block>
+  <block id="86fa04f5a596e6f9f13f9033ee5fc85e" category="summary">使用FLI的標準移轉案例需要四個不同的區域。您應該在每個區域中包含特定的連接埠。</block>
+  <block id="1c277dacf0a919a6930125acd1208bce" category="doc">FLI分區要求</block>
+  <block id="29f1f61f2d914a97b194e33d1c2ff993" category="paragraph">區域1應包含所有節點上的所有目的地儲存啟動器、以及Fabric A中的所有來源儲存目標連接埠區域成員包括：</block>
+  <block id="9bf4b910f4f253458069b57912f24a35" category="list-text">–Node1 - ONTAP 0A</block>
+  <block id="387ba8367f6e416fe34b8a3f5d78d3f2" category="list-text">–Node2 - ONTAP 0A</block>
+  <block id="437c2b32b9333d481369ae78dc508fd2" category="list-text">AMS2100 -- Ctrl0 -- 0A</block>
+  <block id="49003bd132a25334a9d2dc05e9f48f26" category="list-text">AMS2100 -- Ctrl1 -- 1a.</block>
+  <block id="3937e6e9efcf848b295750285a00e138" category="paragraph">區域2應包含所有節點上的所有目的地儲存啟動器連接埠、以及Fabric B中的所有來源儲存目標連接埠區域2成員包括：</block>
+  <block id="8ea7121941ea9db447e0d701b9d59c1d" category="list-text">–Node1 - ONTAP 0b</block>
+  <block id="0be431a5667b7c4af27ab67f3361e73d" category="list-text">系統資訊- Node2 - ONTAP 0b</block>
+  <block id="502f0eac5a9e2c1e5a66769cab6af3f6" category="list-text">AMS2100 -- Ctrl0 -- 0e</block>
+  <block id="cef6a8e1dda9e8d924f8c52b0fef0904" category="list-text">AMS2100 -- Ctrl1 -- 1e</block>
+  <block id="b2e53b193a576511a7908fa15e95510d" category="paragraph">區域3應包含主機匯流排介面卡（HBA）連接埠1、以及正式作業Fabric A中的目的地控制器連接埠區域3成員包括：</block>
+  <block id="34df502205cb3b64b1dd503847376e3f" category="list-text">支援：生命1 ONTAP</block>
+  <block id="49dafa1618818febd6eaed5310784ebc" category="list-text">資訊- ONTAP lif3.</block>
+  <block id="9e07ac2530b2c6662f227b5cc640d14d" category="list-text">主機- HBA0</block>
+  <block id="76425fc1ef5dd7aefe87c845548575c1" category="paragraph">區域4應包含HBA連接埠2和正式作業架構B中的目的地控制器連接埠區域4成員包括：</block>
+  <block id="4e1ed3227dfcee53d459b792bd2b20f2" category="list-text">資訊- ONTAP lif2.</block>
+  <block id="eb7f37cab69cb683edf87546f5deda9a" category="list-text">資訊- ONTAP lif4.</block>
+  <block id="afea8a996a083d63c7d2d2dd0966b15f" category="list-text">主機- HBA1</block>
+  <block id="c325740b88bc7824de214f4d6e733701" category="summary">資料移轉方案可建立資料移轉解決方案、讓客戶更輕鬆地移轉至NetApp儲存設備、並將LUN從NetApp 7-Mode移轉至ONTAP VMware。外部LUN匯入（FLI）是資料移轉產品組合的一部分。</block>
+  <block id="d7371dc776676e3a6d70db24fcc2e188" category="doc">資料移轉方案總覽</block>
+  <block id="e839b6988533f4d5776ce1903e47ded0" category="paragraph">此方案提供成功移轉資料所需的必要工具、產品和服務輔助資料、藉此提升生產力。透過提供適當的技能和知識來執行資料移轉、本方案旨在加速採用NetApp技術。</block>
+  <block id="5fa18b883fe64a43fd9c938e377a5347" category="summary">完成所有移轉、移轉和驗證之後、您就可以取消來源陣列和目的地陣列的分區。</block>
+  <block id="5106f178a263fac201d176277c0f4abc" category="doc">取消來源陣列和目的地陣列的分區</block>
+  <block id="4bb52e37f09fec839d0dc6ba1defa384" category="paragraph">若要取消來源陣列和目的地陣列的分區、請從兩個Fabric移除來源儲存設備到目的地區域。</block>
+  <block id="c5f483d1696c8d031a140ac05463cbff" category="paragraph">Brocade網路範例</block>
+  <block id="74863323244304aff10b35c32c31abb4" category="list-text">在Fabric A中啟動區域</block>
+  <block id="e9497856652d0046bf57cfde9533357c" category="list-text">在Fabric B中啟動區域</block>
+  <block id="da0ef72dfd2318a7b3ea7fd19201f389" category="summary">您可以選擇在啟動此工作流程之前重新開機主機、以驗證主機是否處於已知的正常狀態。</block>
+  <block id="76f2c890386ab31204bf3f74245ae16c" category="doc">重新開機主機</block>
+  <block id="ed8da47fbc7988ca0a06eddd16d8037e" category="paragraph">在重新啟動主機之前、您也應該先製作Snapshot複本、以便日後需要時進行還原。若要確認伺服器組態在重新開機後持續且不變、請完成下列步驟：</block>
+  <block id="915fd36cea0113ed597d22509c21831d" category="list-text">關閉所有開啟的應用程式。</block>
+  <block id="8418b94a2a307b3e96b6474bc55e08b7" category="list-text">重新啟動主機。</block>
+  <block id="b433d62b93139571f2c5e75d00980d3f" category="list-text">檢閱記錄以找出錯誤。</block>
+  <block id="7e213ad16c9a59879f7a880ec25c8ff7" category="summary">FLI線上工作流程可用於連接至執行下列其中一種作業系統之主機的LUN。</block>
+  <block id="756160f9a9295d0e21e6988cef242402" category="doc">FLI線上支援的主機作業系統</block>
+  <block id="1e56b897e242c05a6e77f4537273968f" category="list-text">Microsoft（支援列出的所有伺服器版本）：</block>
+  <block id="b378e5b6db47fe787cbe646bc532a609" category="list-text">Windows Server 2008（包括Windows Server容錯移轉叢集）</block>
+  <block id="1f1a25e978da1c016c63c585cbc52e10" category="list-text">Microsoft Hyper-V Server 2008</block>
+  <block id="d50eec67d4e661b4eb86bf373683aaf4" category="list-text">Windows Server 2012（包括Windows Server 2012叢集）</block>
+  <block id="92a116390e39269df1b7c4595a775509" category="list-text">Microsoft Hyper-V Server 2012</block>
+  <block id="606e3e56eb022ae65c21a710d0cbdd26" category="list-text">VMware：</block>
+  <block id="452277a14e52bd8c8634c1b09b21ba6f" category="list-text">所有ESXi 5.x版本</block>
+  <block id="82c6ab7bfe1f9fbf789b4f7f57b56c24" category="list-text">Linux：</block>
+  <block id="7b89b319ca7225ccbc9bb3fd9f5537ac" category="list-text">Red Hat Enterprise Linux（RHEL）5.x / 6.x</block>
+  <block id="28bbf286cd32c930a00eb1e625c5bff0" category="paragraph">請考慮將FLI離線工作流程用於前述清單中未列出的主機作業系統。</block>
+  <block id="f928088b6e4c30670d8787a5fced1d76" category="paragraph">如果NetApp控制器目的地MetroCluster 是一個不景點、請勿使用線上工作流程。如果在作用中的線上匯入期間發生站台容錯移轉、則寫入到來源陣列的傳遞可能會失敗、進而導致驗證失敗和可能的資料遺失。如果目的地MetroCluster 是不支援的、請使用FLI離線程序、無論主機作業系統為何。</block>
+  <block id="8770610db40a53a03c108175b271b913" category="summary">以下是正式作業架構A中的Cisco Fabric範例</block>
+  <block id="a8fed5a2ca2d65761448f6ed9aa9205f" category="doc">生產架構中的Cisco Fabric就是一個例子</block>
+  <block id="649af838f80334608d3f85b2c8bcf6c6" category="list-text">在正式作業架構A中建立區域</block>
+  <block id="18f3717603a0469912a341c387795b1b" category="list-text">在正式作業架構A中啟動區域</block>
+  <block id="d5fe299d7d92cd0254874c8e18bd6667" category="summary">在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含移轉排程的相關資訊。</block>
+  <block id="9ae6059c986f115d805804d9750f95c8" category="doc">站台調查與規劃工作表移轉排程索引標籤</block>
+  <block id="d658998d22d4a15ffcb56abb26b97f6c" category="paragraph">以下是如何設定「移轉排程」索引標籤的範例。</block>
+  <block id="fe04e35b1feab9596669e8b60e5143b8" category="cell">移轉排程</block>
+  <block id="db5249c8de64163f6987af1bf7d7b50f" category="paragraph">移轉日期</block>
+  <block id="17bc10091293fdc562a6db69940ee924" category="paragraph">作業系統</block>
+  <block id="e498749f3c42246d50b15c81c101d988" category="paragraph">應用程式</block>
+  <block id="ef2b61b23e1bf2d08495a3a1255cd612" category="paragraph">儲存控制器</block>
+  <block id="dca32f658f14cf473c85b33f111fb660" category="paragraph">LUN UID</block>
+  <block id="43435c05e45d87cb6fa23f7523ba2959" category="paragraph">LUN大小</block>
+  <block id="ec53a8c4f07baed5d8825072c89799be" category="paragraph">狀態</block>
+  <block id="ee3c3a8b2f3a842e463f69562d71d6e7" category="summary">FLI移轉程序是適用於任何資料移轉的五階段方法：探索、分析、規劃、執行及驗證。</block>
+  <block id="295b519ef048bff2edb8931d30976e63" category="doc">移轉程序總覽</block>
+  <block id="862890f7840385152b7e001fc849d3ea" category="image-alt">五階段移轉方法</block>
+  <block id="ce4f0621e8f1bf1e49980aaf4a5f7334" category="paragraph">這些階段提供一般架構、可協助識別在整個移轉程序中執行一般工作的位置。本節圖表顯示可在主機、架構、目的地儲存設備及來源儲存設備等四大主要元件中同時執行的工作。</block>
+  <block id="3001e4ae08bf9a79c89dd57343beab35" category="summary">線上FLI不支援VMware原子測試與設定（ATS）/SCSI比較與寫入（CAW）。如果您使用的是VMFS5、而且來源陣列支援CAW、這一點很重要。若要修復主機、您必須遵循本節所述的程序。</block>
+  <block id="4647cab828c01608536e096c16a296f6" category="doc">ESXi CAW/ATS補救</block>
+  <block id="e8ecd4d0b2a51d73e1b5ecd19ca6985b" category="paragraph">FLI線上LUN關係不支援ATS / CAW命令、而VMFS5檔案系統會在目的地ESXi 5.x主機上無法掛載。這是VMware在VMFS5標頭上維護ATS位元的結果、此標頭會強制執行CAW/ATS、而且不允許標頭在沒有ATS的主機或陣列上運作。ATS位元會裝載在VMFS標頭中、這是_分割區_中列出的第一個LUN的一部分。這是唯一需要修正的LUN（如果列出多個範圍）。</block>
+  <block id="62e58027176c815788550db4eae6864e" category="paragraph">如果LUN由多個主機共用、則在其中一個主機上更新LUN就足夠了。所有其他主機會在重新掃描後自動更新。如果任何共享主機的VM或ESXi使用中I/O都在LUN上執行、則停用ATS / CAW將會失敗。我們建議您在進行必要的ATS / CAW變更的同時、關閉共享LUN的VM和其他主機機器。此動作可在適當FLI工作流程的「中斷連接」區段中所列的主機重新定位/轉換的中斷部分開始時執行。</block>
+  <block id="af500a5659130b953b1aaa544c6a0927" category="paragraph">如果LUN由多個主機共用、則在啟用或停用ATS位元時、所有主機都必須離線。啟用或停用ATS之後、您將需要重新整理LUN。完成任何重新對應之後、您就可以將主機重新啟動、並確認您能夠存取LUN。</block>
+  <block id="d4c0da0e413010dec4d7c586a702cb9a" category="paragraph">如果您執行的是舊版VMFS、或是從舊版升級、則不需要執行任何補救。如果您確實需要啟用或停用ATS / CAW、可以使用下列命令。不過、如果VM處於作用中狀態、且VMFS5資料存放區有任何I/O執行、則兩者都無法運作。我們建議關閉主機、進行必要的ATS / CAW變更、並執行適當FLI工作流程中「中斷連接」區段所列的主機復原點/轉換的其他中斷部分。</block>
+  <block id="b9125bb0d0a2719952566e797bbc87d8" category="paragraph">您可以執行下列命令來檢查ATS / CAW狀態：</block>
+  <block id="1e82f5734f8c489d66bfd28dadbe2e7b" category="paragraph">如果模式已列出「_publiconal_ only」這個字、則不需要進行任何補救。在上述情況下、_publicATS專屬_表示系統會啟用ATS、而且必須停用、直到匯入完成為止、之後才能重新啟用。</block>
+  <block id="786f914160b8e10857d5043def09e1f5" category="paragraph">若要停用LUN上的ATS / CAW、請使用下列命令：</block>
+  <block id="bcd5c5dc804423a93948f3bfaaf2b8d0" category="paragraph">若要重新啟用ATS / CAW、請在移轉完成後、使用：</block>
+  <block id="f5462af8558e5af6c13d019a04719a8a" category="summary">FLI支援四種主要移轉工作流程：線上、離線、移轉和自動化。您選擇要使用的工作流程取決於您的組態和其他因素。</block>
+  <block id="3474ed6ca7314741c6cb3f8b13513427" category="doc">外部LUN匯入支援的移轉類型</block>
+  <block id="b768b2ec7c2e8900de4a9fffb717a780" category="list-text">在線上移轉中、從協力廠商陣列移轉的FLI可讓用戶端系統在移轉期間保持連線（需要Windows、Linux或ESXi主機作業系統）。</block>
+  <block id="bb127db0e6dffe1777a9bc3bbf1ecc82" category="list-text">在離線移轉中、來自協力廠商陣列的FLI會使用戶端系統離線、並將資料複製到新的LUN、然後再重新連線。</block>
+  <block id="b33a9293c8c067048b0e027cc7820941" category="list-text">在轉換移轉過程中、FLI會將ONTAP 以7-Mode運作的功能從功能轉換為ONTAP 功能。除了來源陣列ONTAP 是指不一樣的程序、這項功能完全相同。轉換工作流程可在線上或離線模式下使用。</block>
+  <block id="44023aa16885f326f40c8d26a3d792dc" category="list-text">在自動化移轉中、FLI使用工作流程自動化（WFA）軟體來自動化部分移轉程序。配備WFA的FLI可在線上或離線模式下使用。</block>
+  <block id="ed84643b976a61e35dab90c06a1328ad" category="paragraph">在架構上、這三項移轉作業與移轉工作流程相當類似。所有四個都仰賴NetApp FlexArray 的支援技術、讓ONTAP 您的支援區塊控制器在來源陣列前做為啟動器、並使用該位置將來源區塊的LUN區塊複製到目的地ONTAP 不支援區陣列上的LUN。</block>
+  <block id="4d01f8ae44780dd783a9a1352d13eb15" category="paragraph">工作流程之間的差異、必須與轉換發生時間、中斷時間長度、自動化使用、或來源陣列是執行ONTAP VMware 7-Mode或協力廠商陣列的NetApp陣列有關。</block>
+  <block id="9299ae51d5e390720987a49406f73c6c" category="summary">NetApp強烈建議提供專業服務或合作夥伴專業服務、參與範圍及規劃移轉、以及訓練客戶人員如何使用Foreign LUN Import（FLI）7-Mode移轉ONTAP 至VMware。</block>
+  <block id="f753541c5d892f8a9d6e619e1f12a453" category="doc">外部LUN匯入移轉的最佳實務做法</block>
+  <block id="abd3135fb8cc34861bf159eb9d6f9e1c" category="list-text">至少在移轉專案開始前一週執行一或多項測試移轉、以驗證組態、連線能力及處理量、找出任何其他問題、並驗證您的方法。</block>
+  <block id="d1c7f10a927287be4073a34e717a5457" category="list-text">為達到最大處理量、每個節點並行執行的移轉數量不得超過16個。</block>
+  <block id="997bde6f8aeb06462396e64a48376619" category="list-text">不需要驗證、但我們建議您驗證匯入/移轉的LUN子集、以驗證匯入程序。</block>
+  <block id="6ebdcce65dc30ad6215f899723a270d0" category="list-text">使用測試移轉中觀察到的處理量來規劃正式作業移轉期間。</block>
+  <block id="928e8e4816fd7cf3aebdd8ef9da4d8ac" category="list-text">為獲得最佳效能、請在非尖峰需求期間移轉LUN。</block>
+  <block id="4b5cb83d8cd3443786bcae757daddd3c" category="summary">資料移轉所帶來的一些挑戰包括延長停機時間、潛在風險、資源匱乏及專業知識不足。</block>
+  <block id="aa5697a54463f92c391659bc3be3a016" category="doc">資料移轉挑戰</block>
+  <block id="7054980f6214b91459bce8f20151d2a1" category="paragraph">資料可用度要求越來越嚴苛、停機時間也越來越難以接受、因此業務營運部門必須推動資料移轉程序。任何資料移轉程序都會考量效能對正式作業系統的影響、潛在的資料毀損和遺失等風險因素。</block>
+  <block id="bce9fade38befeda7e50ae556c80a80a" category="summary">線上移轉工作流程是在移轉程序的執行階段執行。線上工作流程圖顯示在主機、架構、目的地儲存設備和來源儲存設備上執行的工作。</block>
+  <block id="2fb3498de44b62c20b8ce57d8d187b14" category="doc">線上移轉工作流程</block>
+  <block id="22c6c33d6054ef7fe383f8db81dd5c8d" category="image-alt">線上移轉1.</block>
+  <block id="9f6801036d4e8f2676721826ab34c70e" category="paragraph">下表列出線上工作流程工作。</block>
+  <block id="31798a9391676be4271bb9ab303fc563" category="list-text">確認所有檔案系統均已掛載、且所有LUN路徑和應用程式均可供使用。</block>
+  <block id="16596591fc43c3ec50554eab5f344abb" category="list-text">*可選：*如果要匯入的LUN適用於ESX、請檢閱附錄A：ESX CAW/ATS修正中的指示、並遵循其中的指示進行。</block>
+  <block id="c149d95495dfbb74f9dc7ff729a42ec7" category="list-text">準備並關閉主機。</block>
+  <block id="f6f9043b09cef25148e36ff434710fc7" category="list-text">使用目的地LUN開啟主機電源。</block>
+  <block id="0a27a24cc9393c8829a8f73a3a5418f5" category="list-text">建立主機啟動器igroup並將目的地LUN對應至igroup。</block>
+  <block id="8087a3bc15138385a21f12cbc7622543" category="list-text">使目的地LUN離線。</block>
+  <block id="29062c8abc951b51a474869aa63890bc" category="list-text">從來源陣列LUN遮罩（igroup）移除主機。</block>
+  <block id="eb081f2880bc11f4e9fc62913d51081b" category="list-text">請稍早執行主機步驟4（將主機重新對應至新的LUN位置）。</block>
+  <block id="9c76089c166eeb57e7926b5ca52a0217" category="list-text">建立Snapshot複本、以便復原目的地LUN。</block>
+  <block id="fb938c9ef49728e310a77270890d93af" category="list-text">開始匯入關係（從來源LUN開始複製資料至目的地LUN）。</block>
+  <block id="08487c79ba68e0329282340a8eca876d" category="list-text">建立驗證工作並停止匯入關係（選用）。</block>
+  <block id="249c2e6b878e03b8b12410be4c718a90" category="list-text">將來源LUN取消對應至主機。</block>
+  <block id="6817cc7ece1a2e33a547816c06538d4c" category="list-text">建立Snapshot複本、以便復原目的地LUN。</block>
+  <block id="3af7c882186e7b6e88a25fffb5dd9818" category="summary">移轉主機會在變更其組態之前重新開機。在繼續移轉之前、請先確認系統處於已知的正常狀態。</block>
+  <block id="33fb4ef8a744c8d6e933e969f9a3fb0a" category="doc">重新啟動主機以驗證系統狀態</block>
+  <block id="e24fd87f9c084df1281d7d25f583fd7c" category="paragraph">若要確認伺服器組態在重新開機後持續且不變、請完成下列步驟：</block>
+  <block id="cf9244452f3428aa889164231f97ad87" category="summary">完成FLI線上移轉之後、您就會移除LUN匯入關係。</block>
+  <block id="531d6e8475a573cc2be090591d43baef" category="doc">清除FLI線上移轉</block>
+  <block id="7e2d0a1ec2dafe1d47ce316cb2b2f014" category="paragraph">準備好之後、LUN匯入關係可以安全移除、因為主機現在正在存取新ONTAP 的NetApp陣列、以便將所有I/O存取至新的物件LUN、而且來源LUN不再使用。</block>
+  <block id="8903f2ee86e6ea97515b72cd26294e10" category="list-text">刪除LUN匯入關係。</block>
+  <block id="a0be2a233ae83ba1c2dbb817ea6ca098" category="summary">以下是使用Hitachi AMS2100做為外部陣列的測試移轉範例。視所涉及的陣列、主機作業系統及其他變數而定、您的步驟可能有所不同。</block>
+  <block id="de509c5b6ccb0bac989479f5c7644a80" category="doc">使用Hitachi AMS2100測試移轉範例</block>
+  <block id="15edcb137f739f2ee1eac73679352926" category="paragraph">您可以使用下列範例作為執行測試移轉所需步驟的一般指南。NetApp建議您儘早執行測試移轉、以便找出測試所帶來的任何問題、並有足夠的時間解決。在繼續正式作業移轉之前、應先在所有來源陣列和目的地陣列的組合上執行測試移轉。</block>
+  <block id="d63089314a1c0aeae54d33824e70c71e" category="paragraph">若要執行測試移轉、請完成下列步驟：</block>
+  <block id="27ff325c01dd2aee12b7c0acad32afd4" category="list-text">在來源陣列上建立2 GB測試LUN。</block>
+  <block id="7e2a0dace410fa2f8abb742966b5dcb7" category="list-text">以系統的形式登入Hitachi Storage Navigator模組化。</block>
+  <block id="574195042e680b0a7679c90039740470" category="list-text">選取AMS 2100陣列。</block>
+  <block id="db725be4aa636e6f21ed3207a5732ba8" category="list-text">按一下*顯示及設定陣列*。</block>
+  <block id="395780304ce9f6e58aedbeec49d544c7" category="list-text">使用root登入。</block>
+  <block id="272a9bb5ece823fc43b8a85eff0aec26" category="list-text">展開*群組*並選取*邏輯單位*。</block>
+  <block id="de72ef821b68971ad9e7f8251927ae8b" category="list-text">選擇* Create LU*（創建LU*）以創建測試LUN。</block>
+  <block id="af814c8e78d63d25575d5a76ce2169a1" category="list-text">建立2 GB的測試LUN。</block>
+  <block id="a72cc47fad7d1846d19b085d2e77e5ba" category="list-text">按一下「*確定*」。</block>
+  <block id="2d9672ac6c70d06a8af316119bf3ea2a" category="list-text">跳過此處的LUN指派、然後按一下*關閉*繼續。</block>
+  <block id="549123e5d99f5ddbf4e831ebfe3d8513" category="list-text">驗證是否已建立LUN 0026。</block>
+  <block id="a63e3289e0740a20a343922b51daab76" category="list-text">展開「**群組」並選取*「邏輯單位」*。</block>
+  <block id="92e25f28d799839ce285b77b9428695d" category="list-text">選取*主機群組*、將測試LUN對應至cDOT_FLI主機群組。</block>
+  <block id="10e6a1d7fc4488dca4aca046c7b3e183" category="list-text">選擇在上一步中建立的主機群組cDOT_FLI、然後按一下*編輯主機群組*。</block>
+  <block id="689ebb64224530bae0bf1ff35a07708e" category="list-text">選擇主機群組的連接埠。在此範例中、我們選擇0A、0e、1a、1e。選取強制設定為所有選取的連接埠選項。</block>
+  <block id="184a37712428d62b6ee19930de4054df" category="image-alt">HDS儲存導覽器編輯主機群組</block>
+  <block id="55fd3088467dac061c04be20afd4acc0" category="list-text">按一下「*邏輯單元*」、然後新增測試LUN LUN0026。</block>
+  <block id="0a3ed2ce8bbdb3db0db2c6c8d460c9c0" category="list-text">按一下「*確定*」以對應LUN。</block>
+  <block id="3de16e94aedfa52f05f7363743d6ba21" category="list-text">選擇*是、我已閱讀上述警告並想要編輯主機群組*、然後按一下*確認*。</block>
+  <block id="490f4752212d8b1419e8bdf52f004d56" category="list-text">驗證主機群組建立、然後按一下*關閉*。</block>
+  <block id="a2ca9ac2fbb0d63ca72995a1428f30cd" category="list-text">驗證測試LUN、並從來源儲存設備對應至目的地儲存設備、然後執行Foreign LUN Import（FLI）匯入。</block>
+  <block id="8924c263cbae5144eecea1b265da3597" category="list-text">將模式變更為「進階」。「Data mig-cmode：：&gt;設定-權限進階」</block>
+  <block id="8fbce27b40f39a5596e622332a0f1209" category="list-text">當系統詢問您是否要繼續執行進階命令時、請輸入y。</block>
+  <block id="41341e46c0b8cb0282faa3cc39e78e27" category="list-text">探索ONTAP 有關的來源陣列。等待幾分鐘、然後重試偵測來源陣列。「最小陣列顯示」</block>
+  <block id="5b0ddf4ae01d1daea729b662480b1fea" category="paragraph">例如、DataMig-cmode叢集啟動器連接埠0A和0b of ONTAP the 0連接至Cisco連接埠4/9和4/11。若要重設Cisco交換器的連接埠4/9：</block>
+  <block id="8db316a8067debec0c475a383cddee71" category="paragraph">重設一個連接埠通常已足夠。重設一個連接埠後、請檢查陣列清單和LUN路徑。</block>
+  <block id="ebdc343c91a6406e60156bf8f9d7d2f1" category="list-text">驗證是否已透過所有啟動器連接埠探索來源陣列：「torage Array config show -array-name Hitachi DF600F_1」</block>
+  <block id="46442c57a2472026bb9adadc21dc34c0" category="list-text">列出從Hitachi儲存設備對應的測試LUN、並驗證磁碟內容和路徑：「torage disk show -array-name Hitachi DF600F_1 -instance」</block>
+  <block id="449ad7df52782cb57576455a554e4dbd" category="list-text">使用序號「torage disk Set-Foreign」（磁碟集外部LUN）｛-Serial-Number 83017542001A｝-is -Foreign true（序列號83017542001A）、將來源LUN標記為外部LUN</block>
+  <block id="009a7e3ea13720e4920381784a9b49ed" category="list-text">確認來源LUN標示為Foreign（外部）：「torage disk show -array-name Hitachi DF600F_1」</block>
+  <block id="bc0e0aeaedbb696e693af8b30af84156" category="list-text">列出所有外部陣列及其序號：「torage disk show -conter-type Foreign -Fields序號」</block>
+  <block id="49a28f3bdede98a676e221ebc5974476" category="paragraph">LUN create命令會根據分割區偏移量來偵測大小和對齊方式、並據此以Foreign磁碟引數建立LUN。</block>
+  <block id="7ec2008fd623ec3e270b56abec09d6bb" category="list-text">建立目的地Volume：「vol create -vserver datamig flivol aggr1 -size 10g」</block>
+  <block id="4932d52c7d50a533a4612faf2017826b" category="list-text">使用外部LUN建立測試LUN：「LUN create -vserver datamig -path /vol/flivol/testlun1 -osttype Linux -Foreign磁碟83017542001a'</block>
+  <block id="67b9f0cb04fa79d0b2e9900424834a63" category="list-text">列出測試LUN、並使用來源LUN「LUN show」驗證LUN的大小</block>
+  <block id="b0a45c392f4e29ccaaee09e28424dde3" category="paragraph">對於FLI離線移轉、LUN必須在線上、才能將其對應至igroup、然後必須離線才能建立LUN匯入關係。</block>
+  <block id="3890f016a6a79d1b0d919602955c854e" category="list-text">建立傳輸協定FCP的測試igroup而不新增任何啟動器：「LUN igroup create -vserver datamig -igroup testg1 -protocol FCP -ostype Linux」</block>
+  <block id="8435459e5e7f0e70e74b83463d9ef1d6" category="list-text">將測試LUN對應至測試igroup：「LUN map -vserver datamig -path /vol/flivol/testlun1 -igroup testg1」</block>
+  <block id="6119a40cd903d4850fcac2732197af99" category="list-text">離線測試LUN：「LUN離線-vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="cc178e9bba3cc16c04d7df3a01fef53a" category="list-text">建立與測試LUN和外部LUN的匯入關係：「LUN匯入create -vserver datamig -path /vol/flivol/testlun1 -Foreign磁碟83017542001a'</block>
+  <block id="69336ecf2fa1d5a11864f1dad5ee9963" category="list-text">開始移轉（匯入）：「LUN匯入start -vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="af3b82f2ef95efb7af17a3b2c5af24b9" category="list-text">監控匯入進度：「LUN匯入show -vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="66130179f0dc260a93d631e56fccf45c" category="list-text">檢查匯入工作是否成功完成：「LUN匯入show -vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="a8972569695393b1b3e2827a6d6bf9ae" category="list-text">啟動驗證工作以比較來源和目的地LUN。監控驗證進度：「LUN匯入驗證start -vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="8dd10a19a03dac987fef83865f9ddbed" category="list-text">檢查確認工作是否完成、且無任何錯誤：「LUN匯入show -vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="5b7be92493124ebd5245ed519a9aec83" category="list-text">刪除匯入關係以移除移轉工作：「LUN匯入刪除-vserver datamig -path /vol/flivol/testlun1`LUN匯入show -vserver datamig -path /vol/flivol/testlun1'</block>
+  <block id="1150683f2da65725a5871c4f25881ccb" category="list-text">從測試igroup中取消對應測試LUN：「LUN unmap -vserver datamig -path /vol/flivol/testlun1 -igroup testg1」</block>
+  <block id="e685279300221f977485f48b3c34e6d1" category="list-text">線上測試LUN：「LUN online -vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="448453915912c53d8f4c6adfcf753e38" category="list-text">將Foreign LUN（外部LUN）屬性標記為假：「torage disk modify｛-sSerial-number 83017542001A｝-is（外部錯誤）」</block>
+  <block id="eac4098a0af2abe7bfca1bc18b8f57e4" category="paragraph">請勿移除使用ONTAP 來源儲存設備所建立的主機群組、並使用非同步啟動器連接埠。在從該來源陣列進行移轉時、會重複使用相同的主機群組。</block>
+  <block id="a2004ba1e4ebb9008f77e0928287c175" category="list-text">從來源儲存設備移除測試LUN。</block>
+  <block id="86cfbe8bc741ab9b41aff7310d3adc9e" category="list-text">以系統的形式登入Hitachi Storage Navigator模組化。</block>
+  <block id="12d51f0d0be473e79e59c83fa299c84a" category="list-text">選擇AMS 2100 Array（AMS 2100陣列）、然後按一下* Show and Configure Array*（顯示並設定陣列</block>
+  <block id="dd1756f111b1bbeab7f11d4f29b44065" category="list-text">選取*群組*、然後選取*主機群組*。</block>
+  <block id="423fa3edfa40593a696506ec9b87fb7a" category="list-text">選取_cDOT_FLI igroup_、然後按一下*編輯主機群組*。</block>
+  <block id="bcc013c3b737d7967f7bd1b74a363b17" category="list-text">在*編輯主機群組*視窗中、選取所有選定的目標連接埠來對應測試LUN、然後選取*強制設定為所有選取的連接埠*。</block>
+  <block id="6faa9428b17f6337269c355ad7611403" category="list-text">選取*邏輯單位*索引標籤。</block>
+  <block id="8c3b55fef9c0e25a2fe01d90beac075c" category="list-text">從*指派的邏輯單元*視窗中選取測試LUN。</block>
+  <block id="4a47689d7570ed61cf2648819fdfbefe" category="list-text">選取*移除*以移除LUN對應。</block>
+  <block id="18d0ad44a1e563aaf9f5871e32535a6c" category="list-text">按一下「確定」。</block>
+  <block id="06cd0fe07d89be63e096ae9b935a9747" category="list-text">請勿移除主機群組、並繼續刪除測試LUN。</block>
+  <block id="aceda4ab3dcab1a8e47e9f818bfcdd45" category="list-text">選取「邏輯單位」。</block>
+  <block id="f2b4a7660190bbb51f1dbcae8af5c349" category="list-text">選取在上一步（LUN0026）中建立的測試LUN。</block>
+  <block id="af2e9dc0f2bff837706a0372fbf487b9" category="list-text">按一下*刪除LUN*。</block>
+  <block id="42edba759cc4a38b9615e9735bd7d9f4" category="list-text">按一下*「Confirm（確認）」以刪除測試LUN。</block>
+  <block id="eda2c5ecf22611ccb137045fed3f3eb2" category="list-text">刪除目的地儲存設備上的測試LUN。</block>
+  <block id="c91d9cf858174fa99f7a5cd399ab8e82" category="list-text">離線NetApp儲存系統上的測試LUN：「LUN離線-vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="ee32bef56e30ab9e874b38d1cd3c3d6c" category="paragraph">請確定您未選取其他主機LUN。</block>
+  <block id="7053863eb65e003d35fdb411b5a5f393" category="list-text">銷毀NetApp儲存系統上的測試LUN：「LUN destroy -vserver datamig -path /vol/flivol/testlun1」</block>
+  <block id="2e552707691d02a580fe916edffec56e" category="list-text">離線NetApp儲存系統上的測試磁碟區：「vol offline -vserver datamig -volume」</block>
+  <block id="264ec639ceb86d02fcb3398746a827ae" category="list-text">銷毀NetApp儲存系統上的測試磁碟區：「vol destroy -vserver datamig -volume」</block>
+  <block id="1e9a8e71031d88390d2ab79f264cd54d" category="summary">下列步驟說明如何在完成FLI移轉之後、從來源陣列移除目的地陣列組態。</block>
+  <block id="de451726fc2979608badc0c9c1b24b8c" category="doc">正在移除目的地陣列組態</block>
+  <block id="d9c43eb41a966c4cd2f474b639c1448e" category="list-text">選擇* AMS 2100* Array（* AMS 2100*陣列）、然後按一下* Show（顯示）*和* Configure Array*（*組</block>
+  <block id="9ca93b79ed4c53368139920e666bfb9b" category="list-text">展開群組並選取*主機群組*。</block>
+  <block id="7a09bce6ca5ac1274dc9d0706d56d250" category="list-text">選取* cDOT_FLI*主機群組、然後按一下*刪除主機群組*。</block>
+  <block id="3f66bfc9699b3a9f210f8ace9839c3ec" category="image-alt">從來源陣列1移除目的地陣列組態</block>
+  <block id="37ae0e3bb3bfe5e18a101b7fabd0ddf8" category="list-text">確認刪除主機群組。</block>
+  <block id="9ed256c05bdd47ac51dac0478f5b5ee8" category="image-alt">從來源陣列2移除目的地陣列組態</block>
+  <block id="b72d0a7e15603e92529db690eb6e6546" category="summary">請務必確認ONTAP 來源陣列的主機作業系統、HBA、交換器及支援的動作、以及您的最終組態、均列於互通性對照表中。</block>
+  <block id="81a3eb7ec0ef18fea182a1e6ec0ee426" category="doc">啟用不受支援的LUN</block>
+  <block id="c1ebcdb183b1743929cb921388200c85" category="paragraph">以下各節提供這些使用案例的相關資訊：</block>
+  <block id="2216ac365c3bdd99255956b013dc3086" category="list-text">將iSCSI LUN匯入為FC LUN</block>
+  <block id="8349303e4fef0ed2c9e1a14542704659" category="list-text">將移轉的LUN移至AFF 支援平台</block>
+  <block id="2021cbde5bf5dfd18378e28e081ea40f" category="summary">在您的「站台調查與規劃」工作表中、您應該設定包含移轉專案聯絡資訊的索引標籤。</block>
+  <block id="9f2428b49944ffbe41d6eaaae6141691" category="doc">站台調查與規劃工作表聯絡人索引標籤</block>
+  <block id="830bf6266222d642dda54d3adac324b5" category="paragraph">以下是如何設定「聯絡人」索引標籤的範例。</block>
+  <block id="23bd44903908dd85f008af4416f452f2" category="cell">移轉專案聯絡資訊</block>
+  <block id="cfad9f5ea3aed693642b36f141e70160" category="paragraph">資源名稱</block>
+  <block id="d6b258792ff06f82933c74eeb8aef591" category="paragraph">組織</block>
+  <block id="ecbcc181807f2e16c1fffabe98b24f39" category="paragraph">專案角色</block>
+  <block id="4f3f60f06dd4a2365e91cc32386e2065" category="paragraph">辦公室電話</block>
+  <block id="faab5da77b26184402e64e2ee7a70060" category="paragraph">行動電話</block>
+  <block id="ce8ae9da5b7cd6c3df2929543a9af92d" category="paragraph">電子郵件</block>
+  <block id="3c11a433910732d1d7e44f06f2ecf9d3" category="summary">視移轉類型而定、主機補救可能會在移轉過程中即時進行（外部LUN線上匯入、7-Mode至ONTAP VMware）、或在移轉完成後進行（外部LUN離線匯入）。</block>
+  <block id="d349791b0d71ed5b5f5c14e0ca2c1683" category="doc">主機補救</block>
+  <block id="3da1cf3d2ea2651c6b3ddded5d539f0c" category="paragraph">針對不同的主機作業系統、使用進行補救步驟。請參閱您的落差分析、並在規劃與分析階段彙總、以及適當的NetApp與廠商文件、以瞭解移轉的特定步驟。</block>
+  <block id="ab2575ccf7898f219a5ebaa9ee2f0f59" category="paragraph">FLI使用與7MTT相同的補救程序。因此、使用相同的修正文件、而非在不同位置多次記錄這些程序、是很合理的做法。</block>
+  <block id="b03c8fb128c3a9f9ba53163b9e459c95" category="paragraph">若要進行CAW補救、請使用ESXi CAW/ATS補救程序。</block>
+  <block id="18378bd55b78e6b6cce77b6e42011717" category="inline-link">SAN主機移轉與補救</block>
+  <block id="b10b437ec347d2a05cc10850bd886129" category="paragraph"><block ref="b10b437ec347d2a05cc10850bd886129" category="inline-link-rx"></block></block>
+  <block id="dbe84cd10fc78ddffac6c2603bb5e334" category="summary">在移轉方法的分析與規劃階段、您需要使用「站台調查與規劃」工作表來記錄現有的組態、目標組態、落差和補救計畫。</block>
+  <block id="52d8ff059d88cc5b65a5a53537d4c524" category="doc">場地調查與規劃工作表範例</block>
+  <block id="7bafc2e73cbb5786f7652b776e4d06e8" category="paragraph">本節提供場地調查與規劃試算表應包含的資訊類型範例。建議使用下列索引標籤：</block>
+  <block id="bbaff12800505b22a853e8b7f4eb6a22" category="list-text">聯絡人</block>
+  <block id="179d692ef9707bcf6d92ff37fd394ec8" category="list-text">問卷</block>
+  <block id="2dcb257462b6fc9a2001084d2fd657d6" category="list-text">儲存設備（來源）</block>
+  <block id="78537d40eeebddc438670db9e1670be8" category="list-text">儲存設備（目的地）</block>
+  <block id="8124579383e90243e4b06323d2b37f8d" category="list-text">主機</block>
+  <block id="fe70ec6ed4c5c9ca26262de5f6dea17f" category="list-text">HBA與區域資訊</block>
+  <block id="72db9d9344319d56fe15f5a344ca2954" category="list-text">LUN詳細資料</block>
+  <block id="829f9e559b35482ba2f26a2870a0349e" category="list-text">NetApp LUN配置</block>
+  <block id="f22322f0d88fb0493fcb4b36d5e1c583" category="list-text">Aggregate狀態</block>
+  <block id="82911d14232afbf61871f222ca6c2a53" category="list-text">部分組態FAS</block>
+  <block id="6a1242268d67eaeac1c352b218f7960e" category="list-text">SDS CLI指令碼</block>
+  <block id="ae7ab55b954ce2a8356bf4bd743966ef" category="summary">本節提供FLI離線工作流程的範例、這是四個FLI工作流程之一。</block>
+  <block id="bc27398f19f6acf48269b6f7ee4f086c" category="doc">FLI離線工作流程</block>
+  <block id="0ca2698feff5a5fc2d35a0504189c848" category="paragraph">此工作流程使用HDS AMS2100陣列做為來源陣列。離線工作流程具有下列工作：</block>
+  <block id="d1f93c9975320718dcc00c5f80427297" category="list-text">準備轉換</block>
+  <block id="ba8f47747c3717527073a5c3d8eacb92" category="list-text">驗證移轉結果（選用）</block>
+  <block id="f6aed14045ed9be6f48ebd1a21ccb8b1" category="summary">外部LUN匯入（FLI）實作包括實體配線、分區和建立啟動器記錄的步驟。NetApp儲存啟動器連接埠和來源儲存設備的初始組態可為環境做好移轉準備。</block>
+  <block id="6159603e3eb10040c1c6e15057a0b92d" category="doc">資料移轉的實作基礎知識</block>
+  <block id="9f4d12c5edf6cc2529e6ad9c95d20d18" category="summary">在進行任何移轉之前、請確認多重路徑的設定正確、而且運作正常。LUN的所有可用路徑都應為作用中。</block>
+  <block id="f4ebdd2db6081517f5add79e163450fa" category="doc">驗證主機LUN路徑和多重路徑組態驗證</block>
+  <block id="2f76739cb66361248c2666f532a46fe3" category="summary">下列步驟說明如何在完成FLI移轉之後、從目的地陣列移除來源陣列。</block>
+  <block id="f02a202284a71f0c60334d44842c2ae9" category="doc">將來源陣列從ONTAP 無法使用的資料中移除</block>
+  <block id="5beb511c52c08ddc7aa3d7f8e19052f0" category="list-text">顯示所有可見的來源陣列。</block>
+  <block id="6b3a439221d85d6d1956cbac8d709274" category="list-text">移除來源儲存陣列。</block>
+  <block id="dfe7b37a42a22434a5cd3777ed775602" category="summary">您應該執行一或多個測試移轉、以驗證陣列、交換器和主機是否已正確設定、以及是否有幾個範例可供推斷、以判斷移轉持續時間和工作層級。</block>
+  <block id="29b36bd1e7c4f736d341e2632051fa93" category="doc">移轉測試</block>
+  <block id="cd2ea2efb6e484e9f76aa6c911f083cf" category="summary">在您的「場地調查與規劃」工作表中、您應該有一個索引標籤、其中包含FAS 有關您的一套系統的資訊。</block>
+  <block id="d816e66cd7b51d120e7ae740a2d2b7d8" category="doc">Site Survey and Planning工作表FAS 單「Config」（組態）索引標籤</block>
+  <block id="cb27b289fa8961c6a3dcd409d777c342" category="paragraph">以下是如何設定FAS 「還原組態」標籤的範例。</block>
+  <block id="d6ed36bb2b00046e0edf3d24b526b7ad" category="cell">叢集名稱</block>
+  <block id="b84efa9ec93a064c12da482ba494099b" category="cell">叢集管理IP位址</block>
+  <block id="9e12573417a5e1a70dacdfe728c09eaa" category="cell">提供叢集管理認證</block>
+  <block id="02e0c36133d83110f2a47708c5ce68e0" category="cell">系統管理程式主機ONTAP</block>
+  <block id="a306b25ca39f0c5e5575dd90b3761d1d" category="cell">* IP位址*</block>
+  <block id="7dae56175078a018f0721e319b388024" category="cell">*提供認證資料*</block>
+  <block id="8670cefa5e241d7f2c36f1d08ded1bcd" category="cell">網路連接埠</block>
+  <block id="6c3a6944a808a7c0bbb6788dbec54a9f" category="cell">節點</block>
+  <block id="fae895126fcd0f82b8f0db8894e4f0d3" category="cell">介面名稱</block>
+  <block id="182aeb116dd563a6020ec9b2d5b6595e" category="cell">連接埠類型</block>
+  <block id="0cf18d635363289b9e7befc3b0fc04e2" category="cell">連接埠速度</block>
+  <block id="271180c589c683c06cd9b55cc844e8e2" category="cell">VLAN名稱/ ID</block>
+  <block id="f3e44848e63789171c3347e7c081e989" category="cell">IFGRP</block>
+  <block id="c50f4a752643297cd09ba0deaf0c0827" category="cell">SVM名稱</block>
+  <block id="a1fa27779242b4902f7ae3bdd5c6d508" category="cell">類型</block>
+  <block id="9985b4390c40137573e6da05caf85874" category="cell">通訊協定</block>
+  <block id="2ee34178bb8415b7d7234cd27b83aed6" category="cell">Aggregate</block>
+  <block id="4ef6db84545e8901a68f8f8bba1e2843" category="cell">SVM根Volume</block>
+  <block id="0b7e67b6cdcf0432b624d53588d520fb" category="cell">SVM</block>
+  <block id="bd7a9717d29c5ddcab1bc175eda1e298" category="cell">Volume</block>
+  <block id="6f6cb72d544962fa333e2e34ce64f719" category="cell">尺寸</block>
+  <block id="62a0282d39568be094470486eaf70c4f" category="cell">SAN</block>
+  <block id="4d969e8b934c5fca2972aa5ca89cd046" category="cell">* LUN名稱*</block>
+  <block id="4723f79b4c76db2bb88703ca85a0fa04" category="cell">* LUN大小*</block>
+  <block id="55946dce3b039c612e377062b2a6c9a6" category="cell">SVM網路介面</block>
+  <block id="5319e46e7aff85e8f2c763ae6b0069cc" category="cell">介面角色</block>
+  <block id="45f4070f03f0721053a889b3aff17dfe" category="cell">IP位址/子網路遮罩</block>
+  <block id="905c8ceef55a3828a2d0115025e02146" category="cell">主節點/主連接埠</block>
+  <block id="e2f2186cb6b3e3290c59124e7b35a0c5" category="cell">容錯移轉群組</block>
+  <block id="e9cc22da4fb9aa2f267050cd1fb086ab" category="cell">SVM FCP目標連接埠</block>
+  <block id="4d131d200df65c3832cdd6401d8fdfff" category="cell">FCP連接埠名稱</block>
+  <block id="6fe11fe2c43e2fccb1743ba6f247c73d" category="cell">WWNN</block>
+  <block id="bbf654b919d931391a0abf64d103a2b3" category="cell">主節點</block>
+  <block id="ee4bf62727cdb91796ed0b8880d0f794" category="cell">主連接埠</block>
+  <block id="26faba057c84b48262b937a3841fc54a" category="cell">節點FCP啟動器連接埠</block>
+  <block id="b42e7e9f43276548d600d26ad21cd252" category="cell">節點名稱</block>
+  <block id="22bb75b17c257e3403e89aa51a170ac3" category="cell">WWN</block>
+  <block id="ce9f3448f4c39e84f8694df961238e2d" category="cell">主節點</block>
+  <block id="80cf7b1e2f3a6eb700df545f53fc35ce" category="summary">這些步驟說明如何將資料從來源LUN匯入目的地LUN。</block>
+  <block id="90f958290599dbd7bf414b64e5451345" category="doc">FLI離線：匯入資料</block>
+  <block id="a065c5e22748be69f76070b1617df200" category="list-text">監控匯入進度。您可以將此處看到的進度與執行測試移轉之後所開發的移轉效能預估進行比較。</block>
+  <block id="6fb459e749d9fd185556292952260212" category="list-text">檢查匯入工作是否已成功完成。</block>
+  <block id="51d9a4ff5ba3cfd9cbe0a057f4ee759b" category="summary">這些步驟說明如何ONTAP 使用FLI將資料從7-Mode來源LUN匯入到目的地LUN。</block>
+  <block id="60489537f9456d275a656a15f04ab6b6" category="doc">將資料從FLI 7-Mode匯入ONTAP 到VMware</block>
+  <block id="69d5fb90d879eedbd056bed44c415cef" category="paragraph">如果您想要在移轉完成後、確保來源LUN保持一致、您需要：</block>
+  <block id="68daec5bbecbb87d7b81d065f0ec6b4a" category="list-text">匯入顯示完成後、請關閉主機。</block>
+  <block id="52f0a5281586bf31051c6d1ea5e05290" category="list-text">刪除LUN關係：「LUN匯入刪除-vserver fli_72C -path /vol/flivol/72Clun1」。</block>
+  <block id="aaa7adc716c48a8aa682b90c344d1ba8" category="paragraph">請記住、LUN關係中斷後、LUN很快就會失去同步、因為只會變更新的LUN。因此、在您想要還原原始狀態時、維持一致狀態可能會有所助益、但新的LUN可能不會在來源LUN中反映變更。</block>
+  <block id="4b1add994933944f0dad2a099242949a" category="paragraph">在停止匯入之後、除非您打算驗證匯入、否則您可以銷毀匯入關係。</block>
+  <block id="9423c8dcb51a54db4db7f2071a9575e8" category="paragraph">這也是拍攝Snapshot複本的好時機、以便日後需要時進行還原。若要確認伺服器組態在重新開機後持續且不變、請完成下列步驟：</block>
+  <block id="0d3718718c4a112824f4482899be98cd" category="list-text">驗證主機是否能看到其所有路徑。</block>
+  <block id="5adfe538d2e4bb2201ca3cd266686c4c" category="summary">在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含LUN詳細資料的相關資訊。</block>
+  <block id="e74172a70ff5d3d9f3c490416dc3bd83" category="doc">站台調查與規劃工作表LUN詳細資料索引標籤</block>
+  <block id="0c9aa58f5194cebe062fd903e101ba7f" category="paragraph">以下是如何設定LUN詳細資料索引標籤的範例。</block>
+  <block id="64d354dc5879cf570ce7b4ef676e75bd" category="paragraph">作業系統</block>
+  <block id="20a939f31d346b170d30a282bb3b142f" category="paragraph">叢集式</block>
+  <block id="05f64430fcbd6d142bf1d1c858c192fa" category="paragraph">Microsoft Windows Server 2012 R2 Datacenter</block>
+  <block id="bafd7322c6e97d25b6299b5d6fe8920b" category="paragraph">否</block>
+  <block id="65d4b9260c15c03deff4c5b65450e100" category="paragraph">Red Hat Enterprise Linux Server版本5.10</block>
+  <block id="34b1f4b0a97ccfd21639c3466e784e96" category="paragraph">ESXi 5.5.0 build：1331820</block>
+  <block id="a0214274e2227e5ffa899e693bdfb268" category="paragraph">掛載點</block>
+  <block id="cf10b000010aff763b1dd551c4e6aced" category="paragraph">實體磁碟機編號</block>
+  <block id="60aaf44d4b562252c04db7f98497e9aa" category="paragraph">連接埠</block>
+  <block id="6e4b38bfd57741ac1597c440a1c98074" category="paragraph">匯流排</block>
+  <block id="c41a31890959544c6523af684561abe5" category="paragraph">目標</block>
+  <block id="d7aa32b0c582222819b91c8e0ccca765" category="paragraph">C：</block>
+  <block id="6936222138b498da172a54df08038cd0" category="paragraph">PHYSICALDRIVE0</block>
+  <block id="6666cd76f96956469e7be39d750cc7d9" category="paragraph">/</block>
+  <block id="59b466fd93164953e56bdd1358dc0044" category="paragraph">SDA</block>
+  <block id="2106c460eb7e1b65b8e766cdf5139cbb" category="paragraph">BootLUN_Datastore</block>
+  <block id="c631d49fdbc217f7ccc84e6586b01307" category="paragraph">NAA.60060e801046b96004f2bf4600000014</block>
+  <block id="2ba0600127de5002d98d3bb3a6a76ae0" category="paragraph">VM_Datastore</block>
+  <block id="dcc3154f8e360ea923816388a11b53d1" category="paragraph">NAA.60060e801046b96004f2bf4600000015</block>
+  <block id="b26e74ed6e2892c7e2bb95e414d460c6" category="paragraph">LUN</block>
+  <block id="f6134b3fc4b756de88586c6461173e37" category="paragraph">PG80 SN</block>
+  <block id="46cc49178db361dc6922f40d38a52d0f" category="paragraph">pg83 SN / UID</block>
+  <block id="f6db2abd7e306c077c8ef8ae2b904dc8" category="paragraph">LUN大小（GB）</block>
+  <block id="d8dc2e67820de4c8d742ecca8764e864" category="paragraph">開始偏移</block>
+  <block id="d645920e395fedad7bbbed0eca3fe2e0" category="paragraph">40</block>
+  <block id="58240c2f24b18a1fb53c73b8b2da60a0" category="paragraph">60060e801046b96004f2bf4600000010</block>
+  <block id="98f13708210194c475687be6106a3b84" category="paragraph">20</block>
+  <block id="39f1a729457cc4320372d15f22f9e805" category="paragraph">60060e801046b96004f2bf4600000014</block>
+  <block id="ca12fc22f4ecdfddf950742f13d53518" category="paragraph">60060e801046b96004f2bf4600000015</block>
+  <block id="2055e1eccb3f5073c9f3a88e48d1b8bf" category="paragraph">LUN類型</block>
+  <block id="1d5b772bea21e5e949413e09eedf17de" category="paragraph">一致</block>
+  <block id="524953590652c1115c5e048af08abf89" category="paragraph">自訂字首（區塊）</block>
+  <block id="5a69808aa871c7a433e223fcfbfd17f7" category="paragraph">自訂字首（位元組）</block>
+  <block id="0f4137ed1502b5045d6083aa258b5c42" category="paragraph">Windows</block>
+  <block id="e206a54e97690cce50cc872dd70ee896" category="paragraph">Linux</block>
+  <block id="92963abd36c896b93a36b8e296ff3387" category="paragraph">VMware</block>
+  <block id="e8d9224f46ea9ddfc29b86f017fd618a" category="summary">在移轉之前、您應該確認多重路徑的設定正確且運作正常。LUN的所有可用路徑都應為作用中。</block>
+  <block id="4b3a31820f1efe6964508f63bfca25e1" category="doc">驗證主機LUN路徑和多重路徑組態</block>
+  <block id="ec59a082cedf4b26b971396986bb5fed" category="summary">請參閱來源陣列的陣列文件、以新增啟動器連接埠的主機項目（NetApp參數中的LUN遮罩、igroup）。您可以從「站台調查與規劃」工作表的「儲存群組」區段擷取此資訊。</block>
+  <block id="5ee8ee2a99ffe423b13a541e47bc95ab" category="doc">如何設定來源陣列</block>
+  <block id="2cdf4003854e7aedca8de892db64c782" category="summary">您需要建立主機對目的地區域。有兩種類型的正式作業架構：Fabric A和Fabric B</block>
+  <block id="00ceb323c704978651e7e58e2e3c9ee6" category="doc">建立主機對目的地區域</block>
+  <block id="5dbb553181e7911244cbe864bb53c2e5" category="paragraph">以下是主機與目的地儲存分區的圖例。</block>
+  <block id="4be14a7602ab757768f9066178cb8faa" category="image-alt">主機與目的地儲存分區</block>
+  <block id="c10e581c4f3d33179e4d54ee0982b27a" category="paragraph">正式作業區域可在正式作業架構中使用A.</block>
+  <block id="b3ff996fe5c77610359114835baf9b38" category="cell">區域</block>
+  <block id="c793c19bb5bccfc269f55a3c853a6f5c" category="paragraph">區域：rx21_flicDOT</block>
+  <block id="9857d87217651a79bca3f70dce27e991" category="paragraph">21：00：00：24：ff：30：14：c5</block>
+  <block id="26afebbfe7902de665165fa247e0d47c" category="paragraph">20：01：00：A0：98：2f：94：D1</block>
+  <block id="5e7fe8a328e2a06a98543b699fb4f6cd" category="paragraph">20：03：00：A0：98：2f：94：D1</block>
+  <block id="6f5012d656c7ae39a61e70ba9951cfa0" category="paragraph">RX21 HBA 0</block>
+  <block id="f35088c4e9b060b01285108f48b5a32b" category="paragraph">FlicDOT lif1.</block>
+  <block id="4b0677b90f2d7baa5d3afa59f54f9339" category="paragraph">FlicDOT lif3.</block>
+  <block id="d9d3a203c33297eed5e70ca8cecc2e60" category="paragraph">區域：rx22_flicDOT</block>
+  <block id="9394f5c61ee99f7c10dece2b6249bc80" category="paragraph">21：00：00：24：ff：30：04：85</block>
+  <block id="85ad3824751b2f3cdba435f24d480b72" category="paragraph">RX22 HBA 0</block>
+  <block id="abf258e3167edd3f7e98f134e6ab49fc" category="paragraph">區域：rx20_flicDOT</block>
+  <block id="99289314a3e16e392355e34f3f5170c6" category="paragraph">21：00：00：24：ff：30：03：ea</block>
+  <block id="1df1704f85020c04d53fdd623dbe70eb" category="paragraph">RX20 HBA 0</block>
+  <block id="34e9f9ee99d135b877df38239cf0a036" category="paragraph">正式作業區域可在正式作業架構B中使用</block>
+  <block id="605f9481cf9b821b6aa0328833583070" category="paragraph">21：00：00：24：ff：30：14：c4</block>
+  <block id="9de0d6396f3a3492cdaa0c4c7892e973" category="paragraph">20：02：00：A0：98：2f：94：D1</block>
+  <block id="99bada45f26b783ef98e61febd708cf8" category="paragraph">20：04：00：A0：98：2f：94：D1</block>
+  <block id="e973b23fd3b1ded842b706716311319e" category="paragraph">RX21 HBA 1</block>
+  <block id="b672c2cc8450d4d11bdb3eeca43ba0cf" category="paragraph">FlicDOT lif2.</block>
+  <block id="3bf95c9f2cf086fccf286218bb84ecbd" category="paragraph">FlicDOT lif4.</block>
+  <block id="6b7b89f3f8e4e9f42a9de77973fd4d99" category="paragraph">21：00：00：24：ff：30：04：84</block>
+  <block id="80bed77a3100d8fbce7bb07c5776e7c7" category="paragraph">RX22 HBA 1</block>
+  <block id="1b49478544d9c3663a265ca8d01095e8" category="paragraph">21：00：00：24：ff：30：03：EB</block>
+  <block id="1c4f91db3f29afa9c9ce704f1f48d84a" category="paragraph">RX20 HBA 1</block>
+  <block id="16abdd8ae3b60341fa19eb1be8305b9e" category="summary">此程序顯示從Brocade網路區域集移除來源儲存設備和主機區域。</block>
+  <block id="5dd04a70c599dd3aba4af817ed8f940a" category="summary">在「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含SDS CLI指令碼的相關資訊。</block>
+  <block id="fcbc52c1e9e3f483b5dd4306a9c74eb7" category="doc">站台調查與規劃工作表SDS CLI指令碼索引標籤</block>
+  <block id="2c87f12de6046ab2b53a48c94446ddc6" category="paragraph">以下是如何設定SDS CLI指令碼索引標籤的範例。</block>
+  <block id="8d1fc7e767a7204d770eb56c7989e03b" category="cell">控制器1</block>
+  <block id="48ed192757d1bc6d4a36d16a10893f48" category="cell">控制器2</block>
+  <block id="2c24dd8520ba4ee9f85d15c117094435" category="paragraph">Vol尺寸vol0 aggr0 108 g</block>
+  <block id="54f031636e4e8de367e82438e357f16e" category="paragraph">SnapReserve bootcampvol 0</block>
+  <block id="8d0b4f95a2fc0bb4aafee8c0e892995e" category="paragraph">SnapReserve vol0 20</block>
+  <block id="69cdb67b977385d7128ce35f86ed6af8" category="paragraph">快照自動刪除bootcampvol</block>
+  <block id="c7bfdaa544c122cccd5797ecd8859b64" category="paragraph">Snapautodete bootcampvol承諾試用</block>
+  <block id="7299c46e8f1df488d88afb3721775dde" category="paragraph">Snapautodete bootcampvol觸發Volume</block>
+  <block id="0e7ce58d782f7edfbe3198963f0e68cc" category="paragraph">Snapautodete bootcampvol target自由空間20</block>
+  <block id="de3544704cc06e98c85feda6079b4ffd" category="paragraph">Snapautodete bootcampvolvol defer_delete user_reated</block>
+  <block id="ad1467e693a1edef02e1d8bc2d789b5f" category="paragraph">快照自動刪除vol0</block>
+  <block id="fca6b942a9946eae8145c4b0ceefada4" category="paragraph">Snapautodete vol0承諾試用</block>
+  <block id="470bc3c913fe0a7e37e4ec5468927fc5" category="paragraph">Snapautodete vol0觸發Volume</block>
+  <block id="9400cd2a1b1996ef34cf5f2ce7aa197d" category="paragraph">Snapautodete vol0 target可用空間20</block>
+  <block id="c49053bff1ed24ac6b7dcae31adfce83" category="paragraph">Snapautodete vol0 defer_delete user_已 建立</block>
+  <block id="b0db704ae4954f302897364d596258a0" category="paragraph">開啟Vol autossize bootcampvol</block>
+  <block id="03bf145298ad7c56efc9bfb977d83743" category="paragraph">Vol自動調整vol0開啟</block>
+  <block id="741d544a7e3ce6129652d8e8013ef786" category="paragraph">Vol選項bootcampvolvol te_first volVolume擴充</block>
+  <block id="a9f2077fe15dcec0bbc3292da1dca27b" category="paragraph">Vol選項bootcampvolvol分數保留100</block>
+  <block id="2f64a0b8475583dec37ce272a0dcc98e" category="paragraph">Vol選項vol0 te_first volVolume擴充</block>
+  <block id="19b438681b0e26a3e7b0340e28965cdb" category="paragraph">Vol選項vol0分數保留100</block>
+  <block id="5ec5fbcceb4ba24f6baba1e611765951" category="paragraph">qtree安全性/vol/bootcampvol UNIX</block>
+  <block id="b256e9f635830e47a3deb3e68246325d" category="paragraph">qtree安全性/vol/vol0 NTFS</block>
+  <block id="967ff004634741b235418f084353f4f3" category="paragraph">Snapsched bootcampvol0 0</block>
+  <block id="75b5fe82311ea0f0717027a0d13fa502" category="paragraph">Snapsched vol0 0 2 6@8、12、16、20</block>
+  <block id="9bf5790a9df15432a60d8504ea14d215" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/qavol_narayan/testlun跳過#LUN對應。</block>
+  <block id="99748e4a1cd95f6fff503b57e286b5d2" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm25_boot_LUN跳過#LUN對應。</block>
+  <block id="b491e8567c6fd3321551664c1376a634" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm25_data1_LUN跳過#LUN對應。</block>
+  <block id="4fa5e094bfd5d434135669861ae04247" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm25_data2_LUN跳過#LUN對應。</block>
+  <block id="88f67b288cce40ced464d95edca6c03f" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm26_boot_LUN跳過#LUN對應。</block>
+  <block id="9b5b20a6e61e5a6b361e33af282fe290" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm26_data1_LUN跳過#LUN對應。</block>
+  <block id="ed81810d4252d14bcffb8c703c2a6eb3" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm26_data2_LUN跳過#LUN對應。</block>
+  <block id="47d7290459fef6cbde926c0c4eedb24a" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm27_boot_LUN跳過#LUN對應。</block>
+  <block id="6c5395fbe7637c1c2d92859d967cb804" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm27_data1_LUN跳過#LUN對應。</block>
+  <block id="a73c68c63356315bd4ea581710355d69" category="paragraph">由於LUN未對應至iGroup、因此針對/vol/bootcampvol/dm27_data2_LUN跳過#LUN對應。</block>
+  <block id="f8ff369927dd6eb656cb8e5c3816d447" category="summary">「分析」階段著重於移轉規劃前必須解決的項目。必須識別出互操作性對照表之外的主機組態細節。</block>
+  <block id="b23f084bc4b793cabde88264a77e7e1f" category="doc">分析階段工作流程</block>
+  <block id="54ae97625c9d120b93acb4c8b0ce7a02" category="paragraph">針對每個主機、系統會識別目標組態（移轉後）、並執行落差分析、以識別不受支援的特定元件。主機分析應在完成後立即審查。必要的更新可能會中斷與每部主機上執行的應用程式的相容性。</block>
+  <block id="1683f823caf2498a246a027f100e38ac" category="paragraph">一般而言、在實際移轉事件發生之前、不會進行必要的主機變更。這是因為通常需要排程維護時間、但如果可能的話、事先進行主機變更（例如系統修補和主機匯流排介面卡（HBA）更新）通常風險較低。此外、系統更新通常會與應用程式更新協調、利用相同的維護事件來進行。一般而言、移轉前對多重路徑I/O（MPIO）組態所做的任何變更、也會影響目前儲存設備的支援。例如、目前的儲存組態可能不支援從主機移除PowerPath、並重新設定為在Linux上使用原生MPIO和非對稱邏輯單元存取（ALUA）。</block>
+  <block id="31b83c59ce1891325b52168eeb7bfad4" category="paragraph">延遲MPIO重新設定、直到移轉完成為止、可簡化必要時的復原程序。</block>
+  <block id="25b6a21aca28345cb67164a451ab61e8" category="list-text">針對每個主機執行落差分析。找出所需的熱修復/修補程式、作業系統更新、HBA驅動程式和韌體升級、以符合NetApp IMT 支援系統上所選的目標組態。此外SnapDrive 、還SnapManager 應考量此主機上安裝其他NetApp軟體的需求（例如：NetApp®、簡稱「支援」）。</block>
+  <block id="47a20386a95323b7da1d16d24f5e28eb" category="list-text">針對每個主機（作業系統組態、MPIO、HBA詳細資料、主機公用程式套件版本）、決定目標組態（移轉後）。</block>
+  <block id="d9b10c2e8b51b8f0209db412d09913ae" category="list-text">判斷其他NetApp產品需求SnapDrive （例如、NetApp SnapManager ）。</block>
+  <block id="fa5cc795f3efc0faea3a45eb87e12e15" category="summary">若要準備FLI線上移轉、請驗證主機和來源LUN路徑及其他詳細資料。</block>
+  <block id="31e1add98209878d916efa23aa2559d1" category="doc">FLI線上：準備LUN路徑</block>
+  <block id="cff83af772a5c931d87e0ec392c65011" category="list-text">在本系統中、將權限等級變更為「進階」ONTAP 。</block>
+  <block id="b1afc11741a1365578d6687902a80f9c" category="paragraph">下列輸出中的自動換行字詞沒有意義。</block>
+  <block id="d6632b113eb61cc6169c37b5aaa2af6c" category="list-text">列出從來源儲存設備對應的LUN。驗證磁碟內容和路徑。</block>
+  <block id="c302f97364cfa08aa702820c4dd75d9f" category="list-text">檢視來源LUN。</block>
+  <block id="6f2f723476c5e8bc76767da78eed7b6f" category="list-text">將來源LUN標示為外部LUN。</block>
+  <block id="e3d5bef4351707870248d295bf853c71" category="list-text">建立目的地Volume。</block>
+  <block id="bbadc91015d706e267bef2746666da6a" category="list-text">將每個磁碟區的fraction保留選項設為「0」、並將Snapshot原則設為「無」。</block>
+  <block id="46de8012f25de6b7a2ed7afb30ea8b96" category="list-text">檢查您的Volume設定。</block>
+  <block id="1c025b39c8b67a4d1b797bcbf820d495" category="list-text">刪除任何現有的Snapshot複本。</block>
+  <block id="0bdb969954d1ebc907fbc30b699c37d9" category="paragraph">FLI移轉會修改目標LUN的每個區塊。如果在FLI移轉之前磁碟區上存在預設或其他Snapshot複本、則磁碟區會被填滿。需要進行FLI移轉之前、請先變更原則並移除任何現有的Snapshot複本。可在移轉後再次設定Snapshot原則。</block>
+  <block id="6be823019bbb6847b1762479cd37d547" category="paragraph">LUN create命令會根據分割區偏移量來偵測大小和對齊方式、並使用Foreign磁碟選項來建立LUN。有關I/O不一致的審查、請參閱NetApp知識庫文章*什麼是不一致的I/O *？另請注意、有些I/O似乎總是部分寫入、因此看起來會不一致。例如資料庫記錄。</block>
+  <block id="3c332b8fa3a17ad36b936ebf080e9552" category="inline-link">什麼是未對齊的I/O？</block>
+  <block id="5e1eaea7a4b47f3e85120d23f6b5f6d3" category="paragraph"><block ref="5e1eaea7a4b47f3e85120d23f6b5f6d3" category="inline-link-rx"></block></block>
+  <block id="f442cef583acdd786cc01fb43b15d936" category="list-text">建立目標LUN。「LUN create」命令會根據分割區偏移量來偵測大小和對齊方式、然後使用Foreign磁碟引數來建立LUN。</block>
+  <block id="841969bf5101dcb2453d20bdc7d549f5" category="list-text">確認主機登入新igroup的所有路徑。</block>
+  <block id="3ce2d76e4c6623bac936c8d97cf1ce57" category="list-text">使目的地LUN離線。</block>
+  <block id="2e960c5468f29481e7cb679c3cc91596" category="list-text">將目的地LUN對應至igroup。</block>
+  <block id="82ace49e37ca11b2bc063013ceb3d2d2" category="summary">FLI離線工作流程需要設定來源LUN和目的地LUN。</block>
+  <block id="4ea91fc35c8b19f849cfc83b862459f4" category="doc">設定移轉工作</block>
+  <block id="1325a03e6641ddcfc5c553ebc3fc8ff3" category="list-text">對於FLI移轉、來源LUN必須標示為Foreign（外部）。使用序號將來源LUN標示為外部LUN。</block>
+  <block id="9692868257519ccb615d00a9853dac5d" category="list-text">建立目的地Volume。</block>
+  <block id="32c8809b18d339c57d80cacf6ff84fdf" category="list-text">停用每個磁碟區的預設Snapshot原則。如果在FLI移轉之前存在預設的Snapshot複本、則磁碟區需要額外空間來儲存變更的資料。</block>
+  <block id="f39acf9ee6c52999fba0318708fad80c" category="list-text">將每個磁碟區的「fresse_rereserveoption」設為「0」、並將Snapshot原則設為「NONE」。</block>
+  <block id="0175c3352c72e3f43f9b7637a22aa319" category="paragraph">FLI移轉會修改目標LUN的每個區塊。如果在FLI移轉之前磁碟區上存在預設或其他Snapshot複本、則磁碟區會被填滿。需要進行FLI移轉之前、請先變更原則並移除任何現有的Snapshot複本。可在移轉後再次設定Snapshot原則。</block>
+  <block id="3644a7d72ac18a40683f8e9814dd7ef3" category="paragraph">LUN create命令會根據分割區偏移量來偵測大小和對齊方式、並使用Foreign磁碟選項來建立LUN。如需檢閱、請參閱NetApp知識庫文章*什麼是未對齊的I/O？*、也請注意、某些I/O永遠會顯示為部分寫入、因此看起來並未對齊。例如資料庫記錄。</block>
+  <block id="8d8b326fda71c226e861bc77f2a88e39" category="list-text">使用外部LUN建立目的地LUN。</block>
+  <block id="d01636005dfea87040ff24ea1efb74d9" category="list-text">列出目的地LUN、並使用來源LUN驗證LUN的大小。</block>
+  <block id="efd8ae6f6fa1c8098ff5382ce9468866" category="paragraph">對於FLI離線移轉、LUN必須對應至igroup、然後在建立LUN匯入關係之前先離線。</block>
+  <block id="9d4c18ab2622dba2bc077f82640619fa" category="list-text">建立傳輸協定FCP的主機igroup並新增啟動器。在「站台調查規劃工作表」的「儲存群組」區段中尋找啟動器WWPN。</block>
+  <block id="32ce0380a8281d8635c5e10f098f4cd7" category="paragraph">使用與來源相同的LUN ID。請參閱現場調查規劃工作表的來源LUN區段。</block>
+  <block id="f974256d753b5c19c6f13f9606d04f76" category="list-text">將目的地LUN對應至igroup。</block>
+  <block id="f876948a72c44db95e30fc6c2089a056" category="list-text">建立與目的地LUN和來源LUN的匯入關係。</block>
+  <block id="8431523289b624b6c700307921c31465" category="list-text">驗證匯入工作建立。</block>
+  <block id="197e64993a9bd9d23c9208a3a59ae427" category="summary">本指南適用於有興趣將資料從外部陣列移轉至ONTAP VMware或有興趣將LUN從NetApp 7-Mode陣列移轉至ONTAP VMware的NetApp客戶。</block>
+  <block id="f2b84afd0523a6df7547c404aa3647d8" category="doc">目標對象</block>
+  <block id="6a0084c43e3b07ca1669a87939d166f2" category="paragraph">本指南的其他對象如下：</block>
+  <block id="76b24a3784b33e4ce635868ce091da49" category="list-text">NetApp異質儲存區域網路（HeSAN）移轉服務的客戶</block>
+  <block id="f03c5a57377de686e50617ce08b51eca" category="list-text">NetApp銷售工程師（SE）</block>
+  <block id="966055f7cebb6103e11fa83f105dac29" category="list-text">諮詢銷售工程師（CSE）</block>
+  <block id="1295b40a9546cbd753ad696fafca430f" category="list-text">專業服務工程師（PSE）</block>
+  <block id="244dfbf3a07dab1c6bbe4aebed28e520" category="list-text">專業服務顧問（PSC）</block>
+  <block id="af9825daba7879a001106256849f17ac" category="list-text">通路合作夥伴工程師</block>
+  <block id="36fa43d399c70772782de29dfdc1bfcf" category="paragraph">本指南讀者應熟悉常見的SAN概念與程序、包括分區、LUN遮罩、需要移轉LUN的主機作業系統、ONTAP 以及來源協力廠商陣列。</block>
+  <block id="0d1ab32d2e734165cc6fa60ad4e92f19" category="summary">這是涵蓋FLI線上移轉的四個FLI工作流程範例中的第二個。</block>
+  <block id="d0d7a8d464c5eb9f10cf2c7f522fdff3" category="doc">FLI線上工作流程</block>
+  <block id="888a5ac5077bd0a2595ac8d4d57343b6" category="paragraph">本範例中的來源陣列是EMC VNX5500。所提供的範例應徹底瀏覽FLI線上程序、並設計為與本指南先前部分所討論的一般資訊和程序搭配使用。線上工作流程具有下列工作：</block>
+  <block id="207c99dbe101d7af2533d861e39077d9" category="list-text">準備LUN路徑</block>
+  <block id="3892b30160c9653f481e358d32fbc22f" category="list-text">匯入來源LUN資料</block>
+  <block id="e467310a29ce4a08b3fb35835aa67bea" category="paragraph">如果NetApp控制器目的地MetroCluster 是一個不景點、請勿使用線上工作流程。如果在作用中的線上匯入期間發生站台容錯移轉、則寫入到來源陣列的傳遞可能會失敗、進而導致驗證失敗和可能的資料遺失。如果目的地MetroCluster 是不全、請使用FLI離線程序。</block>
+  <block id="8970c458447db1c2605bb5f15b71b109" category="summary">FLI的線路需求與NetApp FlexArray 產品相同。NetApp儲存啟動器連接埠連接至來源儲存目標連接埠所連接的網路。將來源儲存設備連接至NetApp儲存設備時、請遵循FlexArray 最佳實務做法。</block>
+  <block id="3ce8bd6c1992bd681505fc41c17c030b" category="doc">FLI的實體配線需求</block>
+  <block id="e23cfe3f5f5db6eba97c79167e9f598f" category="paragraph">移轉期間所使用的儲存陣列、必須具有兩個Fabric中每個控制器（使用中）的主要路徑。這表示要移轉的來源陣列和目的地陣列節點必須位於兩個Fabric的通用區域中。不需要在NetApp叢集中新增其他控制器、只有實際匯入/移轉LUN的控制器。雖然您可以使用間接路徑進行移轉、但最佳實務做法是在來源陣列和目的地陣列之間使用主動/最佳化路徑。下圖顯示HDS AMS2100與NetApp ONTAP 支援儲存設備的主要（作用中）路徑同時存在於兩種架構中。</block>
+  <block id="b86568f0ab2436e9a4ea2cfd9d49fcd5" category="paragraph">此圖為雙Fabric的儲存線路範例。</block>
+  <block id="e0bf412f811af5d2ff097a082cf5c13d" category="image-alt">實體配線1.</block>
+  <block id="3798557e78dc0ab485623d8d2387bacb" category="paragraph">請遵循以下佈線最佳實務做法：</block>
+  <block id="ba960e8e33af1699383d16d8dd33e718" category="list-text">請使用NetApp FlexArray 的「供應來源和目的地儲存設備的最佳實務做法」、如《_ FlexArray 》《虛擬化安裝要求與參考指南》所述。</block>
+  <block id="363d30e9a00e0b43fea3e9ac48cdf525" category="list-text">不需使用任何啟動器連接埠、即可連接至Fabric。ONTAP如果可用連接埠不存在、請設定啟動器連接埠。</block>
+  <block id="d6bd93468ec139fb3210b412a692cf3c" category="summary">匯入記錄會儲存在叢集事件記錄檔中。您應該檢閱記錄檔是否有錯誤、以驗證移轉是否成功。</block>
+  <block id="35c0629618c7002c8c170854c5ac05ed" category="doc">移轉報告</block>
+  <block id="8b95ee4c026e6f2fce7d0e1d1f6a629d" category="paragraph">移轉報告應顯示如下：</block>
+  <block id="3c91db5167fea30a381768373328161e" category="paragraph">在執行移轉階段中、會說明比較來源和目的地LUN的驗證步驟。執行移轉階段會涵蓋匯入和LUN驗證步驟、因為這些步驟會連結至匯入工作和外部LUN。</block>
+  <block id="c614218c0adf7263666120fbe714869d" category="summary">在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含有關您Aggregate狀態的資訊。</block>
+  <block id="acf867d4e1dc8af3eb922419a5b3fe21" category="doc">站台調查與規劃工作表Aggregate Status索引標籤</block>
+  <block id="bceb4f070020d638ef1535978542228d" category="paragraph">以下是如何設定Aggregate Status索引標籤的範例。</block>
+  <block id="911f94bc298fc88538ecc2c44b5d778d" category="cell">NetApp Aggregate資訊</block>
+  <block id="9bbf373797bf7cf7ba62c80023682e25" category="paragraph">控制器</block>
+  <block id="3cb06647e5ace30337f57aed8c87b0e1" category="paragraph">總大小（GB）</block>
+  <block id="72f0b61e3b8040d7c9957ca326dc981d" category="paragraph">已用容量（GB）</block>
+  <block id="70ed673b65daa8d0437b28e534f4ec4e" category="paragraph">可用（GB）</block>
+  <block id="0d4f11be31f944fbc267afc1f7a2f666" category="paragraph">上一頁的「建置」</block>
+  <block id="4251cbb4169325c910ea3970e80f708e" category="summary">在進行任何移轉之前、請確認多重路徑的設定正確、而且運作正常。</block>
+  <block id="f1d14496ccd3e97f4f2add791ca0ea38" category="paragraph">LUN的所有可用路徑都應為作用中。請參閱SAN主機多重路徑驗證主題、以取得如何驗證Windows、Linux和ESXi主機上多重路徑的範例。</block>
+  <block id="53a51b7dcda82a62f1a85a24f43b7788" category="summary">驗證工作是選用的、但建議使用。這是來源LUN與目的地LUN的區塊間比較。驗證工作所需時間幾乎與移轉時間相同或稍微長一點。</block>
+  <block id="2bc364a426afaf286122a406602b2f3f" category="doc">FLI線上：驗證移轉結果</block>
+  <block id="592acd1bddde2107e08b7fab9870ec8f" category="paragraph">啟動驗證工作以比較來源和目的地LUN。監控驗證進度。驗證中的LUN在驗證工作階段期間必須離線。驗證工作階段可能會冗長、因為它是來源LUN與目的地LUN之間的區塊比較。雖然不需要驗證、但最好驗證匯入/移轉的LUN子集、以確保匯入程序順利完成。除了在測試/試驗移轉期間執行的驗證之外、也會進行這些驗證。</block>
+  <block id="4e7b785e4493cbe0b79242ce203ac879" category="paragraph">此程序會中斷營運。</block>
+  <block id="e1fac940622e70910db7d52852f57a10" category="list-text">離線待驗證的LUN。&lt;中斷時間從這裡開始&gt;</block>
+  <block id="2817949546193391fe4e33ff2547300a" category="list-text">驗證完成後將LUN連線。&lt;中斷時間到此結束&gt;</block>
+  <block id="5e0c9df591e5df923a8325573e7ca5f7" category="summary">以下是正式作業Fabric A中的Brocade網路範例</block>
+  <block id="d535235692fb253ef3bba1707bd4b8f7" category="doc">正式作業架構中的Brocade網路就是一個範例</block>
+  <block id="0e307f6ea434bd4d2171f6accce0a9ba" category="summary">在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含初始移轉問卷的移轉專案資訊。</block>
+  <block id="a9045dbda21a2daa2214c339015b971e" category="doc">站台調查與規劃工作表問卷索引標籤</block>
+  <block id="10bb602bb2e1131312be193830955c41" category="paragraph">以下是如何設定「問卷」索引標籤的範例。</block>
+  <block id="56693cf67971d000c20732a5b7bdbb95" category="cell">移轉專案資訊</block>
+  <block id="245fe794333c2b0d5c513129b346b93f" category="paragraph">專案類型</block>
+  <block id="0f9a2a86022225e39b6433376654f29d" category="paragraph">叢集資料移轉</block>
+  <block id="0e438e8542600a5a337438e09b4fdd62" category="paragraph">其他</block>
+  <block id="7f619d79963b1a2829552c352e453c28" category="paragraph">資料移轉目標</block>
+  <block id="db07aa95ec6e92553942c3c3a421c707" category="paragraph">&amp;#91；目標&amp;#93；</block>
+  <block id="9e6812fa0cb16a274ae8a426b9ee15b3" category="paragraph">來源裝置</block>
+  <block id="214a758db5e2eec3993db937270e4f24" category="paragraph">儲存設備：[儲存設備類型]</block>
+  <block id="acaaabeb7367ead121ad26f977833b69" category="paragraph">不可以裝置數量：[No陣列數]</block>
+  <block id="ddb70a042f590778629e545f69fbb200" category="paragraph">資源隨需配置：需求為：Yes（是）；否</block>
+  <block id="d26db839a8b505484ea05b45ef376235" category="paragraph">列舉所有裝置</block>
+  <block id="e44b4e495633f39d51f952585186f3eb" category="paragraph">用戶端裝置</block>
+  <block id="261b5445fd33a0b7465bb1b441121b0d" category="paragraph">作業系統：[OS版本]</block>
+  <block id="c9e41c953d8e18402f192e6a6dbf388a" category="paragraph">SAN開機：Yes（是）= No（否）</block>
+  <block id="65ee9b0d253cfcd7771c49219da0319c" category="paragraph">MPIO：[MPIO版本]</block>
+  <block id="de09cca27f135e2320f3de663d6465b8" category="paragraph">HBA：[HBA廠商、機型、韌體]</block>
+  <block id="8ad3d0b4eaf844117889e902c8b144c2" category="paragraph">網路交換器</block>
+  <block id="6e848e0444ce3aae21a37e95d2906af7" category="paragraph">廠商：</block>
+  <block id="284d5cd0dd92c1b4ee0712a15b60ae49" category="paragraph">機型：</block>
+  <block id="fc7d4a6023cb109492291b754c6160c6" category="paragraph">韌體：</block>
+  <block id="a9adf5804d2b0752af4016534bf26618" category="paragraph">不可以連接埠數量：</block>
+  <block id="7bca39f9e67c6eb9ba85056cc1290a47" category="paragraph">目前的通訊協定</block>
+  <block id="0d8e82473ffcad1d4bdc0f54e2179551" category="paragraph">FCP</block>
+  <block id="0c42613b122ef1dac6eb3c3d0ba7bc50" category="paragraph">iSCSI</block>
+  <block id="877d42f95f09aa8782a453c6158d29d3" category="paragraph">Volume Manager</block>
+  <block id="465d60b936c982d7b57674f30ba022d0" category="paragraph">產品：</block>
+  <block id="9d290d3434589e33be3d2cad4f8323ec" category="paragraph">版本：</block>
+  <block id="cab2d68c359922b6642e8fa6641e716b" category="paragraph">目的地裝置（儲存設備）</block>
+  <block id="9cf8d76297ba295aa370dc0ae13838c2" category="paragraph">儲存設備：[儲存設備]</block>
+  <block id="63197fbaa1499e4f7f90e10d07d5cdc8" category="paragraph">不可以[數量]</block>
+  <block id="9d802703117705345fc829605fe4a59d" category="paragraph">對於此服務、僅限NetApp檔案管理器</block>
+  <block id="11e8d9604700f0f7f034155d500e8883" category="paragraph">要移轉的資料量（TB）</block>
+  <block id="d7e72382817dc41f2a77e0a6afb28c5d" category="paragraph">&amp;#91；資料量&amp;#93；</block>
+  <block id="f3f61a75c49be21f706b27e939278fe2" category="paragraph">摘要與詳細資料（每個來源裝置）</block>
+  <block id="0af38a14209cc9bc1b292891a3e005da" category="paragraph">LUN數量</block>
+  <block id="eb5fbf222b483c587fea76fe16f56ccc" category="paragraph">&amp;#91；LUN數量&amp;#93；</block>
+  <block id="a95ad1971f6f1542026f5f96ef238f12" category="paragraph">資料重組</block>
+  <block id="c5820346575284659d44eba1bb3ca694" category="paragraph">[]是[]否</block>
+  <block id="2dd34797614f890cd525ba39985e1461" category="paragraph">客戶是否希望在移轉過程中、將磁碟區/目錄/資料夾/檔案移至不同的資料結構？</block>
+  <block id="9e5d61b05fc133d62f2ebaa7ba3cfce6" category="paragraph">中斷期預期</block>
+  <block id="bdfd70dc773fda85c0bc91a9398ed71d" category="paragraph">中斷時間</block>
+  <block id="ec9053f033853a9421af3f855d7416de" category="paragraph">預先定義的是彈性的</block>
+  <block id="054dfd9d4745470f56afcacc341de153" category="paragraph">標準維護時段原則：[Info]</block>
+  <block id="d8fffa3019db6e0115458db64ad81d13" category="paragraph">可用的中斷次數與持續時間。請列出維護時段（如果有）。</block>
+  <block id="b5c2d65e6a621e7830790240aedbf2b1" category="paragraph">完成所需的時間範圍</block>
+  <block id="345406f7c4e8fe7b7820c9b1da2e3e52" category="paragraph">&amp;#91；完成所需時間範圍：#93；&amp;#91；時間敏感度&amp;#93；</block>
+  <block id="06d7482e001df736fcdb69299d2c2938" category="paragraph">其他相關資訊</block>
+  <block id="63a1e1b7612a2397b4ff57c141a827e7" category="paragraph">&amp;#91；其他相關資訊&amp;#93；</block>
+  <block id="22b9ca50d26528cdb88e0eafc47518f8" category="paragraph">客戶組織名稱與位置（城市與州）</block>
+  <block id="3d648a1b7064ebcecfe1e6c08a5a1530" category="summary">為了規劃目的、某些假設可用來預估資料移轉的工作程度和持續時間。</block>
+  <block id="8e94185148e108a39b3101ed4c1bafd9" category="doc">評估移轉持續時間的基準測試</block>
+  <block id="bc104667bcbfcfc0a37425919ac2dd58" category="paragraph">若要準確評估實際效能、您應該執行數種不同規模的測試移轉作業、以便針對特定環境取得正確的效能數據。</block>
+  <block id="5c4e522aa1b09948e09548f0097ce4ff" category="paragraph">下列基準測試嚴格用於規劃目的、對於特定環境而言不太可能特別準確。</block>
+  <block id="befddf42be49f0ca600570cf2bd7d093" category="paragraph">假設：每個主機移轉5小時、以8個LUN、總共2 TB資料的主機為基礎。這些參數提供每小時約400 GB的規劃數量。</block>
+  <block id="54011b62f41dfb303a3eed8e66adacf5" category="summary">在您的「站台調查與規劃」工作表中、您應該有一個索引標籤、其中包含目的地儲存裝置的相關資訊。</block>
+  <block id="cd1e0a3493fa61cb2dd0db1374b4f62b" category="doc">站台調查與規劃工作表的「目的地儲存裝置」索引標籤</block>
+  <block id="592841d56fa2f5fffbdfe26b71543b0b" category="paragraph">陣列模式</block>
+  <block id="253b40ae359ba25b56231803430c4873" category="paragraph">ONTAP</block>
+  <block id="5999e4ab912c7c1d8aa6fd2225491ef2" category="paragraph">Vserver</block>
+  <block id="bd9f125b279a19f0d5b7f09c7d793d35" category="paragraph">連接埠類型</block>
+  <block id="ac97493a7a4344a27e4727eb70ab63e3" category="paragraph">DataMig-cDOT</block>
+  <block id="8ed24dd5fb292ecefe76fe92a5fc3988" category="paragraph">FAS8080</block>
+  <block id="8f1f86a971ce00988b00293498eafbfb" category="paragraph">8.3.1</block>
+  <block id="1b523fdae68699bfe92c5f6bfc8a0a7d" category="paragraph">資料</block>
+  <block id="4dfeba53942501e41d9280492b2e66ed" category="paragraph">DataMig-01</block>
+  <block id="4bd7c2ff07dcc66801a9368957d4bff8" category="paragraph">啟動器</block>
+  <block id="12ba1b5b56273e90b8bda667b93c30c8" category="paragraph">LIF名稱</block>
+  <block id="0fa2fc5954ab40ecfe658625c4adbea5" category="paragraph">0C</block>
+  <block id="fbe94f0f103eba4bb688fa96980242e9" category="paragraph">偏移1</block>
+  <block id="dd82ff336ed7619dec6938808fc08d7c" category="paragraph">20：01：00：a0：98：2f：xx：xx</block>
+  <block id="23a326d0b546a12f3fd23a278dfba0ed" category="paragraph">0D</block>
+  <block id="93b778c76e14ee7e5bc3bfab95fbb0b4" category="paragraph">偏移2.</block>
+  <block id="274b68192b056e268f128ff63bfcd4a4" category="paragraph">不適用</block>
+  <block id="61c84893442e8d448753228d506c5ea1" category="paragraph">50：0A：09：81：00：xx：xx：xx</block>
+  <block id="347017fd1e37a22faf91875981bc4fb3" category="paragraph">0B</block>
+  <block id="e3be5aecfb0260579fe80049e1c8a50c" category="paragraph">以下是如何設定「目的地儲存裝置」索引標籤的範例。</block>
+  <block id="58d6f301f492ea338b888197932ef40c" category="summary">執行階段包括準備移轉主機。</block>
+  <block id="ad48e2c5dc81cbc51b593a2e78c80e19" category="doc">準備主機進行移轉</block>
+  <block id="f2df862db0c505a4d6c576b178631ce0" category="paragraph">在許多情況下、可能會在此步驟之前執行補救。如果沒有、您可以在這裡執行任何主機補救、例如安裝主機附加套件或DSM。從分析階段、您將會有一份落差清單、列出每部主機需要執行的項目、以便該主機使用NetApp ONTAP 功能以支援的組態執行。視執行的移轉類型而定、主機可能會先修復、然後重新開機（FLI 7-Mode轉ONTAP 到線上）、或是重新開機、修復、然後關機（FLI 7-Mode轉ONTAP 到非線上）。</block>
+  <block id="df3569b3f7ae63d215541676162d0242" category="summary">工作流程自動化可與FLI搭配使用、以自動化移轉前與移轉後、移轉及移轉工作與狀態檢查。在自動化移轉中、FLI使用工作流程自動化軟體來自動化部分移轉程序。配備WFA的FLI可在線上或離線模式下使用。</block>
+  <block id="b3fe8593326427f7ee6173c0e19d70ac" category="doc">使用工作流程自動化（WFA）的FLI</block>
+  <block id="0881149a52ef8b902c268913db43e15f" category="paragraph">若要搭配FLI使用WFA、您必須在環境中的適當伺服器上下載並安裝WFA。安裝WFA之後、您就會下載指定的工作流程。可供下載的兩個FLI自動化套件為離線FLI和線上FLI。自動化套件遵循的支援規則與FLI離線和FLI線上工作流程相同。這包括線上支援FLI的主機操作系統清單。</block>
+  <block id="a84a2a646f902fe5c7c0de553f4ca5ae" category="paragraph">WFA自動化套件可從WFA自動化商店下載。如需執行的特定行動及其他詳細工作流程資訊的詳細資訊、請檢閱每個套件內嵌的說明檔案。</block>
+  <block id="cae9699520a1262eccdcdb2b806e442c" category="inline-link">《Workflow Developer's Guide》（英文）OnCommand Workflow Automation</block>
+  <block id="1210da8c5df471154d7e52e13fb7ffb2" category="paragraph"><block ref="1210da8c5df471154d7e52e13fb7ffb2" category="inline-link-rx"></block></block>
+  <block id="2f449876355c69512df7e569fe9c6a65" category="summary">FLI已有一些增強功能、可更有效地管理效能、並避免工作負載不足的情況發生。FLI在ONTAP S還原8.3.1中的增強功能包括新的節流命令、以及LUN匯入功能的增強功能、可顯示處理量和QoS原則群組。</block>
+  <block id="8c4a124ca6c953340797ff9481b86241" category="doc">效能強化ONTAP 功能</block>
+  <block id="8d844627d2b3d4a9f5e6fd64bb23fbdd" category="paragraph">「LUN匯入節流」命令是用來限制執行匯入的最大速度。</block>
+  <block id="e0e081b71a49cfb03b7e6586a50b4ec6" category="paragraph">使用「執行個體」交換器搭配「LUN匯入顯示」、以顯示延伸LUN匯入資訊、包括節流和QoS資訊。</block>
+  <block id="1110e5db0b802b9d4685f94410bce548" category="paragraph">「目前處理量」的值會顯示匯入或驗證作業目前的處理量速率。使用者應先檢查此項目、再設定節流值。未執行時為空白。如果使用LUN匯入節流、「QoS原則群組」會顯示QoS群組。</block>
+  <block id="8521efbff974561784410c0a6d50f116" category="summary">下列步驟說明如何在完成FLI移轉之後、從主機移除來源LUN。</block>
+  <block id="9a2c19262a187bcd4df293aeb52e1f4c" category="doc">從主機移除來源LUN</block>
+  <block id="c6e498e8376efcb4f757c84c3a3e8c6c" category="paragraph">若要從主機移除來源LUN、請完成下列步驟：</block>
+  <block id="86478cc867d8e2aa1f61370fd34f1954" category="list-text">選取要移轉的主機、然後選取*編輯主機群組*。</block>
+  <block id="6eece95105089574d413e5558218d874" category="image-alt">從主機1移除來源LUN</block>
+  <block id="6346b96a2b0626379f6debc6634e2ac3" category="image-alt">從主機2移除來源LUN</block>
+  <block id="e4bd4ad1c3c660ca40f9bcf83893ee4c" category="list-text">選取從指派的邏輯LUN移轉的主機LUN。使用來源LUN工作表中提及的每個主機的LUN名稱。在此處選取Windows 2012主機的LUN、然後選取*移除*。</block>
+  <block id="d80c56eff54b89020c751b58c97ed631" category="image-alt">從主機3移除來源LUN</block>
+  <block id="6e0070e0532e1c48bfd6eca0a07a0120" category="list-text">針對Linux和VMware ESX主機重複上述步驟。</block>
+  <block id="d7da563f3152abd7a93b06abdd4d95c6" category="summary">在「站台調查與規劃」工作表中、您應該設定包含移轉專案主機資訊的索引標籤。</block>
+  <block id="36231dd03efc078aabef212947a5b33e" category="doc">站台調查與規劃工作表的主機索引標籤</block>
+  <block id="396cb26dedacf281d09182445c92324a" category="paragraph">以下是如何設定「主機」索引標籤的範例。</block>
+  <block id="bc8586f2230ff2687e94e61c5bcb4855" category="paragraph">*目前*</block>
+  <block id="c5f59086da2596c74d6daf4ba11dfaef" category="paragraph">* NetApp推薦*</block>
+  <block id="48cf24486d9a8e65a142b25682f19949" category="paragraph">驅動程式</block>
+  <block id="eec263180861f9129fda7c5ad07c938b" category="paragraph">Huk</block>
+  <block id="7e6c7f4878b6fa562299bd45be030c4d" category="paragraph">MPIO</block>
+  <block id="0413ef3305e44f2d6ba091a328985666" category="paragraph">SnapDrive</block>
+  <block id="c7e230d1422228fff3ce57e1b13d1d0c" category="paragraph">SnapManager</block>
+  <block id="0f413e47bf69d6dd85e783e2bfc60184" category="paragraph">即時修復程式</block>
+  <block id="af99c9abf614a82b80d08359e5e0a888" category="summary">在「站台調查與規劃」工作表中、您應該設定一個索引標籤、其中包含LUN配置的資訊。</block>
+  <block id="f01d3ff99f3ac13d61d7586c2e8dc665" category="doc">站台調查與規劃工作表NetApp LUN配置索引標籤</block>
+  <block id="e672da4fadd27ee2f19017ef42dce852" category="paragraph">以下是如何設定NetApp LUN配置索引標籤的範例。</block>
+  <block id="f4dc3ce9f4d7c741a2ac13a451458d51" category="cell">NetApp LUN資訊</block>
+  <block id="5a33fdd3ad048388d676b3cfe62a76b4" category="paragraph">Volume名稱</block>
+  <block id="191fac23c2b2ea4e948178972521292f" category="paragraph">Volume大小</block>
+  <block id="95072ca072e4d2f6530e44299d188efd" category="paragraph">Volume保證</block>
+  <block id="50971f496a3590b9c84a943824e0e760" category="paragraph">SnapReserve</block>
+  <block id="795d018d375de9845a4997b30eca99ec" category="paragraph">S/N</block>
+  <block id="a4c2838f9e8470b88f44e476a47d44b2" category="paragraph">LUN說明</block>
+  <block id="c1feafdc6047736ec551a3372eaede0b" category="paragraph">GB大小</block>
+  <block id="197550a398f21ab68f65c3c4b21d5ea5" category="paragraph">LUN保留</block>
+  <block id="22aaadfcc402bfcfa93fb34226cf5435" category="paragraph">部分保留</block>
+  <block id="f97c03bf3e9580446d70d479f5aad1e0" category="paragraph">Volume自動調整大小</block>
+  <block id="af022fe70cd3bd3260b3f6db496447e9" category="paragraph">抓取自動刪除</block>
+  <block id="4a4136bdaaf4cd0229fb9e3b64dec990" category="paragraph">igroup</block>
+  <block id="77863eecd3628172144d619c2f03fb64" category="paragraph">LUN ID</block>
+  <block id="c2ece9a18147c056e75e4008644a9526" category="paragraph">主機類型</block>
+  <block id="16b78e95661c918bc1b982fd64852c02" category="paragraph">磁碟機代號</block>
+  <block id="6fcf6136fc83f5f370118fdad729cb70" category="summary">FLI 7-mode to ONTAP VMware工作流程的移轉後工作與其他FLI工作流程類似。</block>
+  <block id="e7464f89282dab124d964e0997ebdaca" category="doc">FLI移轉後的工作流程</block>
+  <block id="81b269ef8294e928f2cd88a8dbdf2143" category="list-text">準備好之後、您可以刪除LUN匯入關係。</block>
+  <block id="fe46af39ef03dd8446cbb8b335198a2e" category="paragraph">LUN匯入關係可以安全移除、因為主機現在正在存取新ONTAP 的NetApp陣列、以便將所有I/O存取至新的VMware LUN、而且來源7-Mode LUN已不再使用。</block>
+  <block id="9e0f7b9c4e32d10eb6d0d1b4be5f7fa3" category="list-text">所有的伺服器修復都會在移轉後執行。</block>
+  <block id="b208ac80b5fcbb3c77c71f6fbbb17090" category="paragraph">刪除第三方軟體、安裝並設定NetApp軟體、然後主機存取NetApp上的LUN。</block>
+  <block id="86a23697ca540b3445846c38e1c69c58" category="doc">ESXi主機的多重路徑驗證</block>
+  <block id="ccae24600a5eb1fe0c21af103f3ddd5c" category="paragraph">針對ESXi主機完成下列步驟。</block>
+  <block id="af0dea2ff9e1176fecfc21e3f9959904" category="list-text">使用VMware vSphere Client判斷ESXi和虛擬機器。</block>
+  <block id="103e554c972c4e96ee868818d7c433c5" category="image-alt">vSphere儲存資料存放區</block>
+  <block id="9da6e0e19777c0ebe4053540e1e32e5c" category="list-text">使用vSphere Client判斷要移轉的SAN LUN。</block>
+  <block id="4c5794f4bad936901feaec744c3276a6" category="image-alt">vSphere儲存設備</block>
+  <block id="42424b4c0d9464fd16dd6015713977eb" category="list-text">確定要移轉的VMFS和RDM（vfat）磁碟區：「esxcli儲存檔案系統清單」</block>
+  <block id="19c1d3faac0375666b3e82fb8346aeac" category="paragraph">如果VMFS具有extends（跨距VMFS）、則應移轉屬於跨距的所有LUN。若要顯示GUI中的所有擴充功能、請移至「組態」-&gt;「硬體」-&gt;「儲存設備」、然後按一下「資料存放區」以選取「內容」連結。</block>
+  <block id="b586eeb8706c79d74e50c50a444e4630" category="paragraph">移轉後、將其新增回儲存設備時、您會看到多個具有相同VMFS標籤的LUN項目。在此案例中、您應要求客戶僅選取標示為標頭的項目。</block>
+  <block id="29653f427528dd7c73cde811da4919a5" category="list-text">確定要移轉的LUN和大小：「esxcfg-scsidevs -c」</block>
+  <block id="9de12501bb2142a7b2ec2289208e45da" category="list-text">識別要移轉的原始裝置對應（RDM）LUN。</block>
+  <block id="be89db6f2fec82a00d85b806c598a3ee" category="list-text">尋找RDM裝置：「+尋找/vmfs/volumes -name **-rdm**+」</block>
+  <block id="7731a33633f59fb732485a3dd7c5fb81" category="list-text">從先前的輸出中移除-rdmp和-RDM、然後執行vmkfsools命令來尋找VML對應和RDM類型。</block>
+  <block id="97459251311bc6fc344bb07f299cdb93" category="paragraph">PassthThrough為RDM、實體為（RDMP）、而非PassthThrough則為RDM、虛擬為（RDMV\）。虛擬RDM和VM Snapshot複本的VM會在移轉後中斷、因為VM Snapshot delta vmDK指向具有過時naa ID的RDM。因此在移轉之前、請客戶移除此類VM中的所有Snapshot複本。在VM上按一下滑鼠右鍵、然後按一下Snapshot（快照）-&gt; Snapshot Manager Delete All（全部刪除）按鈕。請參閱NetApp知識庫3013935、以瞭解有關NetApp儲存設備上VMware硬體加速鎖定的詳細資訊。</block>
+  <block id="2691d88591e88679a1811b61d2e2f59d" category="list-text">識別LUN naa與RDM裝置對應。</block>
+  <block id="0cf65c7ab3af2e525287b55acd731b21" category="list-text">確定虛擬機器組態：「esxcli儲存檔案系統清單| grep VMFS」</block>
+  <block id="1abcd23a32826bbad4ffb904fde775e9" category="list-text">記錄資料存放區的UUID。</block>
+  <block id="0115886be5608c75c55151af2dbe24c0" category="list-text">複製「/etc/vmware/hostd/vmInventory．xml」、並記下檔案和vmx組態路徑的內容。</block>
+  <block id="6fb738ad7ba8ebd383451fcc9c614c23" category="list-text">識別虛擬機器硬碟。</block>
+  <block id="30d5000b9319e73f23641aa68fbe7723" category="paragraph">移轉後必須提供此資訊、才能依序新增移除的RDM裝置。</block>
+  <block id="9dbb45357e9175d4d9379f631599e6eb" category="list-text">判斷RDM裝置、虛擬機器對應及相容模式。</block>
+  <block id="e834487da4218cd041d8c9c6137a5d05" category="list-text">使用上述資訊、記下RDM對應至裝置、虛擬機器、相容模式和順序。</block>
+  <block id="0011a2a5e4e0f2bc74cfb823af4ed22b" category="paragraph">稍後將RDM裝置新增至VM時、您將需要此資訊。</block>
+  <block id="16fa5041323f1d918bfced600b817efc" category="list-text">確定多重路徑組態。</block>
+  <block id="1d38f16887ca4137c27cc384d06f4ec1" category="list-text">在vSphere Client中取得儲存設備的多重路徑設定：</block>
+  <block id="82af2cbe08d056387385934f422c35ec" category="list-text">在vSphere Client中選取ESX或ESXi主機、然後按一下「組態」索引標籤。</block>
+  <block id="907c0c9f181ccc907ae86974fa73f8ff" category="list-text">按一下「*儲存設備*」。</block>
+  <block id="e95077743be6f05d6ba11aa1669d8382" category="list-text">選取資料存放區或對應的LUN。</block>
+  <block id="ca1508bef4ecfaf5842f6dcf43d95d9b" category="list-text">按一下*「內容」*。</block>
+  <block id="e3ac6fbb391345767b192a28a3ffc588" category="list-text">在「內容」對話方塊中、視需要選取所需的範圍。</block>
+  <block id="1532c526343a31170caad2b28655d82d" category="list-text">按一下*「Extent Device」（範圍裝置）&gt;*「Manage Paths」（管理路徑）*、然後在「Manage Path」（管理路徑）對話方塊中取得路徑</block>
+  <block id="34afbda9fb44fa95acdbbf9cfecc078c" category="image-alt">vSphere儲存設備路徑</block>
+  <block id="ccff10b6fed485d4b5f809b53c8a91f4" category="list-text">從ESXi主機命令列取得LUN多重路徑資訊：</block>
+  <block id="bf03e7993cc2e418f032d103bf93bb4b" category="list-text">登入ESXi主機主控台。</block>
+  <block id="cffa35e9eba9345ca451680a2582e5a8" category="list-text">執行esxcli儲存設備NMP裝置清單以取得多重路徑資訊。</block>
+  <block id="00c40d087dd4a31be52b8d6fac28f40d" category="summary">FLI環境必須以支援的方式部署、以確保正常運作及支援。由於工程設計符合新組態的資格、因此支援的組態清單將會變更。請參閱NetApp互通性對照表、以驗證特定組態的支援。</block>
+  <block id="6a1c4226f3aee4e57407c95af86a1f17" category="doc">FLI支援的組態</block>
+  <block id="43e550da834f19c48e56d0033cb00d38" category="paragraph">僅支援使用支援的目的地儲存設備為支援的8.3及更新版本。ONTAP不支援移轉至協力廠商儲存設備。</block>
+  <block id="fcb9a33acc71b7a736bb2974d90e8694" category="paragraph">如需支援的來源儲存陣列、交換器和韌體清單、請參閱互通性對照表。資料移轉方案將支援NetApp互通性對照表中的組態。</block>
+  <block id="dcc4d70f83a987686da760765ac2bf87" category="paragraph">匯入完成且所有LUN均已移轉至NetApp控制器後、請確認所有組態均受到支援。</block>
+  <block id="ce91b6039e58611f253af932de050269" category="doc">FLI離線：驗證移轉結果</block>
+  <block id="47d2204501856353838ee78e45555084" category="list-text">啟動驗證工作以比較來源和目的地LUN。監控驗證進度。</block>
+  <block id="046d51f7e741a0f96a8de41d5947020b" category="list-text">監控確認工作狀態。</block>
+  <block id="69514061677672d46f94e4140574dd55" category="list-text">確認工作已完成。</block>
+  <block id="4094df43285495c7722dddff7afa8de1" category="list-text">驗證完成後、請停止驗證工作。</block>
+  <block id="1c855787e352fecbe853364612560c5a" category="list-text">刪除匯入關係以移除移轉工作。</block>
+  <block id="1f7d9093a87f1223652de0690e80f57c" category="list-text">確認匯入工作已刪除。</block>
+  <block id="e57e82538b681c873e1cfb334a6f3601" category="list-text">將Foreign LUN（外部LUN）屬性標記為「假」。</block>
+  <block id="d9d9448417571874dd3a7adfce11eee6" category="list-text">驗證外部LUN在匯入後是否標記為「假」。</block>
+  <block id="8e7d752a0fa07e965902dd236a3c89b4" category="list-text">使用LUN online命令使目的地LUN聯機。</block>
+  <block id="63e1b9537e12694060f7e57218806fa8" category="list-text">驗證LUN是否在線上。</block>
+  <block id="b76188f3e00e84a81eb898fcfa30419f" category="paragraph">匯入記錄會儲存在叢集事件記錄檔中。</block>
+  <block id="9273826bb0d876c78b121ff252c71f0e" category="sidebar">部分FLI文件ONTAP</block>
+  <block id="d648f2a68a54fd1b3329efc3cf24d29c" category="sidebar">法律聲明</block>
+  <block id="9a4c1be88c2720ce2a1f8a5fd2b27a5c" category="sidebar">FLI工作流程</block>
+  <block id="9661e4f0a38203cee0d0ec82dcba896f" category="sidebar">離線工作流程</block>
+  <block id="afec4ed45e968a4fe6c00ed1c1e83691" category="sidebar">線上工作流程</block>
+  <block id="88f3f903d8cfd4ec8cf08ee64f86504b" category="sidebar">使用FLI進行SAN移轉</block>
+  <block id="3b878279a04dc47d60932cb294d96259" category="sidebar">總覽</block>
+  <block id="8d98bee06f527b9e9c395ead1ae98be3" category="sidebar">外部LUN匯入</block>
+  <block id="135b308ed83c53f1516b7c754566d1c4" category="sidebar">開始之前</block>
+  <block id="a4d60e73cb9c1bfe95e0f1e874619b10" category="sidebar">FLI移轉後程序</block>
+  <block id="11bfb49706ab1fb0b0c2c70607371003" category="sidebar">從區域集移除來源儲存設備和主機區域</block>
+  <block id="faad5f79401b38fa8970d5b9e778ca6a" category="sidebar">外部LUN匯入效能</block>
+</blocks>
