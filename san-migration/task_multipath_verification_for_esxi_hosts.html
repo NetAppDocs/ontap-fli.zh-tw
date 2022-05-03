@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>ESXi主機的多重路徑驗證</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="ESXi主機的多重路徑驗證" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html" />
+	<meta property="og:description" content="在「Foreign LUN Import（FLI）（外部LUN匯入（FLI）））」程序中、您應該確認主機上的多重路徑已設定且正常運作。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/ontap-fli/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="在「Foreign LUN Import（FLI）（外部LUN匯入（FLI）））」程序中、您應該確認主機上的多重路徑已設定且正常運作。">
+  <meta name="keywords" content=" multipath, verification, esxi hosts"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/ontap-fli/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/ontap-fli/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/ontap-fli/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/ontap-fli/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/ontap-fli/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/ontap-fli/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/ontap-fli/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/ontap-fli/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/ontap-fli/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/ontap-fli/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/ontap-fli/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/ontap-fli/js/na-search.js'></script><script src='/zh-tw/ontap-fli/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/ontap-fli/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/ontap-fli/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/ontap-fli/js/na-utility.js'></script>
+  <script src='/zh-tw/ontap-fli/js/clouddocs.js'></script>
+  <script src='/zh-tw/ontap-fli/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/ontap-fli/js/toc.js'></script>
+  <script src='/zh-tw/ontap-fli/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/ontap-fli/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/ontap-fli/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/ontap-fli/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/ontap-fli/js/jszip.min.js'></script>
+  <script src='/zh-tw/ontap-fli/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/ontap-fli/issues/new?body=Page%3A%20[ESXi主機的多重路徑驗證](https://docs.netapp.com/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/ontap-fli/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/ontap-fli/blob/main/san-migration/task_multipath_verification_for_esxi_hosts.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/ontap-fli/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/ontap-fli/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/ontap-fli/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件" 
+          data-no-results-found="找不到符合 {query} 的相關結果。" 
+          data-did-you-mean="搜尋 {suggestion}。" 
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
+          data-results-found="找到 {hitCount} 筆結果"  
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">繁體中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/ontap-fli/pdfs/fullsite-sidebar/不對外的LUN匯入文件ONTAP.pdf" >
+          <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/使用FLI進行SAN移轉.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            使用FLI進行SAN移轉
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/資料移轉方案總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            資料移轉方案總覽
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/SAN移轉解決方案的專業服務.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            SAN移轉解決方案的專業服務
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/建議的資料移轉工具.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            建議的資料移轉工具
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/外部LUN匯入.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            外部LUN匯入
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/資料移轉的實作基礎知識.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            資料移轉的實作基礎知識
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/移轉程序總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            移轉程序總覽
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/分析階段IMT_的最佳實務做法.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            分析階段IMT 的最佳實務做法
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/啟用不受支援的LUN.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            啟用不受支援的LUN
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/規劃及準備階段程序.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            規劃及準備階段程序
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI離線工作流程.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            FLI離線工作流程
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI離線_準備轉換.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            FLI離線：準備轉換
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/驗證主機LUN路徑和多重路徑組態驗證.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            驗證主機LUN路徑和多重路徑組態驗證
+          </a>
+          
+
+
+
+
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/zh-tw/ontap-fli/pdfs/pages/san-migration/task_multipath_verification_for_esxi_hosts.pdf" >
+    <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI線上工作流程.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            FLI線上工作流程
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI_7_Mode_to_ONTAP_VMware移轉工作流程.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            FLI 7-Mode to ONTAP VMware移轉工作流程
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI移轉後程序.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            FLI移轉後程序
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/從區域集移除來源儲存設備和主機區域.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            從區域集移除來源儲存設備和主機區域
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/外部LUN匯入效能.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            外部LUN匯入效能
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/建立主機對目的地區域.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            建立主機對目的地區域
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/場地調查與規劃工作表範例.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf.png" width="16" height="16"/>
+            場地調查與規劃工作表範例
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/ontap-fli/images/pdf-zip.png" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/index.html">
+        部分FLI文件ONTAP
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用FLI進行SAN移轉</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 資料移轉方案總覽</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_data_migration_program_overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_intended_audience.html">
+        目標對象
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_types_supported_by_foreign_lun_import.html">
+        外部LUN匯入支援的移轉類型
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_foreign_lun_import_concepts.html">
+        外部LUN匯入概念
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_data_migration_challenges.html">
+        資料移轉挑戰
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> SAN移轉解決方案的專業服務</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_professional_services_for_san_migration_solutions.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_data_migration_service_for_heterogenous_san_environments.html">
+        適用於異質SAN環境的資料移轉服務
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_data_migration_methodology.html">
+        資料移轉方法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_data_migration_options.html">
+        資料移轉選項
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 建議的資料移轉工具</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_benchmarks_for_estimating_migration_durations.html">
+        評估移轉持續時間的基準測試
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 外部LUN匯入</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_foreign_lun_import_overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_foreign_lun_import_features.html">
+        外部LUN匯入功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_benefits_of_an_fli_solution.html">
+        基於FLI的解決方案的優點
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_lun_requirements_and_limitations.html">
+        LUN需求與限制
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_supported_configurations.html">
+        FLI支援的組態
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 資料移轉的實作基礎知識</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_implementation_basics_for_data_migration.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_physical_wiring_requirements_for_fli.html">
+        FLI的實體配線需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_target_and_initiator_port_zoning.html">
+        目標和啟動器連接埠分區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_zoning_requirements.html">
+        FLI分區要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_initiator_group_configuration.html">
+        啟動器群組組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_reasons_to_perform_test_migrations.html">
+        執行測試移轉的理由
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 移轉程序總覽</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_process_overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_discover_phase_workflow.html">
+        探索階段工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_analyze_phase_workflow.html">
+        分析階段工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_plan_phase_workflow.html">
+        規劃階段工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_supported_configurations.html">
+        FLI支援的組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_execute_phase_workflow.html">
+        執行階段工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_migration.html">
+        離線移轉工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_online_migration.html">
+        線上移轉工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_verify_phase_workflow.html">
+        確認階段工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_discover_phase_procedures.html">
+        探索階段資料收集程序
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 分析階段IMT 的最佳實務做法</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_analyze_phase_procedures.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_interoperability_and_support_criteria.html">
+        FLI互通性與支援條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_checking_supported_configuration_for_fli_using_imt.html">
+        使用IMT 支援的功能表檢查FLI組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html">
+        使用SAN LUN移轉應用程式檢查FLI支援的組態
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 啟用不受支援的LUN</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_enablement_for_non_supported_luns_interoperability.html">
+        開始之前
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_importing_non_fc_luns.html">
+        匯入非FC LUN
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_using_fli_to_import_luns_into_all_flash.html">
+        使用Foreign LUN Import（外部LUN匯入）將LUN匯入AFF 到物件庫
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_gap_analysis_report.html">
+        落差分析報告
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 規劃及準備階段程序</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_plan_phase_procedures.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_wiring_best_practices_for_fli.html">
+        連接FLI移轉的最佳實務做法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_configuring_switch_zones.html">
+        設定交換器區域
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_how_to_configure_source_arrays.html">
+        如何設定來源陣列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_tests.html">
+        移轉測試
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_test_migration_example_using_hitachi_ams2100.html">
+        使用Hitachi AMS2100測試移轉範例
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> FLI離線工作流程</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_workflow.html">
+        總覽
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> FLI離線：準備轉換</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_preparation_for_cutover.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_rebooting_the_host_to_validate_system_state.html">
+        重新啟動主機以驗證系統狀態
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 驗證主機LUN路徑和多重路徑組態驗證</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_verifying_host_lun_path_and_multipath_configuration.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_windows_hosts.html">
+        Windows主機的多重路徑驗證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_linux_hosts.html">
+        Linux主機的多重路徑驗證
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html">
+        ESXi主機的多重路徑驗證
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_fli_offline_migration.html">
+        準備主機進行FLI離線移轉
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html">
+        在ONTAP FLI期間、將來源LUN呈現給整個儲存區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html">
+        驗證目的地儲存設備上的來源LUN以供離線FLI使用
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_configuring_migration_jobs.html">
+        設定移轉工作
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_offline_importing_the_data.html">
+        FLI離線：匯入資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_offline_verifying_migration_results.html">
+        FLI離線：驗證移轉結果
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_post_migration_tasks.html">
+        FLI離線移轉後工作
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> FLI線上工作流程</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_online_workflow.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_rebooting_hosts_f0f8.html">
+        重新開機主機
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_supported_host_operating_systems_for_fli_online.html">
+        FLI線上支援的主機作業系統
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_verify_host_lun_path_and_multipath_configuration_fa1e.html">
+        驗證主機LUN路徑和多重路徑組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_fli_online_migration.html">
+        準備主機進行FLI線上移轉
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_online_preparing_the_lun_path.html">
+        FLI線上：準備LUN路徑
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_online_performing_a_disruptive_cutover.html">
+        FLI線上：執行中斷轉換
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_online_importing_the_data.html">
+        線上FLI：匯入資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_online_verifying_migration_results.html">
+        FLI線上：驗證移轉結果
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_online_cleanup.html">
+        清除FLI線上移轉
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_online_post_migration_tasks.html">
+        FLI線上移轉後工作
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> FLI 7-Mode to ONTAP VMware移轉工作流程</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_7_mode_to_ontap_supported_configurations.html">
+        7-Mode至ONTAP 支援的不支援FLI組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_rebooting_hosts_9207.html">
+        重新開機主機
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html">
+        驗證主機LUN路徑和多重路徑組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html">
+        準備主機進行移轉
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_transition_preparing_source_and_destination_arrays.html">
+        準備要移轉的來源陣列和目的地陣列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_transition_performing_a_disruptive_cutover.html">
+        執行將FLI 7-Mode轉換為ONTAP VMware的中斷執行
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_transition_importing_the_data.html">
+        將資料從FLI 7-Mode匯入ONTAP 到VMware
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html">
+        驗證FLI 7-Mode以ONTAP 驗證移轉結果
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_transition_post_migration_tasks.html">
+        FLI移轉後的工作流程
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_using_workflow_automation_wfa.html">
+        使用工作流程自動化（WFA）的FLI
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> FLI移轉後程序</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_post_migration_procedures_all_workflows.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_removing_source_luns_from_ontap_storage.html">
+        移除ONTAP 來源LUN的不穩定性儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_removing_source_luns_from_host.html">
+        從主機移除來源LUN
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 從區域集移除來源儲存設備和主機區域</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_brocade_fabric_example.html">
+        Brocade網路範例
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_cisco_fabric_example.html">
+        Cisco Fabric範例
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_create_a_post_migration_snapshot_copy.html">
+        建立移轉後的Snapshot複本
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_fli_migration_clean_up_and_verify_phase.html">
+        FLI移轉清除與驗證階段
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_migration_report.html">
+        移轉報告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_unzoning_source_and_destination_array.html">
+        取消來源陣列和目的地陣列的分區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_removing_the_source_array_from_ontap.html">
+        將來源陣列從ONTAP 無法使用的資料中移除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_removing_destination_array_configuration.html">
+        正在移除目的地陣列組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_document_customer_environment.html">
+        記錄新移轉的環境
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 外部LUN匯入效能</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_performance.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_performance_enhancements_in_clustered_data_ontap_8_3_1.html">
+        效能強化ONTAP 功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html">
+        影響外部LUN匯入移轉效能的變數
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_benchmarks_for_estimating_migration_durations.html">
+        評估移轉持續時間的基準測試
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_best_practices_for_fli_migration.html">
+        外部LUN匯入移轉的最佳實務做法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_esxi_caw_ats_remediation.html">
+        ESXi CAW/ATS補救
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_host_remediation.html">
+        主機補救
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_clearing_scsi_3_persistent_reservations.html">
+        清除SCSI-3持續保留
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 建立主機對目的地區域</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/concept_creating_the_host_to_destination_zones.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_brocade_fabric_in_production_fabric_a_example.html">
+        正式作業架構中的Brocade網路就是一個範例
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_brocade_fabric_in_production_fabric_b_example.html">
+        正式作業架構B中的Brocade網路範例
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_cisco_fabric_in_production_fabric_a_example.html">
+        生產架構中的Cisco Fabric就是一個例子
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/task_cisco_fabric_in_production_fabric_b_example.html">
+        生產架構B中的Cisco Fabric範例
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 場地調查與規劃工作表範例</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_sample_site_survey_and_planning_worksheet.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html">
+        站台調查與規劃工作表聯絡人索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html">
+        站台調查與規劃工作表問卷索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html">
+        站台調查與規劃工作表切換標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html">
+        站台調查與規劃工作表來源儲存設備索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html">
+        站台調查與規劃工作表的「目的地儲存裝置」索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html">
+        站台調查與規劃工作表的主機索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html">
+        Site Survey and Planning工作表HBA and Zone Information（HBA與區域資訊）索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html">
+        站台調查與規劃工作表來源LUN索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html">
+        站台調查與規劃工作表儲存群組索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html">
+        站台調查與規劃工作表LUN詳細資料索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html">
+        站台調查與規劃工作表NetApp LUN配置索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html">
+        站台調查與規劃工作表移轉排程索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html">
+        站台調查與規劃工作表Aggregate Status索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html">
+        Site Survey and Planning工作表FAS 單「Config」（組態）索引標籤
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html">
+        站台調查與規劃工作表SDS CLI指令碼索引標籤
+      </a></li></ul></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/ontap-fli/reference_legal_notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/ontap-fli/">ONTAP</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">ESXi主機的多重路徑驗證</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-05-03 10:31:52 +0000">05/03/2022</time>
+    
+  
+
+
+</p>
+
+<div class="paragraph lead">
+<p>在「Foreign LUN Import（FLI）（外部LUN匯入（FLI）））」程序中、您應該確認主機上的多重路徑已設定且正常運作。</p>
+</div>
+<div class="paragraph">
+<p>針對ESXi主機完成下列步驟。</p>
+</div>
+<div class="olist arabic">
+<div class="title">步驟</div>
+<ol class="arabic">
+<li>
+<p>使用VMware vSphere Client判斷ESXi和虛擬機器。</p>
+<div class="imageblock">
+<div class="content">
+<img src="../media/esxi_host_1.png" alt="vSphere儲存資料存放區">
+</div>
+</div>
+</li>
+<li>
+<p>使用vSphere Client判斷要移轉的SAN LUN。</p>
+<div class="imageblock">
+<div class="content">
+<img src="../media/esxi_host_2.png" alt="vSphere儲存設備">
+</div>
+</div>
+</li>
+<li>
+<p>確定要移轉的VMFS和RDM（vfat）磁碟區：「esxcli儲存檔案系統清單」</p>
+<div class="listingblock">
+<div class="content">
+<pre>Mount Point                                        Volume Name        UUID                                 Mounted  Type           Size         Free
+-------------------------------------------------  -----------------  -----------------------------------  -------  ------  -----------  -----------
+/vmfs/volumes/538400f6-3486df59-52e5-00262d04d700  BootLun_datastore  538400f6-3486df59-52e5-00262d04d700     true  VMFS-5  13421772800  12486443008
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700  VM_datastore       53843dea-5449e4f7-88e0-00262d04d700     true  VMFS-5  42681237504   6208618496
+/vmfs/volumes/538400f6-781de9f7-c321-00262d04d700                     538400f6-781de9f7-c321-00262d04d700     true  vfat     4293591040   4269670400
+/vmfs/volumes/c49aad7f-afbab687-b54e-065116d72e55                     c49aad7f-afbab687-b54e-065116d72e55     true  vfat      261853184     77844480
+/vmfs/volumes/270b9371-8fbedc2b-1f3b-47293e2ce0da                     270b9371-8fbedc2b-1f3b-47293e2ce0da     true  vfat      261853184    261844992
+/vmfs/volumes/538400ef-647023fa-edef-00262d04d700                     538400ef-647023fa-edef-00262d04d700     true  vfat      299712512     99147776
+~ #</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/ontap-fli/images/note.svg" alt="附註">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>如果VMFS具有extends（跨距VMFS）、則應移轉屬於跨距的所有LUN。若要顯示GUI中的所有擴充功能、請移至「組態」&#8594;「硬體」&#8594;「儲存設備」、然後按一下「資料存放區」以選取「內容」連結。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/ontap-fli/images/note.svg" alt="附註">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>移轉後、將其新增回儲存設備時、您會看到多個具有相同VMFS標籤的LUN項目。在此案例中、您應要求客戶僅選取標示為標頭的項目。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>確定要移轉的LUN和大小：「esxcfg-scsidevs -c」</p>
+<div class="listingblock">
+<div class="content">
+<pre>Device UID                            Device Type      Console Device                                            Size      Multipath PluginDisplay Name
+mpx.vmhba36:C0:T0:L0                  CD-ROM           /vmfs/devices/cdrom/mpx.vmhba36:C0:T0:L0                  0MB       NMP     Local Optiarc CD-ROM (mpx.vmhba36:C0:T0:L0)
+naa.60060e801046b96004f2bf4600000014  Direct-Access    /vmfs/devices/disks/naa.60060e801046b96004f2bf4600000014  20480MB   NMP     HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000014)
+naa.60060e801046b96004f2bf4600000015  Direct-Access    /vmfs/devices/disks/naa.60060e801046b96004f2bf4600000015  40960MB   NMP     HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000015)
+~~~~~~ Output truncated ~~~~~~~
+~ #</pre>
+</div>
+</div>
+</li>
+<li>
+<p>識別要移轉的原始裝置對應（RDM）LUN。</p>
+</li>
+<li>
+<p>尋找RDM裝置：「尋找/vmfs/volumes -name **-rdm**」</p>
+<div class="listingblock">
+<div class="content">
+<pre>/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1-rdmp.vmdk
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_2-rdm.vmdk
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux_1-rdm.vmdk
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10_1-rdmp.vmdk</pre>
+</div>
+</div>
+</li>
+<li>
+<p>從先前的輸出中移除-rdmp和-RDM、然後執行vmkfsools命令來尋找VML對應和RDM類型。</p>
+<div class="listingblock">
+<div class="content">
+<pre># vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1.vmdk
+vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1.vmdk is a Passthrough Raw Device Mapping
+Maps to: vml.020002000060060e801046b96004f2bf4600000016444636303046
+~ # vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_2.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_2.vmdk is a Non-passthrough Raw Device Mapping
+Maps to: vml.020003000060060e801046b96004f2bf4600000017444636303046
+~ # vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux_1.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux_1.vmdk is a Non-passthrough Raw Device Mapping
+Maps to: vml.020005000060060e801046b96004f2bf4600000019444636303046
+~ # vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10_1.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10_1.vmdk is a Passthrough Raw Device Mapping
+Maps to: vml.020004000060060e801046b96004f2bf4600000018444636303046
+~ #</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/ontap-fli/images/note.svg" alt="附註">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>PassthThrough為RDM、實體為（RDMP）、而非PassthThrough則為RDM、虛擬為（RDMV\）。虛擬RDM和VM Snapshot複本的VM會在移轉後中斷、因為VM Snapshot delta vmDK指向具有過時naa ID的RDM。因此在移轉之前、請客戶移除此類VM中的所有Snapshot複本。在VM上按一下滑鼠右鍵、然後按一下Snapshot（快照）&#8594; Snapshot Manager Delete All（全部刪除）按鈕。請參閱NetApp知識庫3013935、以瞭解有關NetApp儲存設備上VMware硬體加速鎖定的詳細資訊。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>識別LUN naa與RDM裝置對應。</p>
+<div class="listingblock">
+<div class="content">
+<pre>~ # esxcfg-scsidevs -u | grep vml.020002000060060e801046b96004f2bf4600000016444636303046
+naa.60060e801046b96004f2bf4600000016                            vml.020002000060060e801046b96004f2bf4600000016444636303046
+~ # esxcfg-scsidevs -u | grep vml.020003000060060e801046b96004f2bf4600000017444636303046
+naa.60060e801046b96004f2bf4600000017                            vml.020003000060060e801046b96004f2bf4600000017444636303046
+~ # esxcfg-scsidevs -u | grep vml.020005000060060e801046b96004f2bf4600000019444636303046
+naa.60060e801046b96004f2bf4600000019                            vml.020005000060060e801046b96004f2bf4600000019444636303046
+~ # esxcfg-scsidevs -u | grep vml.020004000060060e801046b96004f2bf4600000018444636303046
+naa.60060e801046b96004f2bf4600000018                            vml.020004000060060e801046b96004f2bf4600000018444636303046
+~ #</pre>
+</div>
+</div>
+</li>
+<li>
+<p>確定虛擬機器組態：「esxcli儲存檔案系統清單| grep VMFS」</p>
+<div class="listingblock">
+<div class="content">
+<pre>/vmfs/volumes/538400f6-3486df59-52e5-00262d04d700  BootLun_datastore  538400f6-3486df59-52e5-00262d04d700     true  VMFS-5  13421772800  12486443008
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700  VM_datastore       53843dea-5449e4f7-88e0-00262d04d700     true  VMFS-5  42681237504   6208618496
+~ #</pre>
+</div>
+</div>
+</li>
+<li>
+<p>記錄資料存放區的UUID。</p>
+</li>
+<li>
+<p>複製「/etc/vmware/hostd/vmInventory．xml」、並記下檔案和vmx組態路徑的內容。</p>
+<div class="listingblock">
+<div class="content">
+<pre>~ # cp /etc/vmware/hostd/vmInventory.xml /etc/vmware/hostd/vmInventory.xml.bef_mig
+~ # cat /etc/vmware/hostd/vmInventory.xml
+&lt;ConfigRoot&gt;
+  &lt;ConfigEntry id="0001"&gt;
+    &lt;objID&gt;2&lt;/objID&gt;
+    &lt;vmxCfgPath&gt;/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003.vmx&lt;/vmxCfgPath&gt;
+  &lt;/ConfigEntry&gt;
+  &lt;ConfigEntry id="0004"&gt;
+    &lt;objID&gt;5&lt;/objID&gt;
+    &lt;vmxCfgPath&gt;/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux.vmx&lt;/vmxCfgPath&gt;
+  &lt;/ConfigEntry&gt;
+  &lt;ConfigEntry id="0005"&gt;
+    &lt;objID&gt;6&lt;/objID&gt;
+    &lt;vmxCfgPath&gt;/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10.vmx&lt;/vmxCfgPath&gt;
+  &lt;/ConfigEntry&gt;
+&lt;/ConfigRoot&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>識別虛擬機器硬碟。</p>
+<div class="paragraph">
+<p>移轉後必須提供此資訊、才能依序新增移除的RDM裝置。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>~ # grep fileName /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003.vmx
+scsi0:0.fileName = "Windows2003.vmdk"
+scsi0:1.fileName = "Windows2003_1.vmdk"
+scsi0:2.fileName = "Windows2003_2.vmdk"
+~ # grep fileName /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux.vmx
+scsi0:0.fileName = "Linux.vmdk"
+scsi0:1.fileName = "Linux_1.vmdk"
+~ # grep fileName /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10.vmx
+scsi0:0.fileName = "Solaris10.vmdk"
+scsi0:1.fileName = "Solaris10_1.vmdk"
+~ #</pre>
+</div>
+</div>
+</li>
+<li>
+<p>判斷RDM裝置、虛擬機器對應及相容模式。</p>
+</li>
+<li>
+<p>使用上述資訊、記下RDM對應至裝置、虛擬機器、相容模式和順序。</p>
+<div class="paragraph">
+<p>稍後將RDM裝置新增至VM時、您將需要此資訊。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Virtual Machine -&gt; Hardware -&gt; NAA -&gt; Compatibility mode
+Windows2003 VM -&gt; scsi0:1.fileName = "Windows2003_1.vmdk" -&gt; naa.60060e801046b96004f2bf4600000016
+-&gt; RDM Physical
+Windows2003 VM -&gt; scsi0:2.fileName = "Windows2003_2.vmdk" -&gt; naa.60060e801046b96004f2bf4600000017
+-&gt; RDM Virtual
+Linux VM -&gt; scsi0:1.fileName = “Linux_1.vmdk” -&gt; naa.60060e801046b96004f2bf4600000019 -&gt; RDM Virtual
+Solaris10 VM -&gt; scsi0:1.fileName = “Solaris10_1.vmdk” -&gt; naa.60060e801046b96004f2bf4600000018 -&gt; RDM Physical</pre>
+</div>
+</div>
+</li>
+<li>
+<p>確定多重路徑組態。</p>
+</li>
+<li>
+<p>在vSphere Client中取得儲存設備的多重路徑設定：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>在vSphere Client中選取ESX或ESXi主機、然後按一下「組態」索引標籤。</p>
+</li>
+<li>
+<p>按一下「<strong>儲存設備</strong>」。</p>
+</li>
+<li>
+<p>選取資料存放區或對應的LUN。</p>
+</li>
+<li>
+<p>按一下*「內容」*。</p>
+</li>
+<li>
+<p>在「內容」對話方塊中、視需要選取所需的範圍。</p>
+</li>
+<li>
+<p>按一下*「Extent Device」（範圍裝置）&gt;*「Manage Paths」（管理路徑）*、然後在「Manage Path」（管理路徑）對話方塊中取得路徑</p>
+<div class="imageblock">
+<div class="content">
+<img src="../media/esxi_host_3.png" alt="vSphere儲存設備路徑">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>從ESXi主機命令列取得LUN多重路徑資訊：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>登入ESXi主機主控台。</p>
+</li>
+<li>
+<p>執行esxcli儲存設備NMP裝置清單以取得多重路徑資訊。</p>
+<div class="listingblock">
+<div class="content">
+<pre># esxcli storage nmp device list
+naa.60060e801046b96004f2bf4600000014
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000014)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=3: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L0, vmhba2:C0:T0:L0, vmhba1:C0:T1:L0, vmhba1:C0:T0:L0
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000015
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000015)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=0: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L1, vmhba2:C0:T0:L1, vmhba1:C0:T1:L1, vmhba1:C0:T0:L1
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000016
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000016)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L2, vmhba2:C0:T0:L2, vmhba1:C0:T1:L2, vmhba1:C0:T0:L2
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000017
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000017)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L3, vmhba2:C0:T0:L3, vmhba1:C0:T1:L3, vmhba1:C0:T0:L3
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000018
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000018)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L4, vmhba2:C0:T0:L4, vmhba1:C0:T1:L4, vmhba1:C0:T0:L4
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000019
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000019)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L5, vmhba2:C0:T0:L5, vmhba1:C0:T1:L5, vmhba1:C0:T0:L5
+   Is Local SAS Device: false
+   Is Boot USB Device: false</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">legal-terms</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">legal-privacy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">legal-cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">cookie-settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/ontap-fli/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/ontap-fli/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/ontap-fli/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/ontap-fli/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/ontap-fli/js/www-ntap.js'></script>
+    <script src='/zh-tw/ontap-fli/js/tabbed-blocks.js'></script>
+  </body></html>
