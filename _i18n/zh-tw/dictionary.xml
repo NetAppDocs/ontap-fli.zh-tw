@@ -673,14 +673,8 @@
   <block id="7e213ad16c9a59879f7a880ec25c8ff7" category="summary">FLI線上工作流程可用於連接至執行下列其中一種作業系統之主機的LUN。</block>
   <block id="756160f9a9295d0e21e6988cef242402" category="doc">FLI線上支援的主機作業系統</block>
   <block id="1e56b897e242c05a6e77f4537273968f" category="list-text">Microsoft（支援列出的所有伺服器版本）：</block>
-  <block id="b378e5b6db47fe787cbe646bc532a609" category="list-text">Windows Server 2008（包括Windows Server容錯移轉叢集）</block>
-  <block id="1f1a25e978da1c016c63c585cbc52e10" category="list-text">Microsoft Hyper-V Server 2008</block>
-  <block id="d50eec67d4e661b4eb86bf373683aaf4" category="list-text">Windows Server 2012（包括Windows Server 2012叢集）</block>
-  <block id="92a116390e39269df1b7c4595a775509" category="list-text">Microsoft Hyper-V Server 2012</block>
   <block id="606e3e56eb022ae65c21a710d0cbdd26" category="list-text">VMware：</block>
-  <block id="452277a14e52bd8c8634c1b09b21ba6f" category="list-text">所有ESXi 5.x版本</block>
   <block id="82c6ab7bfe1f9fbf789b4f7f57b56c24" category="list-text">Linux：</block>
-  <block id="7b89b319ca7225ccbc9bb3fd9f5537ac" category="list-text">Red Hat Enterprise Linux（RHEL）5.x / 6.x</block>
   <block id="28bbf286cd32c930a00eb1e625c5bff0" category="paragraph">請考慮將FLI離線工作流程用於前述清單中未列出的主機作業系統。</block>
   <block id="f928088b6e4c30670d8787a5fced1d76" category="paragraph">如果NetApp控制器目的地MetroCluster 是一個不景點、請勿使用線上工作流程。如果在作用中的線上匯入期間發生站台容錯移轉、則寫入到來源陣列的傳遞可能會失敗、進而導致驗證失敗和可能的資料遺失。如果目的地MetroCluster 是不支援的、請使用FLI離線程序、無論主機作業系統為何。</block>
   <block id="8770610db40a53a03c108175b271b913" category="summary">以下是正式作業架構A中的Cisco Fabric範例</block>
@@ -1346,4 +1340,11 @@
   <block id="a4d60e73cb9c1bfe95e0f1e874619b10" category="sidebar">FLI移轉後程序</block>
   <block id="11bfb49706ab1fb0b0c2c70607371003" category="sidebar">從區域集移除來源儲存設備和主機區域</block>
   <block id="faad5f79401b38fa8970d5b9e778ca6a" category="sidebar">外部LUN匯入效能</block>
+  <block id="1e0480ea9333345d355b03ac0ed8c596" category="paragraph">FLI線上工作流程可用於從所列版本開始、連接至執行下列其中一種作業系統之主機的LUN。</block>
+  <block id="699bb4733c472f6589e0d75a44cab002" category="list-text">Windows Server 2008及更新版本（包括Windows Server容錯移轉叢集）</block>
+  <block id="16cebcaaa355d1d005ebb411931e91fa" category="list-text">Microsoft Hyper-V Server 2008及更新版本</block>
+  <block id="7baf75e8ff99eb049dc1229f036e6323" category="list-text">Windows Server 2012及更新版本（包括Windows Server 2012叢集）</block>
+  <block id="fa2f5a6c59acbca7d864db464d96c18d" category="list-text">Microsoft Hyper-V Server 2012及更新版本</block>
+  <block id="3599871babc6dc6561e34cba9300055d" category="list-text">所有ESXi 5.x及更新版本</block>
+  <block id="fa55a1211374f77dff267c22b6a483bb" category="list-text">Red Hat Enterprise Linux（RHEL）5.x及更新版本</block>
 </blocks>

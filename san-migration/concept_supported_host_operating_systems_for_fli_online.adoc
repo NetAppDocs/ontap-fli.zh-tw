@@ -11,24 +11,24 @@ summary: FLI線上工作流程可用於連接至執行下列其中一種作業�
 
 
 [role="lead"]
-FLI線上工作流程可用於連接至執行下列其中一種作業系統之主機的LUN。
+FLI線上工作流程可用於從所列版本開始、連接至執行下列其中一種作業系統之主機的LUN。
 
 . Microsoft（支援列出的所有伺服器版本）：
 +
-** Windows Server 2008（包括Windows Server容錯移轉叢集）
-** Microsoft Hyper-V Server 2008
-** Windows Server 2012（包括Windows Server 2012叢集）
-** Microsoft Hyper-V Server 2012
+** Windows Server 2008及更新版本（包括Windows Server容錯移轉叢集）
+** Microsoft Hyper-V Server 2008及更新版本
+** Windows Server 2012及更新版本（包括Windows Server 2012叢集）
+** Microsoft Hyper-V Server 2012及更新版本
 
 
 . VMware：
 +
-** 所有ESXi 5.x版本
+** 所有ESXi 5.x及更新版本
 
 
 . Linux：
 +
-** Red Hat Enterprise Linux（RHEL）5.x / 6.x
+** Red Hat Enterprise Linux（RHEL）5.x及更新版本
 
 
 
