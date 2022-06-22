@@ -279,7 +279,6 @@
   <block id="fe9b94814e39a3c7f451e4e91676e2a1" category="list-text">在*依類別篩選*下、選取*移轉*。</block>
   <block id="803493b6d9dbe590ab30e0e80a8e1b97" category="list-text">在「* SAN LUN Migration *」下、按一下「* Download App*」。</block>
   <block id="159d7130f3d54d274afe13039b4ede40" category="list-text">從具有區塊存取來源陣列的FC或iSCSI Linux主機執行應用程式。</block>
-  <block id="26e7b511886f2cfa073850c2af28b79e" category="paragraph">如果外部來源陣列可以符合資格、則會顯示綠色核取符號。如果外部來源陣列無法符合資格、則會顯示紅色X。如果您的陣列不符合資格、您可以聯絡NetApp支援部門以取得其他協助。</block>
   <block id="88342d3bc522d34c0d7d4b696af5ecbe" category="summary">FLI功能可讓您將資料從第三方SAN儲存設備移轉至ONTAP 各種系統。FLI移轉功能可支援各種程序和系統。</block>
   <block id="4a3f341a06b2f81b12a06ac327ed46ae" category="doc">外部LUN匯入功能</block>
   <block id="295debfc2712e7f9df807131dc4e4332" category="list-text">支援線上和離線移轉。</block>
@@ -1347,4 +1346,5 @@
   <block id="fa2f5a6c59acbca7d864db464d96c18d" category="list-text">Microsoft Hyper-V Server 2012及更新版本</block>
   <block id="3599871babc6dc6561e34cba9300055d" category="list-text">所有ESXi 5.x及更新版本</block>
   <block id="fa55a1211374f77dff267c22b6a483bb" category="list-text">Red Hat Enterprise Linux（RHEL）5.x及更新版本</block>
+  <block id="08f64b69a1ef937409895057222834ca" category="paragraph">如果外部來源陣列可以符合資格、則會顯示綠色核取符號。如果外部來源陣列無法符合資格、則會顯示紅色X。</block>
 </blocks>
