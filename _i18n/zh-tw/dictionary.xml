@@ -1347,4 +1347,5 @@
   <block id="3599871babc6dc6561e34cba9300055d" category="list-text">所有ESXi 5.x及更新版本</block>
   <block id="fa55a1211374f77dff267c22b6a483bb" category="list-text">Red Hat Enterprise Linux（RHEL）5.x及更新版本</block>
   <block id="08f64b69a1ef937409895057222834ca" category="paragraph">如果外部來源陣列可以符合資格、則會顯示綠色核取符號。如果外部來源陣列無法符合資格、則會顯示紅色X。</block>
+  <block id="d1b92a4930d50c6ed1038655db0d2684" category="sidebar">所有ONTAP 產品文件</block>
 </blocks>
