@@ -30,8 +30,4 @@ NOTE: 本節範例使用Hitachi Data Systems（HDS）AMS陣列、因此外部陣
 
 無論命名規則為何、啟動器群組的用途都是透過共用相同LUN對應的WWPN來識別啟動器。
 
-若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱《FlexArray 第三方儲存設備的_》《_》《虛擬化實作指南》、以瞭解第三方儲存組態需求。
-
-*相關資訊*
-
-https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["適用於協力廠商儲存設備的虛擬化實作FlexArray"]
+若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱 https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["適用於協力廠商儲存設備的虛擬化實作FlexArray"] 適用於第三方儲存組態需求。
