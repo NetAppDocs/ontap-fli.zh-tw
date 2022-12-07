@@ -21,6 +21,6 @@ image::../media/physical_wiring_1.png[實體配線1.]
 
 請遵循以下佈線最佳實務做法：
 
-* 如FlexArray 所述、請使用NetApp的「供應來源和目的地儲存設備的最佳實務做法」 https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["虛擬化安裝需求FlexArray"]。
+* 如FlexArray 所述、請使用NetApp的「供應來源和目的地儲存設備的最佳實務做法」 https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["介紹虛擬化安裝需求與參考資料FlexArray"]。
 * 不需使用任何啟動器連接埠、即可連接至Fabric。ONTAP如果可用連接埠不存在、請設定啟動器連接埠。
 

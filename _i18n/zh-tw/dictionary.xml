@@ -1332,12 +1332,11 @@
   <block id="d1b92a4930d50c6ed1038655db0d2684" category="sidebar">所有ONTAP 產品文件</block>
   <block id="ea55df179f5c8f2dc6d72bdcb7fe2e57" category="summary">您可以使用此內容來協助將資料從外部陣列移轉至ONTAP VMware、或將LUN從NetApp 7-Mode陣列移轉至ONTAP VMware。</block>
   <block id="401497503074d7ec7406c3ce5a48dbc8" category="paragraph">您應該熟悉常見的SAN概念和程序、包括分區、LUN遮罩、需要移轉LUN的主機作業系統、ONTAP 以及來源協力廠商陣列。</block>
-  <block id="bccfda2dd766fcf9db897075f70d113a" category="inline-link">虛擬化安裝需求FlexArray</block>
-  <block id="8899c4f28badd5881e532a34f2c0d2d7" category="list-text">如FlexArray 所述、請使用NetApp的「供應來源和目的地儲存設備的最佳實務做法」<block ref="af4972f8b97e166c7432d033e734d43e" category="inline-link-rx"></block>。</block>
   <block id="b0f36dbc8cbf7c56840f51534500c27b" category="inline-link">資料移轉工具快速參考</block>
   <block id="baca4f7d8c0223a33622dbfb8e5e38de" category="paragraph">所有FLI移轉作業均在LUN層級運作。FLI是嚴格的區塊型工具、不支援檔案、記錄、NFS及CIFS型移轉。如需檔案層級傳輸協定（例如NFS和CIFS/SMB）的其他移轉方法討論、請參閱<block ref="e415da1b4972963be10dbe349c4850a6" category="inline-link-rx"></block>。</block>
   <block id="e0a83b8c461db09706d982eeea30d1df" category="paragraph">FLI在每個控制器上至少需要一個實體FC連接埠、並以啟動器模式直接移轉LUN。建議使用兩個連接埠（每個光纖各一個）、但可以使用單一連接埠。這些連接埠用於連接來源陣列、需要分區和遮罩、才能查看和掛載來源LUN。如果您需要將連接埠從目標變更為啟動器、請參閱<block ref="66f8c243fef55cbf3f49d4ec76027b8d" category="inline-link-rx"></block> 檢閱將FC連接埠從目標轉換為啟動器的程序。</block>
   <block id="7a6d059da8a56b5bb032ab555e452fb8" category="paragraph">這是涵蓋FLI線上移轉的四個FLI工作流程範例中的第二個。本範例中的來源陣列是EMC VNX5500。</block>
   <block id="b107b92b08e1507c6d61c65a86b28086" category="paragraph">線上工作流程具有下列工作：</block>
-  <block id="0acd87400826433082ab90260e9cc109" category="paragraph">若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱<block ref="737823659babb212ffbc8948b616644f" category="inline-link-rx"></block> 適用於第三方儲存組態需求。</block>
+  <block id="d65237d15ed3f23354581867591cc773" category="list-text">如FlexArray 所述、請使用NetApp的「供應來源和目的地儲存設備的最佳實務做法」<block ref="66f8c243fef55cbf3f49d4ec76027b8d" category="inline-link-rx"></block>。</block>
+  <block id="6c98897f95672b5dde701dffbd4b05a0" category="paragraph">若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱<block ref="737823659babb212ffbc8948b616644f" category="inline-link-rx"></block> 適用於第三方儲存組態需求。</block>
 </blocks>
