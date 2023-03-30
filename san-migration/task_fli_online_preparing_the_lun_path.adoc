@@ -179,14 +179,14 @@ fli       fli_vol      aggr1        online     RW          2TB     1.90TB    5%
 +
 [listing]
 ----
-DataMig-cmode::> vol modify -vserver datamig -volume * -fractional-reserve 0 –snapshot-policy none
+cluster::*> vol modify -vserver datamig -volume * -fractional-reserve 0 –snapshot-policy none
 Volume modify successful on volume winvol of Vserver datamig.
 ----
 . 檢查您的Volume設定。
 +
 [listing]
 ----
-DataMig-cmode::> vol show -vserver datamig -volume * -fields fractional-reserve,snapshot-policy
+cluster::*> vol show -vserver datamig -volume * -fields fractional-reserve,snapshot-policy
 vservervolumesnapshot-policyfractional-reserve
 -----------------------------------------------
 datamigdatamig_rootnone0%
@@ -197,7 +197,7 @@ Volume modify successful on volume winvol of Vserver datamig.
 +
 [listing]
 ----
-DataMig-cmode::> set advanced; snap delete –vserver datamig –vol winvol –snapshot * -force true
+cluster::*> set advanced; snap delete –vserver datamig –vol winvol –snapshot * -force true
 1 entry was acted on.
 ----
 +

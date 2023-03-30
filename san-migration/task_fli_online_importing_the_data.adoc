@@ -18,12 +18,12 @@ summary: 以下是將資料從來源LUN匯入目的地LUN的步驟。
 +
 [listing]
 ----
-cluster::*> lun import start -vserver fli_72C -path /vol/flivol/72Clun1
+cluster::*> lun import start -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
 ----
 . 顯示FLI狀態。
 +
 [listing]
 ----
-cluster::*> lun import show -vserver fli_72C -path /vol/flivol/72Clun1
+cluster::*> lun import start -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
 ----
 
