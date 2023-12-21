@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>準備主機進行移轉</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="準備主機進行移轉" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+	<meta property="og:description" content="執行階段包括準備移轉主機。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/ontap-fli/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="執行階段包括準備移轉主機。">
+  <meta name="keywords" content=" prepare, hosts, transition"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/ontap-fli/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/ontap-fli/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/ontap-fli/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/ontap-fli/js/na-search.js'></script><script src='/zh-tw/ontap-fli/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/zh-tw/ontap-fli/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/ontap-fli/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/ontap-fli/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/ontap-fli/js/jszip.min.js'></script><script src='/zh-tw/ontap-fli/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor="">
+    <div class="skip-to-main">
+      <a href="#main" >Skip to main content</a>
+    </div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/zh-tw/ontap-fli/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/tw">
+                <image id="ie-header-logo" src="/zh-tw/ontap-fli/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/support-and-training/documentation/">文件</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/zh-tw/ontap-fli/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">繁體中文</span>
+                    <img src="/zh-tw/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-tw/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-cn/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/fr-fr/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/it-it/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/zh-tw/ontap-fli/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">所有 NetApp</span>
+                    <img src="/zh-tw/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-tw/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">支援</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">知識庫</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">訓練</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/zh-tw/ontap-fli/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/zh-tw/ontap-fli/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">所有文件</a>
+    </li>
+    
+    
+
+    
+    <li class="">
+      <a href="https://docs.netapp.com/zh-tw/ontap-family/">
+        ONTAP
+      </a>
+    </li>
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/zh-tw/ontap-fli/">-->
+      ONTAP FLI
+    <!--</a>-->
+  </div>
+</div>
+
+            
+
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/zh-tw/ontap-fli/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/zh-tw/ontap-fli/search.html" 
+        data-type="widget"
+        data-placeholder="搜尋說明文件"
+        data-no-results-found="找不到 {query} 的結果"
+        data-did-you-mean="搜尋 {suggestion}。"
+        data-no-results-found-did-you-mean="找不到 {query} 的結果。您的意思是 {suggestion} 嗎？"
+        data-results-found="找到 {hitCount} 個結果"
+        data-error-message="發生錯誤。請再試一次。"
+        data-error-reset="重設搜尋"
+        data-sk-es-pf-indexes="" 
+        data-flavor="">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部分FLI文件ONTAP"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-tw/ontap-fli/index.html">
+        部分FLI文件ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用FLI進行SAN移轉"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 使用FLI進行SAN移轉</div>-->
+         使用FLI進行SAN移轉
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="資料移轉方案總覽"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 資料移轉方案總覽</div>-->
+         資料移轉方案總覽
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_data_migration_program_overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_data_migration_program_overview.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="目標對象"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_intended_audience.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_intended_audience.html">
+        目標對象
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="外部LUN匯入支援的移轉類型"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_types_supported_by_foreign_lun_import.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_types_supported_by_foreign_lun_import.html">
+        外部LUN匯入支援的移轉類型
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="外部LUN匯入概念"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_foreign_lun_import_concepts.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_foreign_lun_import_concepts.html">
+        外部LUN匯入概念
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="資料移轉挑戰"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_data_migration_challenges.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_data_migration_challenges.html">
+        資料移轉挑戰
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="SAN移轉解決方案的專業服務"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> SAN移轉解決方案的專業服務</div>-->
+         SAN移轉解決方案的專業服務
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_professional_services_for_san_migration_solutions.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_professional_services_for_san_migration_solutions.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="適用於異質SAN環境的資料移轉服務"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_data_migration_service_for_heterogenous_san_environments.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_data_migration_service_for_heterogenous_san_environments.html">
+        適用於異質SAN環境的資料移轉服務
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="資料移轉方法"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_data_migration_methodology.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_data_migration_methodology.html">
+        資料移轉方法
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="資料移轉選項"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_data_migration_options.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_data_migration_options.html">
+        資料移轉選項
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建議的資料移轉工具"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 建議的資料移轉工具</div>-->
+         建議的資料移轉工具
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="評估移轉持續時間的基準測試"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_benchmarks_for_estimating_migration_durations.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_benchmarks_for_estimating_migration_durations.html">
+        評估移轉持續時間的基準測試
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="外部LUN匯入"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 外部LUN匯入</div>-->
+         外部LUN匯入
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_foreign_lun_import_overview.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_foreign_lun_import_overview.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="外部LUN匯入功能"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_foreign_lun_import_features.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_foreign_lun_import_features.html">
+        外部LUN匯入功能
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="基於FLI的解決方案的優點"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_benefits_of_an_fli_solution.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_benefits_of_an_fli_solution.html">
+        基於FLI的解決方案的優點
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="LUN需求與限制"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_lun_requirements_and_limitations.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_lun_requirements_and_limitations.html">
+        LUN需求與限制
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI支援的組態"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_supported_configurations.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_fli_supported_configurations.html">
+        FLI支援的組態
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="資料移轉的實作基礎知識"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 資料移轉的實作基礎知識</div>-->
+         資料移轉的實作基礎知識
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_implementation_basics_for_data_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_implementation_basics_for_data_migration.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI的實體配線需求"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_physical_wiring_requirements_for_fli.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_physical_wiring_requirements_for_fli.html">
+        FLI的實體配線需求
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="目標和啟動器連接埠分區"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_target_and_initiator_port_zoning.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_target_and_initiator_port_zoning.html">
+        目標和啟動器連接埠分區
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI分區要求"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_zoning_requirements.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_zoning_requirements.html">
+        FLI分區要求
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="啟動器群組組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_initiator_group_configuration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_initiator_group_configuration.html">
+        啟動器群組組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="執行測試移轉的理由"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_reasons_to_perform_test_migrations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_reasons_to_perform_test_migrations.html">
+        執行測試移轉的理由
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="移轉程序總覽"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 移轉程序總覽</div>-->
+         移轉程序總覽
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_process_overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_process_overview.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="探索階段工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_discover_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_discover_phase_workflow.html">
+        探索階段工作流程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="分析階段工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_analyze_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_analyze_phase_workflow.html">
+        分析階段工作流程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="規劃階段工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_plan_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_plan_phase_workflow.html">
+        規劃階段工作流程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI支援的組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_supported_configurations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_supported_configurations.html">
+        FLI支援的組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="執行階段工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_execute_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_execute_phase_workflow.html">
+        執行階段工作流程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="離線移轉工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_migration.html">
+        離線移轉工作流程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="線上移轉工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_online_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_online_migration.html">
+        線上移轉工作流程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="確認階段工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_verify_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_verify_phase_workflow.html">
+        確認階段工作流程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="探索階段資料收集程序"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_discover_phase_procedures.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_discover_phase_procedures.html">
+        探索階段資料收集程序
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="分析階段IMT 的最佳實務做法"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 分析階段IMT 的最佳實務做法</div>-->
+         分析階段IMT 的最佳實務做法
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_analyze_phase_procedures.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_analyze_phase_procedures.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI互通性與支援條件"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_interoperability_and_support_criteria.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_fli_interoperability_and_support_criteria.html">
+        FLI互通性與支援條件
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用IMT 支援的功能表檢查FLI組態"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_checking_supported_configuration_for_fli_using_imt.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_checking_supported_configuration_for_fli_using_imt.html">
+        使用IMT 支援的功能表檢查FLI組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用SAN LUN移轉應用程式檢查FLI支援的組態"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html">
+        使用SAN LUN移轉應用程式檢查FLI支援的組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="啟用不受支援的LUN"
+      data-li-level="4" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-4  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 啟用不受支援的LUN</div>-->
+         啟用不受支援的LUN
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="開始之前"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_enablement_for_non_supported_luns_interoperability.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/zh-tw/ontap-fli/san-migration/concept_enablement_for_non_supported_luns_interoperability.html">
+        開始之前
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="匯入非FC LUN"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_importing_non_fc_luns.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/zh-tw/ontap-fli/san-migration/task_importing_non_fc_luns.html">
+        匯入非FC LUN
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用Foreign LUN Import（外部LUN匯入）將LUN匯入AFF 到物件庫"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_using_fli_to_import_luns_into_all_flash.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/zh-tw/ontap-fli/san-migration/concept_using_fli_to_import_luns_into_all_flash.html">
+        使用Foreign LUN Import（外部LUN匯入）將LUN匯入AFF 到物件庫
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="落差分析報告"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_gap_analysis_report.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_gap_analysis_report.html">
+        落差分析報告
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="規劃及準備階段程序"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 規劃及準備階段程序</div>-->
+         規劃及準備階段程序
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_plan_phase_procedures.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_plan_phase_procedures.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="連接FLI移轉的最佳實務做法"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_wiring_best_practices_for_fli.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_wiring_best_practices_for_fli.html">
+        連接FLI移轉的最佳實務做法
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定交換器區域"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_configuring_switch_zones.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_configuring_switch_zones.html">
+        設定交換器區域
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="如何設定來源陣列"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_how_to_configure_source_arrays.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_how_to_configure_source_arrays.html">
+        如何設定來源陣列
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="移轉測試"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_tests.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_migration_tests.html">
+        移轉測試
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用Hitachi AMS2100測試移轉範例"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_test_migration_example_using_hitachi_ams2100.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_test_migration_example_using_hitachi_ams2100.html">
+        使用Hitachi AMS2100測試移轉範例
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI離線工作流程"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> FLI離線工作流程</div>-->
+         FLI離線工作流程
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_workflow.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI離線：準備轉換"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> FLI離線：準備轉換</div>-->
+         FLI離線：準備轉換
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_preparation_for_cutover.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_preparation_for_cutover.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="重新啟動主機以驗證系統狀態"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_rebooting_the_host_to_validate_system_state.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_rebooting_the_host_to_validate_system_state.html">
+        重新啟動主機以驗證系統狀態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="驗證主機LUN路徑和多重路徑組態驗證"
+      data-li-level="4" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-4  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 驗證主機LUN路徑和多重路徑組態驗證</div>-->
+         驗證主機LUN路徑和多重路徑組態驗證
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_verifying_host_lun_path_and_multipath_configuration.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/zh-tw/ontap-fli/san-migration/concept_verifying_host_lun_path_and_multipath_configuration.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Windows主機的多重路徑驗證"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_multipath_verification_for_windows_hosts.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_windows_hosts.html">
+        Windows主機的多重路徑驗證
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Linux主機的多重路徑驗證"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_multipath_verification_for_linux_hosts.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_linux_hosts.html">
+        Linux主機的多重路徑驗證
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ESXi主機的多重路徑驗證"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_multipath_verification_for_esxi_hosts.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/zh-tw/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html">
+        ESXi主機的多重路徑驗證
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="準備主機進行FLI離線移轉"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_prepare_hosts_for_fli_offline_migration.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_fli_offline_migration.html">
+        準備主機進行FLI離線移轉
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="在ONTAP FLI期間、將來源LUN呈現給整個儲存區"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html">
+        在ONTAP FLI期間、將來源LUN呈現給整個儲存區
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="驗證目的地儲存設備上的來源LUN以供離線FLI使用"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html">
+        驗證目的地儲存設備上的來源LUN以供離線FLI使用
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定移轉工作"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_configuring_migration_jobs.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_configuring_migration_jobs.html">
+        設定移轉工作
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI離線：匯入資料"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_offline_importing_the_data.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_offline_importing_the_data.html">
+        FLI離線：匯入資料
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI離線：驗證移轉結果"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_offline_verifying_migration_results.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_offline_verifying_migration_results.html">
+        FLI離線：驗證移轉結果
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI離線移轉後工作"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_post_migration_tasks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_offline_post_migration_tasks.html">
+        FLI離線移轉後工作
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI線上工作流程"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> FLI線上工作流程</div>-->
+         FLI線上工作流程
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_online_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_online_workflow.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="重新開機主機"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_rebooting_hosts_f0f8.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_rebooting_hosts_f0f8.html">
+        重新開機主機
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI線上支援的主機作業系統"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_supported_host_operating_systems_for_fli_online.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_supported_host_operating_systems_for_fli_online.html">
+        FLI線上支援的主機作業系統
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="驗證主機LUN路徑和多重路徑組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_verify_host_lun_path_and_multipath_configuration_fa1e.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_verify_host_lun_path_and_multipath_configuration_fa1e.html">
+        驗證主機LUN路徑和多重路徑組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="準備主機進行FLI線上移轉"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_prepare_hosts_for_fli_online_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_fli_online_migration.html">
+        準備主機進行FLI線上移轉
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI線上：準備LUN路徑"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_online_preparing_the_lun_path.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_online_preparing_the_lun_path.html">
+        FLI線上：準備LUN路徑
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI線上：執行中斷轉換"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_online_performing_a_disruptive_cutover.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_online_performing_a_disruptive_cutover.html">
+        FLI線上：執行中斷轉換
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="線上FLI：匯入資料"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_online_importing_the_data.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_online_importing_the_data.html">
+        線上FLI：匯入資料
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI線上：驗證移轉結果"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_online_verifying_migration_results.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_online_verifying_migration_results.html">
+        FLI線上：驗證移轉結果
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="清除FLI線上移轉"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_online_cleanup.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_online_cleanup.html">
+        清除FLI線上移轉
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI線上移轉後工作"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_online_post_migration_tasks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_online_post_migration_tasks.html">
+        FLI線上移轉後工作
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI 7-Mode to ONTAP VMware移轉工作流程"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> FLI 7-Mode to ONTAP VMware移轉工作流程</div>-->
+         FLI 7-Mode to ONTAP VMware移轉工作流程
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="7-Mode至ONTAP 支援的不支援FLI組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_7_mode_to_ontap_supported_configurations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_7_mode_to_ontap_supported_configurations.html">
+        7-Mode至ONTAP 支援的不支援FLI組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="重新開機主機"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_rebooting_hosts_9207.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_rebooting_hosts_9207.html">
+        重新開機主機
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="驗證主機LUN路徑和多重路徑組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html">
+        驗證主機LUN路徑和多重路徑組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="準備主機進行移轉"
+      data-li-level="3#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html">
+        準備主機進行移轉
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="準備要移轉的來源陣列和目的地陣列"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_transition_preparing_source_and_destination_arrays.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_transition_preparing_source_and_destination_arrays.html">
+        準備要移轉的來源陣列和目的地陣列
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="執行將FLI 7-Mode轉換為ONTAP VMware的中斷執行"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_transition_performing_a_disruptive_cutover.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_transition_performing_a_disruptive_cutover.html">
+        執行將FLI 7-Mode轉換為ONTAP VMware的中斷執行
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="將資料從FLI 7-Mode匯入ONTAP 到VMware"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_transition_importing_the_data.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_transition_importing_the_data.html">
+        將資料從FLI 7-Mode匯入ONTAP 到VMware
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="驗證FLI 7-Mode以ONTAP 驗證移轉結果"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html">
+        驗證FLI 7-Mode以ONTAP 驗證移轉結果
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI移轉後的工作流程"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_transition_post_migration_tasks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_transition_post_migration_tasks.html">
+        FLI移轉後的工作流程
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用工作流程自動化（WFA）的FLI"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_using_workflow_automation_wfa.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/ontap-fli/san-migration/concept_fli_using_workflow_automation_wfa.html">
+        使用工作流程自動化（WFA）的FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI移轉後程序"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> FLI移轉後程序</div>-->
+         FLI移轉後程序
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_post_migration_procedures_all_workflows.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_post_migration_procedures_all_workflows.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="移除ONTAP 來源LUN的不穩定性儲存設備"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_removing_source_luns_from_ontap_storage.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_removing_source_luns_from_ontap_storage.html">
+        移除ONTAP 來源LUN的不穩定性儲存設備
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="從主機移除來源LUN"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_removing_source_luns_from_host.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_removing_source_luns_from_host.html">
+        從主機移除來源LUN
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="從區域集移除來源儲存設備和主機區域"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 從區域集移除來源儲存設備和主機區域</div>-->
+         從區域集移除來源儲存設備和主機區域
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Brocade網路範例"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_brocade_fabric_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_brocade_fabric_example.html">
+        Brocade網路範例
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cisco Fabric範例"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_cisco_fabric_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_cisco_fabric_example.html">
+        Cisco Fabric範例
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立移轉後的Snapshot複本"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_create_a_post_migration_snapshot_copy.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_create_a_post_migration_snapshot_copy.html">
+        建立移轉後的Snapshot複本
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI移轉清除與驗證階段"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_fli_migration_clean_up_and_verify_phase.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_fli_migration_clean_up_and_verify_phase.html">
+        FLI移轉清除與驗證階段
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="移轉報告"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_migration_report.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_migration_report.html">
+        移轉報告
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="取消來源陣列和目的地陣列的分區"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_unzoning_source_and_destination_array.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_unzoning_source_and_destination_array.html">
+        取消來源陣列和目的地陣列的分區
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="將來源陣列從ONTAP 無法使用的資料中移除"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_removing_the_source_array_from_ontap.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_removing_the_source_array_from_ontap.html">
+        將來源陣列從ONTAP 無法使用的資料中移除
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="正在移除目的地陣列組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_removing_destination_array_configuration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_removing_destination_array_configuration.html">
+        正在移除目的地陣列組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="記錄新移轉的環境"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_document_customer_environment.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/task_document_customer_environment.html">
+        記錄新移轉的環境
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="外部LUN匯入效能"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 外部LUN匯入效能</div>-->
+         外部LUN匯入效能
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_performance.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_performance.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="效能強化ONTAP 功能"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_performance_enhancements_in_clustered_data_ontap_8_3_1.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_performance_enhancements_in_clustered_data_ontap_8_3_1.html">
+        效能強化ONTAP 功能
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="影響外部LUN匯入移轉效能的變數"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html">
+        影響外部LUN匯入移轉效能的變數
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="評估移轉持續時間的基準測試"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_benchmarks_for_estimating_migration_durations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_benchmarks_for_estimating_migration_durations.html">
+        評估移轉持續時間的基準測試
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="外部LUN匯入移轉的最佳實務做法"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_best_practices_for_fli_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/concept_best_practices_for_fli_migration.html">
+        外部LUN匯入移轉的最佳實務做法
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ESXi CAW/ATS補救"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_esxi_caw_ats_remediation.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_esxi_caw_ats_remediation.html">
+        ESXi CAW/ATS補救
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="主機補救"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_host_remediation.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_host_remediation.html">
+        主機補救
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="清除SCSI-3持續保留"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_clearing_scsi_3_persistent_reservations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_clearing_scsi_3_persistent_reservations.html">
+        清除SCSI-3持續保留
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立主機對目的地區域"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 建立主機對目的地區域</div>-->
+         建立主機對目的地區域
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/concept_creating_the_host_to_destination_zones.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/concept_creating_the_host_to_destination_zones.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="正式作業架構中的Brocade網路就是一個範例"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_brocade_fabric_in_production_fabric_a_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_brocade_fabric_in_production_fabric_a_example.html">
+        正式作業架構中的Brocade網路就是一個範例
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="正式作業架構B中的Brocade網路範例"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_brocade_fabric_in_production_fabric_b_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_brocade_fabric_in_production_fabric_b_example.html">
+        正式作業架構B中的Brocade網路範例
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="生產架構中的Cisco Fabric就是一個例子"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_cisco_fabric_in_production_fabric_a_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_cisco_fabric_in_production_fabric_a_example.html">
+        生產架構中的Cisco Fabric就是一個例子
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="生產架構B中的Cisco Fabric範例"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/task_cisco_fabric_in_production_fabric_b_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/ontap-fli/san-migration/task_cisco_fabric_in_production_fabric_b_example.html">
+        生產架構B中的Cisco Fabric範例
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="場地調查與規劃工作表範例"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 場地調查與規劃工作表範例</div>-->
+         場地調查與規劃工作表範例
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_sample_site_survey_and_planning_worksheet.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_sample_site_survey_and_planning_worksheet.html">
+        總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表聯絡人索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html">
+        站台調查與規劃工作表聯絡人索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表問卷索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html">
+        站台調查與規劃工作表問卷索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表切換標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html">
+        站台調查與規劃工作表切換標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表來源儲存設備索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html">
+        站台調查與規劃工作表來源儲存設備索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表的「目的地儲存裝置」索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html">
+        站台調查與規劃工作表的「目的地儲存裝置」索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表的主機索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html">
+        站台調查與規劃工作表的主機索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Site Survey and Planning工作表HBA and Zone Information（HBA與區域資訊）索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html">
+        Site Survey and Planning工作表HBA and Zone Information（HBA與區域資訊）索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表來源LUN索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html">
+        站台調查與規劃工作表來源LUN索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表儲存群組索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html">
+        站台調查與規劃工作表儲存群組索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表LUN詳細資料索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html">
+        站台調查與規劃工作表LUN詳細資料索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表NetApp LUN配置索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html">
+        站台調查與規劃工作表NetApp LUN配置索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表移轉排程索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html">
+        站台調查與規劃工作表移轉排程索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表Aggregate Status索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html">
+        站台調查與規劃工作表Aggregate Status索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Site Survey and Planning工作表FAS 單「Config」（組態）索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html">
+        Site Survey and Planning工作表FAS 單「Config」（組態）索引標籤
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="站台調查與規劃工作表SDS CLI指令碼索引標籤"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html">
+        站台調查與規劃工作表SDS CLI指令碼索引標籤
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="法律聲明"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+      dale-entry-url="/reference_legal_notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-tw/ontap-fli/reference_legal_notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/zh-tw/ontap-fli"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/zh-tw/ontap-fli"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/zh-tw/ontap-fli/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">準備主機進行移轉</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2022-05-03 10:31:52 +0000">05/03/2022</time>
+        
+    
+    
+        <span>貢獻者
+        </span>
+    
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/zh-tw/ontap-fli/images/discuss-sm.svg" alt="" class="github-icon" />建議變更</span>
+        <img src="/zh-tw/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/zh-tw/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/ontap-fli.zh-tw/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/zh-tw/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html&page-title=準備主機進行移轉" class="page-nav-contribute-link" role="button">請求文件變更</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/ontap-fli/blob/main/san-migration/concept_prepare_hosts_for_the_transition.adoc" class="page-nav-contribute-link" role="button">編輯本頁</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >瞭解如何貢獻</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/zh-tw/ontap-fli/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/zh-tw/ontap-fli/pdfs/fullsite-sidebar/不對外的LUN匯入文件ONTAP.pdf" >
+                    <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>此文件 PDF 的網站</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/使用FLI進行SAN移轉.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            使用FLI進行SAN移轉
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/資料移轉方案總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            資料移轉方案總覽
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/SAN移轉解決方案的專業服務.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            SAN移轉解決方案的專業服務
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/建議的資料移轉工具.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            建議的資料移轉工具
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/外部LUN匯入.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            外部LUN匯入
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/資料移轉的實作基礎知識.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            資料移轉的實作基礎知識
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/移轉程序總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            移轉程序總覽
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/分析階段IMT_的最佳實務做法.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            分析階段IMT 的最佳實務做法
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/啟用不受支援的LUN.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            啟用不受支援的LUN
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/規劃及準備階段程序.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            規劃及準備階段程序
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI離線工作流程.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            FLI離線工作流程
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI離線_準備轉換.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            FLI離線：準備轉換
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/驗證主機LUN路徑和多重路徑組態驗證.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            驗證主機LUN路徑和多重路徑組態驗證
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI線上工作流程.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            FLI線上工作流程
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI_7_Mode_to_ONTAP_VMware移轉工作流程.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            FLI 7-Mode to ONTAP VMware移轉工作流程
+          </a>
+          
+
+
+
+
+
+
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/FLI移轉後程序.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            FLI移轉後程序
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/從區域集移除來源儲存設備和主機區域.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            從區域集移除來源儲存設備和主機區域
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/外部LUN匯入效能.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            外部LUN匯入效能
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/建立主機對目的地區域.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            建立主機對目的地區域
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/ontap-fli/pdfs/sidebar/場地調查與規劃工作表範例.pdf" 
+            
+          >
+            <img src="/zh-tw/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            場地調查與規劃工作表範例
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/zh-tw/ontap-fli/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>個別的 PDF 文件集合<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+
+
+
+<div class="content-to-index">
+<div class="paragraph lead">
+<p>執行階段包括準備移轉主機。</p>
+</div>
+<div class="paragraph">
+<p>在許多情況下、可能會在此步驟之前執行補救。如果沒有、您可以在這裡執行任何主機補救、例如安裝主機附加套件或DSM。從分析階段、您將會有一份落差清單、列出每部主機需要執行的項目、以便該主機使用NetApp ONTAP 功能以支援的組態執行。視執行的移轉類型而定、主機可能會先修復、然後重新開機（FLI 7-Mode轉ONTAP 到線上）、或是重新開機、修復、然後關機（FLI 7-Mode轉ONTAP 到非線上）。</p>
+</div>
+</div>
+
+
+
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/zh-tw/ontap-fli/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/zh-tw/ontap-fli/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">在本頁</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2023 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">使用條款</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">隱私權政策</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie 政策</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie 設定</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">傳送有關本網頁的意見反應</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/ontap-fli/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/ontap-fli/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/ontap-fli/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/ontap-fli/js/ie-tabbed-blocks.js'></script>
+    <script src='/zh-tw/ontap-fli/js/ie-sidebar.js'></script>
+  </body>
+
+</html>
