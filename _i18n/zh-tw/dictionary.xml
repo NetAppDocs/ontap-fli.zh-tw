@@ -377,17 +377,6 @@
   <block id="14af639fbf9d5e97f36e602336dd8493" category="paragraph">驗證新的系統組態並提供文件。</block>
   <block id="bc459bf79d66c5b179790918378f3182" category="summary">在「Foreign LUN Import（FLI）（外部LUN匯入（FLI）））」程序中、您應該確認主機上的多重路徑已設定且正常運作。</block>
   <block id="ee39d65a1817160f3851b1ca24746c37" category="doc">Windows主機的多重路徑驗證</block>
-  <block id="a4354633cd0119e1314f471d610ea422" category="paragraph">針對Windows主機完成下列步驟。</block>
-  <block id="7ae3521b4795a0df6960b48844b8bede" category="list-text">開放式磁碟管理：</block>
-  <block id="36a890df783d05afe153f32ada876698" category="list-text">在Windows桌面上、按一下* Start*。</block>
-  <block id="d0148f5ec81506fa10252eb7af3017af" category="list-text">在「Start Search（開始搜尋）」欄位中、輸入「diskmgmt.msc」。</block>
-  <block id="39ddfcd62e9a6f642a082e4825c6ff4f" category="list-text">在「程式集」清單中、按一下「diskmgmt」。</block>
-  <block id="8b103231da97e357c81333af4cc4b45e" category="list-text">在您要驗證多個路徑的每個磁碟上按一下滑鼠右鍵、然後按一下「*內容*」。</block>
-  <block id="c0829f1bd784906bc2260964e7df8fcc" category="list-text">在MPIO索引標籤的Select the MPIO policy（選取MPIO原則）清單中、按一下所有作用中的路徑。</block>
-  <block id="08531ca1dfb960884b4522ff558a0b0d" category="image-alt">Windows MPIO內容</block>
-  <block id="ef7d878aad6a3854d597cac990e1eb38" category="paragraph">若要使用命令列驗證多重路徑、請完成下列步驟：</block>
-  <block id="411ebc979cd3a229976869daa9547a33" category="list-text">開啟Windows命令提示字元。</block>
-  <block id="d4680a9ea0a2cb04b104f631e80d8264" category="list-text">執行mpclaim.exe -v c：\multipathconfig.txt以擷取多重路徑組態。</block>
   <block id="0494482584ffb3a3845ebc27d94cf2c6" category="summary">離線移轉工作流程會在移轉程序的執行階段執行。離線工作流程圖顯示在主機、架構、目的地儲存設備和來源儲存設備上執行的工作。</block>
   <block id="6696f8ecf38c4df0054e0dc95a616d3d" category="doc">離線移轉工作流程</block>
   <block id="9295fcebcba793fecd195c670dd2da3b" category="image-alt">離線移轉1.</block>
@@ -1311,9 +1300,6 @@
   <block id="b76188f3e00e84a81eb898fcfa30419f" category="paragraph">匯入記錄會儲存在叢集事件記錄檔中。</block>
   <block id="9273826bb0d876c78b121ff252c71f0e" category="sidebar">部分FLI文件ONTAP</block>
   <block id="d648f2a68a54fd1b3329efc3cf24d29c" category="sidebar">法律聲明</block>
-  <block id="9a4c1be88c2720ce2a1f8a5fd2b27a5c" category="sidebar">FLI工作流程</block>
-  <block id="9661e4f0a38203cee0d0ec82dcba896f" category="sidebar">離線工作流程</block>
-  <block id="afec4ed45e968a4fe6c00ed1c1e83691" category="sidebar">線上工作流程</block>
   <block id="88f3f903d8cfd4ec8cf08ee64f86504b" category="sidebar">使用FLI進行SAN移轉</block>
   <block id="3b878279a04dc47d60932cb294d96259" category="sidebar">總覽</block>
   <block id="8d98bee06f527b9e9c395ead1ae98be3" category="sidebar">外部LUN匯入</block>
@@ -1329,7 +1315,6 @@
   <block id="3599871babc6dc6561e34cba9300055d" category="list-text">所有ESXi 5.x及更新版本</block>
   <block id="fa55a1211374f77dff267c22b6a483bb" category="list-text">Red Hat Enterprise Linux（RHEL）5.x及更新版本</block>
   <block id="08f64b69a1ef937409895057222834ca" category="paragraph">如果外部來源陣列可以符合資格、則會顯示綠色核取符號。如果外部來源陣列無法符合資格、則會顯示紅色X。</block>
-  <block id="d1b92a4930d50c6ed1038655db0d2684" category="sidebar">所有ONTAP 產品文件</block>
   <block id="ea55df179f5c8f2dc6d72bdcb7fe2e57" category="summary">您可以使用此內容來協助將資料從外部陣列移轉至ONTAP VMware、或將LUN從NetApp 7-Mode陣列移轉至ONTAP VMware。</block>
   <block id="401497503074d7ec7406c3ce5a48dbc8" category="paragraph">您應該熟悉常見的SAN概念和程序、包括分區、LUN遮罩、需要移轉LUN的主機作業系統、ONTAP 以及來源協力廠商陣列。</block>
   <block id="b0f36dbc8cbf7c56840f51534500c27b" category="inline-link">資料移轉工具快速參考</block>
@@ -1339,4 +1324,6 @@
   <block id="b107b92b08e1507c6d61c65a86b28086" category="paragraph">線上工作流程具有下列工作：</block>
   <block id="d65237d15ed3f23354581867591cc773" category="list-text">如FlexArray 所述、請使用NetApp的「供應來源和目的地儲存設備的最佳實務做法」<block ref="66f8c243fef55cbf3f49d4ec76027b8d" category="inline-link-rx"></block>。</block>
   <block id="6c98897f95672b5dde701dffbd4b05a0" category="paragraph">若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱<block ref="737823659babb212ffbc8948b616644f" category="inline-link-rx"></block> 適用於第三方儲存組態需求。</block>
+  <block id="29b512fbc4379581cd2fd8694ca529c4" category="inline-link-macro">搭配 ONTAP 使用 Windows Server 2022</block>
+  <block id="82e292bca3bfc1c57dd6f3dc796412a0" category="paragraph">如需 Windows 主機的逐步指示、請參閱的「多重路徑」一節 <block ref="cce832a1ed6f79df8eb06042aeeb6d79" category="inline-link-macro-rx"></block>。</block>
 </blocks>
