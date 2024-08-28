@@ -1,0 +1,18 @@
+---
+indexpage:
+  title: 不對外的LUN匯入文件ONTAP
+  summary: 物件外部LUN匯入ONTAP
+  keywords: fli, ontap, array, fli-based, configuration, lun, import, san, migration,
+    foreign
+  lead: 物件外部LUN匯入ONTAP
+  tiles:
+  - title: FLI 工作流程
+    links:
+    - title: 離線工作流程
+      url: "/san-migration/concept_fli_offline_workflow.html"
+    - title: 線上工作流程
+      url: "/san-migration/concept_fli_online_workflow.html"
+    - title: FLI 7-Mode to ONTAP VMware移轉工作流程
+      url: "/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html"
+    - title: 使用工作流程自動化（WFA）的FLI
+      url: "/san-migration/concept_fli_using_workflow_automation_wfa.html"

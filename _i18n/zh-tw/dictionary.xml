@@ -1326,4 +1326,7 @@
   <block id="6c98897f95672b5dde701dffbd4b05a0" category="paragraph">若要定義啟動器群組、請檢閱陣列文件、瞭解如何設定LUN遮罩（igroups/host Groups/storage Groups等）。您也可以檢閱<block ref="737823659babb212ffbc8948b616644f" category="inline-link-rx"></block> 適用於第三方儲存組態需求。</block>
   <block id="29b512fbc4379581cd2fd8694ca529c4" category="inline-link-macro">搭配 ONTAP 使用 Windows Server 2022</block>
   <block id="82e292bca3bfc1c57dd6f3dc796412a0" category="paragraph">如需 Windows 主機的逐步指示、請參閱的「多重路徑」一節 <block ref="cce832a1ed6f79df8eb06042aeeb6d79" category="inline-link-macro-rx"></block>。</block>
+  <block id="9a4c1be88c2720ce2a1f8a5fd2b27a5c" category="sidebar">FLI 工作流程</block>
+  <block id="9661e4f0a38203cee0d0ec82dcba896f" category="sidebar">離線工作流程</block>
+  <block id="afec4ed45e968a4fe6c00ed1c1e83691" category="sidebar">線上工作流程</block>
 </blocks>
