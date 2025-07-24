@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: fli, online, post-migration, tasks 
 summary: 任何未在移轉前執行的伺服器補救、都會在移轉後執行。 
 ---
-= FLI線上移轉後工作
+= 執行ONTAP FLI 線上遷移後任務
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/

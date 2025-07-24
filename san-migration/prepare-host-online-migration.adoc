@@ -1,0 +1,27 @@
+---
+permalink: san-migration/prepare-host-online-migration.html 
+sidebar: sidebar 
+keywords: reboot, hosts, fli, online migration, prepare 
+summary: 在開始 FLI 離線遷移之前，您應該執行主機修復所需的任何步驟；然後，您應該重新啟動主機並驗證主機多路徑是否配置正確。 
+---
+= 為ONTAP FLI 線上遷移準備主機
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在開始外部 LUN 匯入 (FLI) 線上遷移之前，您應該執行分析階段確定的主機修復所需的所有步驟，例如安裝主機連線工具包或 DSM。執行完所有必要的修復步驟後，建議您重新啟動主機。
+
+.開始之前
+作為預防措施，請對主機資料進行快照複製，以便日後需要時進行復原。
+
+.步驟
+. 執行任何必要的主機修復步驟。
+. 關閉所有開啟的應用程式。
+. 重新啟動主機。
+. 檢閱記錄以找出錯誤。
+
+
+.下一步是什麼？
+link:create-lun-import-relationship-online.html["建立LUN導入關係"] 。

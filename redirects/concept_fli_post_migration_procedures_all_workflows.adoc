@@ -1,0 +1,8 @@
+---
+permalink: san-migration/concept_fli_post_migration_procedures_all_workflows.html 
+redirect: ontap-fli/san-migration/task_removing_source_luns_from_ontap_storage.html 
+---
+= 
+:allow-uri-read: 
+
+

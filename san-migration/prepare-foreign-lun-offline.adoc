@@ -1,0 +1,98 @@
+---
+permalink: san-migration/prepare-foreign-lun-offline.html 
+sidebar: sidebar 
+keywords: present, source luns, ontap storage, fli 
+summary: 在 FLI 離線遷移過程中，您必須將外部來源 LUN 提供給ONTAP儲存；然後，您必須在ONTAP儲存上發現外部來源 LUN。 
+---
+= 為ONTAP FLI 離線遷移準備外部儲存陣列 LUN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在外部 LUN 匯入 (FLI) 離線遷移中，您必須從外部儲存陣列採取手動步驟將外部來源 LUN 呈現給您的ONTAP儲存系統；然後，您必須從ONTAP儲存系統採取措施來發現外部 LUN。
+
+
+
+== 步驟 1：將外部陣列來源 LUN 呈現給ONTAP存儲
+
+在開始使用 FLI 離線遷移從外部儲存陣列 LUN 匯入資料之前，您必須將外部儲存陣列上的來源 LUN 提供給ONTAP儲存系統。
+
+.步驟
+. 登入來源陣列。
+. 將NetApp啟動器新增至計畫階段所建立的主機群組。
+. 從可用的邏輯LUN選擇需要遷移的主機LUN。
++
+使用來源 LUN 部分中提到的每個主機的 LUN 名稱link:reference_site_survey_and_planning_worksheet_source_luns_tab.html["現場勘察與規劃工作表"] 。
+
+
+
+
+
+== 步驟 2：在ONTAP中發現外部陣列來源 LUN
+
+將外部陣列來源 LUN 提供給ONTAP儲存系統後，必須在ONTAP中發現這些 LUN，然後才能建立 LUN 匯入關係。
+
+.步驟
+. 驗證來源 LUN 以及從來源儲存到目標儲存的對應。
+. 使用管理員使用者透過 SSH 登入ONTAP儲存系統。
+. 將模式變更為進階。
++
+[source, cli]
+----
+set -privilege advanced
+----
+. 當系統詢問您是否要繼續時、請輸入「y」。
+. 在ONTAP上發現來源陣列。等待幾分鐘，然後重試偵測來源陣列。
++
+[source, cli]
+----
+storage array show
+----
++
+以下範例顯示了 Hitachi DF600F 陣列的發現。
+
++
+[listing]
+----
+DataMig-ontap::*> storage array show
+Prefix                         Name   Vendor            Model Options
+-------- ---------------------------- -------- ---------------- ----------
+HIT-1                HITACHI_DF600F_1  HITACHI           DF600F
+----
++
+[NOTE]
+====
+第一次發現儲存陣列時ONTAP 、可能無法自動探索以顯示陣列。請依照下列指示、重設ONTAP 連接了交換器連接埠的交換器連接埠。
+
+====
+. 驗證是否已透過所有啟動器連接埠探索來源陣列。
++
+[source, cli]
+----
+storage array config show -array-name <array_name>
+----
++
+以下範例顯示透過所有啟動器連接埠發現的 Hitachi DF600F 陣列。
+
++
+[listing]
+----
+DataMig-ontap::*> storage array config show -array-name HITACHI_DF600F_1
+             LUN   LUN
+Node         Group Count     Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- -----------------------
+DataMig-ontap-01 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+DataMig-ontap-02 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+----
+
+
+.下一步是什麼？
+link:create-lun-import-relationship-offline.html["建立LUN導入關係"] 。

@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: fli, offline, post-migration, tasks 
 summary: 任何未在移轉之前執行的未完成伺服器補救、都會在移轉後執行。 
 ---
-= FLI離線移轉後工作
+= 執行ONTAP FLI 離線遷移後任務
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/

@@ -28,6 +28,6 @@ image::../media/remove_source_luns_from_ontap_storage_2.png[編輯主機群組]
 
 . 選取從指派的邏輯LUN移轉的主機LUN。使用來源LUN工作表中提及的每個主機的LUN名稱。在此處、選取Windows 2012、RHEL 5.10和ESXi 5.5主機的LUN、然後選取*移除*。
 +
-image::../media/remove_source_luns_from_ontap_storage_3.png[移除ONTAP 來源LUN的不二資料儲存設備3]
+image::../media/remove_source_luns_from_ontap_storage_3.png[刪除 LUN]
 
 

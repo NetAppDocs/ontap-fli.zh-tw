@@ -11,9 +11,10 @@ sidebar:
   entries:
   - title: 部分FLI文件ONTAP
     url: "/index.html"
+  - section: release-notes
   - section: san-migration
   - title: 法律聲明
-    url: "/reference_legal_notices.html"
+    url: "/legal-notices.html"
 product-family:
   name: ONTAP
   repo: ontap-family

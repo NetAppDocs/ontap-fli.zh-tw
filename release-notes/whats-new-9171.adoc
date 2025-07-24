@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: release-notes/whats-new-9171.html 
+keywords: 'what"s new, release notes, 9.17.1, san data migration' 
+summary: 了解ONTAP 9.17.1 中用於 SAN 資料遷移的新功能。 
+---
+= ONTAP 9.17.1 中用於 SAN 資料遷移的新功能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+了解ONTAP 9.17.1 中用於 SAN 資料遷移的新功能。
+
+
+
+== 平台
+
+[cols="2,4"]
+|===
+| 更新 | 說明 
+
+
+| 平台  a| 
+ASA R2 系統支援 FLI 遷移。
+
+詳細了解link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA R2 系統"^] 。
+
+|===
