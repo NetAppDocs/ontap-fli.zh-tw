@@ -1451,7 +1451,6 @@
   <block id="faa638e01a027f3e33ce873fec967f8a" category="paragraph">序號用於 FLI LUN 導入命令。</block>
   <block id="6f6829770b4585c77f91df7632cfa37b" category="paragraph">以下範例顯示了外部 LUN 及其序號。</block>
   <block id="501a07ad7efd92d4ab6857db010311d9" category="paragraph">在為 FLI 線上遷移建立 LUN 匯入關係之前，您必須在ONTAP儲存系統上建立磁碟區來包含您將從外部陣列匯入的 LUN。</block>
-  <block id="e206a420950b325cd731e287640847e1" category="paragraph">從ONTAP 9.17.1 開始， ASA r2 系統支援使用 FLI 離線遷移對外部 LUN 進行資料遷移。 ASAASA系統與其他ONTAP系統（ASA、 AFF和FAS）在儲存層實施方面有所不同。在ASA r2 系統中，建立儲存單元（LUN 或命名空間）時會自動建立磁碟區。因此，您無需在建立 LUN 匯入關係之前建立磁碟區。如果您使用的是ASA r2 系統，則可以跳過此步驟。</block>
   <block id="36c24dd9dc232796178e694a76c5bb02" category="paragraph">詳細了解<block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block> 。</block>
   <block id="a08233060f61816c66576ecb8a6b108d" category="list-text">驗證磁碟區是否已建立。</block>
   <block id="c9d18f8008099eef7df9f27c2445e7e7" category="paragraph">以下範例顯示在 *fli* SVM 中建立的 *fli_vol* 磁碟區。</block>
@@ -1590,4 +1589,5 @@
   <block id="f93ebe1eaf4c78ebab1a110b95f655d8" category="sidebar">FLI 線上遷移</block>
   <block id="a9fa02c73b0556989b39e0a09dc2fb37" category="sidebar">準備主機進行遷移</block>
   <block id="9cc66e684b29dae71b3873021ab5f900" category="sidebar">將來源 LUN 對應到目標陣列</block>
+  <block id="3e06682f4f26baa39169365df5a4cbff" category="paragraph">從ONTAP 9.17.1 開始， ASA r2 系統支援使用 FLI 線上遷移對外部 LUN 進行資料遷移。ASA系統與其他ONTAP系統（ASA、 AFF和FAS）在儲存層實施方面有所不同。在ASA r2 系統中，建立儲存單元（LUN 或命名空間）時會自動建立磁碟區。因此，您無需在建立 LUN 匯入關係之前建立磁碟區。如果您使用的是ASA r2 系統，則可以跳過此步驟。</block>
 </blocks>
