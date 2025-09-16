@@ -49,7 +49,7 @@ entries:
   - title: FLI的實體配線需求
     url: "/san-migration/concept_physical_wiring_requirements_for_fli.html"
   - title: 為啟動器模式配置 FC 適配器
-    url: san-migration/configure-fc-adapter-initiator.html
+    url: "/san-migration/configure-fc-adapter-initiator.html"
   - title: FLI 的目標和啟動器連接埠分區
     url: "/san-migration/concept_target_and_initiator_port_zoning.html"
   - title: 啟動器群組組態
