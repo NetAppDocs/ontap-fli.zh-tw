@@ -48,13 +48,7 @@ ontaptme-fc-cluster-02
 
 Warning: Configuration errors were detected.  Use 'storage errors show' for detailed information.
 ----
-. 檢視所列任何儲存錯誤的詳細資料。某些錯誤可能需要先採取行動才能繼續。不過、下列範例「此裝置是ONTAP（R）LUN」中顯示的錯誤可以安全地忽略。
-+
-[NOTE]
-====
-錯誤訊息「此裝置為ONTAP（R\）LUN」。這是因為FLI仰賴FlexArray 不支援虛擬ONTAP 化功能的不支援虛擬化的ONTAPFLI能夠匯入LUN、FlexArray 但不支援虛擬化LUN。
-
-====
+. 查看列出的所有儲存錯誤詳情。有些錯誤可能需要先處理才能繼續。
 +
 [listing]
 ----

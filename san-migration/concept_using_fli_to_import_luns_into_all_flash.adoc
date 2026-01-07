@@ -2,7 +2,7 @@
 permalink: san-migration/concept_using_fli_to_import_luns_into_all_flash.html 
 sidebar: sidebar 
 keywords: use, foreign lun import, import luns, aff 
-summary: 不支援所有版本的不支援任何版本的不支援。AFF FlexArray ONTAP在這些版本中、您必須將外部LUN匯入（FLI）分段至同一個叢集上的非AFF高可用度（HA）配對AFF 、並搭配使用此功能。 
+summary: 從ONTAP 9.1 開始， AFF支援 FLI。您可以使用 FLI 將其他陣列中的 LUN 直接匯入ONTAP叢集。 
 ---
 = 使用Foreign LUN Import（外部LUN匯入）將LUN匯入AFF 到物件庫
 :allow-uri-read: 
@@ -11,10 +11,8 @@ summary: 不支援所有版本的不支援任何版本的不支援。AFF FlexArr
 
 
 [role="lead"]
-不支援所有版本的不支援任何版本的不支援。AFF FlexArray ONTAP在這些版本中、您必須將外部LUN匯入（FLI）分段至同一個叢集上的非AFF高可用度（HA）配對AFF 、並搭配使用此功能。
+從ONTAP 9.1 開始， AFF支援 FLI。您可以使用 FLI 將其他陣列中的 LUN 直接匯入ONTAP叢集。
 
-從功能支援的起、就是支援FLI。ONTAP AFF您可以使用FKU將LUN從其他陣列直接匯入ONTAP 到物件叢集。
+從ONTAP 8.3.2 開始， AFF可以透過已核准的流程變更請求 (PVR) 來支援 FLI。請聯絡您的NetApp客戶團隊，提交 PVR 以供核准。獲得批准後，提交人（通常是NetApp系統工程師）將收到一封批准函，其中包含啟用 FLI 功能的說明。
 
-從版本8.3.2開始ONTAP 、AFF 透過核准的程序差異申請（PVR）、支援FLI。請聯絡您的NetApp客戶團隊、提交PVR以供核准。核准後、提交者（通常是NetApp系統工程師）會收到核准信、並指示啟用FLI功能。
-
-針對ONTAP 8.3.2之前的版本、AFF 由於FlexArray 已進行部分寫入最佳化、所以目前不支援使用某些版本的功能。您需要將FLI匯入登錄至同一個叢集AFF 上的非AFF HA配對、並使用此功能進行執行。完成移轉之後、您就可以使用不中斷營運（nn）、例如vol或LUN Move、將移轉的LUN移至AFF 支援區。如果AFF 您的叢集沒有任何非AFF節點、請與您的客戶團隊討論借用揮桿設備的可能性、以利達成此目標。
+對於 8.3.2 之前的ONTAP軟體版本，您需要將 FLI 匯入暫存到與AFF位於同一叢集上的非AFF HA 對中。遷移完成後，您可以使用非中斷操作 (NDO)，例如磁碟區或 LUN 移動，將遷移的 LUN 移至AFF。如果您的AFF叢集沒有任何非AFF節點，請與您的客戶團隊討論借用備用設備以方便實施的可能性。
