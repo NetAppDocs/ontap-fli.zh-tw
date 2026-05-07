@@ -1,0 +1,157 @@
+---
+permalink: phases/remediation-solaris.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, solaris host, pre-migration, offline fli, online fli 
+summary: 在 Solaris 主機上執行 ONTAP FLI 遷移之前，請完成下列遷移前步驟。離線遷移和線上遷移的步驟有所不同。 
+---
+= ONTAP FLI Solaris 主機補救措施
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在 Solaris 主機上執行 ONTAP FLI 遷移之前，請完成下列遷移前步驟。離線遷移和線上遷移的步驟有所不同。
+
+
+
+== 遷移前 - 離線 FLI
+
+這些步驟對於線上和離線 FLI 都是通用的。在從主機取消佈建來源 LUN 之前，請確保完成下列步驟。
+
+[cols="3"]
+|===
+| 檔案系統 (ZFS/Zpool) | OSC（Oracle Sun Cluster）（SCSI3 PR）搭配 Zpool | SANBOOT 
+
+
+| 步驟 1：收集端對端區塊裝置組態：多重路徑健全狀況 / 路徑、區塊裝置上的 Zpool 配置，以及 OBP（ok 提示）設定，以確認正確的開機裝置和開機參數。 | 步驟 1：收集端對端 Block Device 組態：multipath 健全狀況/路徑、Block Device 上的 LVM 配置和 OBP 設定，以確認正確的開機裝置和開機參數。 | 步驟 1：收集端對端 SAN 開機組態：多重路徑健全狀況 / 路徑、開機 LUN 上的 RPool 配置、以及確認正確開機裝置和開機參數的 OBP 設定。 
+
+
+| 步驟 2：確保所有對目標掛載點的操作都已暫停。確保沒有進程仍在存取區塊裝置。如有必要，請釋放/終止開啟的進程句柄。 | 步驟 2：停用要遷移的對應 LUN 的叢集資源群組。 | 步驟 2：重新啟動主機以確保主機能夠正常啟動並執行上述變更。主機正常啟動後，即可瞭解主機已準備好進行 FLI 遷移的預修復。 
+
+
+| 步驟 3：確保儲存池未使用卸載所有使用該儲存池的檔案系統： | 步驟 3：確保集區未使用 | 步驟 3：現在關閉 sanboot 主機，以繼續 ONTAP FLI 工作流程。 
+
+
+| 步驟 4：匯出集區驗證匯出 | 步驟 4：從 OSC 組態中移除來源 LUN。 |  
+
+
+| 步驟 5：如有必要，執行主機 SCSI 匯流排重新掃描。例如： `devfsadm` | 步驟 5：如果存在過時的 SCSI 裝置檔案，請將其全部移除。注意：如果發現任何 lun 持久保留，請清除它們並確保不存在 PR 金鑰 |  
+
+
+|  | 步驟 6：重新掃描主機，確保現有裝置對應中沒有過時的項目。 |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 識別儲存裝置。
++
+[Source]
+----
+echo | format
+sanlun lun show all (This is only applicable for NetApp devices)
+mpathadm list lu
+mpathadm show lu lu_name
+luxadm display node wwn/ disk path
+----
+. 識別 zpool 和檔案系統。
++
+[Source]
+----
+zpool status <zpool_name>
+df -h
+----
+. 卸載並匯出檔案系統。
++
+[Source]
+----
+zfs umount /mount_point
+zpool export <zpool_name>
+df -h (to ensure its unmounted)
+----
+. 移除 SCSI 區塊裝置。
++
+[Source]
+----
+rm /dev/rdsk/disk_ID
+----
+. 確認裝置已卸離。
++
+format | grep disk_id
+
+. 分離後重新掃描以確認乾淨狀態。
++
+cfgadm -al
+
+
+
+
+
+== 遷移前 - 線上 FLI
+
+以下是線上 FLI 的具體步驟，但這些步驟必須在移轉前離線 FLI 的步驟之後執行。以下步驟必須在 NetApp LUN 配置到主機後執行。
+
+[cols="4"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 | 步驟 1：開啟伺服器電源。 
+
+
+| 步驟 2：識別多重路徑儲存設備。 | 步驟 2：識別多重路徑裝置。 | 步驟 2：識別多重路徑裝置。 | 步驟 2：在 SPARC 伺服器 OBP 上，設定呈現給此主機 HBA 的新開機裝置。修改 nvalias 以表示新的磁碟路徑。 
+
+
+| 步驟 3：檢查檔案系統�細細資料。 | 步驟 3：識別多重路徑裝置 ID 並將其呈現給相應的應用程式。 | 步驟 3：驗證 Pool 狀態。 | 步驟 3：重新啟動主機，從新對應的 LUN 啟動，該 LUN 是 LUN Import 的一部分。 
+
+
+| 步驟 4：將裝置掛載回各自的資料夾。 |  | 步驟 4：匯入資源池。 |  
+
+
+|  |  | 步驟 5：檢查資源池狀態。 |  
+
+
+|  |  | 步驟 6：掛載儲存池 / ZFS。 |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 識別儲存裝置。
++
+[Source]
+----
+format
+sanlun lun show all
+mpathadm list lu
+mpathadm show lu
+----
+. 識別 zpool 和檔案系統。
++
+[Source]
+----
+zpool status <zpool_name>
+df -h
+----
+. Varyoffvg 並卸載檔案系統。
++
+[Source]
+----
+zfs umount /mount_point
+zpool export <zpool_name>
+df -h (to ensure its unmounted)
+----
+. 移除 SCSI 區塊裝置。
++
+rm /dev/rdsk/disk_ID
+
+. 確認裝置已卸離。
++
+format | grep disk_id
+
+. 分離後重新掃描以確認乾淨狀態。
++
+cfgadm -al
+
+

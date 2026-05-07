@@ -1,0 +1,157 @@
+---
+permalink: phases/recommended-host-migration.html 
+sidebar: sidebar 
+keywords: discovery phase, foreign lun import, fli, active iq onecollect, fc fli, iscsi fli, intercluster lif, wwpn, iqn, foreign array, lun discovery, san migration 
+summary: 在選擇移轉方法之前，請將主機作業系統和儲存組態與建議的 Foreign LUN Import（FLI）方法保持一致。 
+---
+= 依作業系統和組態建議的 ONTAP FLI 方法
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在選擇移轉方法之前，請將主機作業系統和儲存組態與建議的 Foreign LUN Import（FLI）方法保持一致。
+
+
+
+== 意圖
+
+下表有助於在選擇遷移方法之前，將主機作業系統和儲存組態與建議的 Foreign LUN Import（FLI）方法進行比對。對於每種主機類型和使用模式，表中會指出線上 FLI、離線 FLI 或兩者皆可適用。「備註 / 原理」欄重點介紹了關鍵的技術限制，例如叢集語意、SCSI 3 持續保留和開機相依性，這些限制會直接影響主機 I/O 是否能夠與作用中的匯入關係安全共存。應在規劃初期使用此指南，以避免使用不支援的工作流程，並對中斷時間範圍和補救時間設定合理的預期。
+
+
+
+== 重要指引
+
+* 由於 SCSI 3 持續保留的要求，叢集幾乎總是意味著離線 FLI。
+* 獨立主機和非叢集虛擬化工作負載通常比較靈活，可以使用 Online 或 Offline FLI。
+* SAN 開機使用案例在技術上兩種模式下均受支援，但通常在操作上更易於作為離線 FLI 執行。
+* 最終模式選擇應考慮應用程式停機容忍度、復原要求和操作複雜性，而不僅僅是通訊協定支援。
+
+
+
+
+== 詳細指南
+
+
+
+=== Windows
+
+[cols="3"]
+|===
+| 組態 | 建議 | 原因（如有） 
+
+
+| NTFS 磁碟區  a| 
+線上 / 離線 FLI
+| 兩種模式均支援；具體選擇取決於應用程式對停機時間的容忍度。 
+
+
+| Windows 故障轉移叢集（WFSC） | 離線 FLI | WFSC 需要 SCSI 3 持久保留，但當 LUN 處於作用中匯入關係時不支援。 
+
+
+| Hyper V | 線上 / 離線 FLI | 支援獨立運作的 Hyper-V；叢集式 Hyper-V 遵循 WFSC 指南。 
+
+
+| SAN 開機 | 線上 / 離線 FLI | 需要仔細規劃切換；除非停機時間得到良好控制，否則通常會被視為離線。 
+|===
+
+
+=== Linux（RHEL/SLES）
+
+[cols="3"]
+|===
+| 組態 | 建議 | 原因（如有） 
+
+
+| 檔案系統 / RAW 磁碟 | 線上 / 離線 FLI | 兩種模式均支援標準多重路徑。 
+
+
+| LVM | 線上 / 離線 FLI | 支援；確保在切換過程中正確探索主機並保持 PV/VG 一致性。 
+
+
+| Pacemaker 叢集 | 線上 / 離線 FLI | 支援，但必須在轉換期間驗證叢集行為。 
+
+
+| SAN 開機 | 線上 / 離線 FLI | 通常在離線操作上較為簡單，但技術上支援線上操作。 
+|===
+
+
+=== Solaris
+
+[cols="3"]
+|===
+| 組態 | 建議 | 原因（如有） 
+
+
+| 獨立版 | 線上 / 離線 FLI | 根據中斷容錯能力，兩種模式均可支援。 
+
+
+| Oracle Solaris Cluster（OSC / Sun Cluster） | 離線 FLI | 叢集需要專屬的 SCSI 行為，而這些行為在主動匯入期間不受支援。 
+
+
+| SAN 開機 | 線上 / 離線 FLI | 與其他作業系統 SAN 開機案例類似處理。 
+|===
+
+
+=== AIX
+
+[cols="3"]
+|===
+| 組態 | 建議 | 原因（如有） 
+
+
+| 獨立版 | 線上 / 離線 FLI | 兩種模式均支援。 
+
+
+| PowerHA（HACMP） | 離線 FLI | 叢集磁碟需要與線上匯入不相容的保留語意。 
+
+
+| 虛擬化（PowerVM NPIV/VFC、vSCSI - 無叢集） | 線上 / 離線 FLI | 不屬於叢集時支援。 
+
+
+| 虛擬化（PowerVM 搭配叢集） | 離線 FLI | 與實體 PowerHA 相同的叢集限制。 
+
+
+| SAN 開機 | 線上 / 離線 FLI | 操作偏好通常為離線狀態。 
+|===
+
+
+=== HP-UX
+
+[cols="3"]
+|===
+| 組態 | 建議 | 原因（如有） 
+
+
+| 獨立版 | 線上 / 離線 FLI | 兩種模式均支援。 
+
+
+| 主機叢集（MC/ServiceGuard） | 離線 FLI | 叢集磁碟語意需要離線移轉。 
+
+
+| SAN 開機 | 線上 / 離線 FLI | 通常在實務上規劃為離線。 
+|===
+
+
+=== VMware ESXi
+
+[cols="3"]
+|===
+| 組態 | 建議 | 原因（如有） 
+
+
+| VMDK （標準資料存放區） | 線上 / 離線 FLI | 兩種模式均支援；線上模式可最大限度減少 VM 停機時間。 
+
+
+| RDM（標準） | 線上 / 離線 FLI | 支援；確保在切換期間進行一致的主機重新掃描。 
+
+
+| VMSC / VMHA | 線上 / 離線 FLI | 在精心協調下提供支援。 
+
+
+| WFSC（叢集式 VMDK） | 離線 FLI | Windows 叢集限制適用。 
+
+
+| WFSC（RDM） | 離線 FLI | 需要 SCSI 3 PR，不支援線上匯入。 
+|===

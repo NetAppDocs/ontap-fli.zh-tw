@@ -1,0 +1,27 @@
+---
+permalink: configure/fc-connectivity-wiring.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= ONTAP 外來 LUN 匯入（FLI）連線和佈線
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+透過 FC 匯入外部 LUN 依賴雙網狀架構 SAN 設計，以便目的地 ONTAP 控制器在探索和匯入期間能夠可靠地存取外部陣列 LUN。對於支援的部署，使用中的每個儲存控制器都必須在兩個網狀架構中都具有主要作用中路徑，這實際上意味著來源陣列目標連接埠和執行匯入作業之節點的 ONTAP 啟動器連接埠必須位於網狀架構 A 和網狀架構 B 的共同區域中。您不需要包含 ONTAP 叢集中的每個節點，只需包含實際匯入和移轉 LUN 的節點即可。雖然間接路徑可以運作，但最佳實務做法是在來源和目的地之間使用作用中且最佳化的路徑。
+
+
+
+== ONTAP FLI 建議的 FC 佈線和分區實務做法
+
+* 使用雙網路架構（A 和 B）以實現備援。
+* 確保兩個網路架構中都存在來自每個正在使用的控制器的主要作用中路徑。
+* 盡可能使用至少兩個 ONTAP 啟動器連接埠和兩個來源陣列目標連接埠，以避免單點故障。
+* 請勿將 ONTAP 啟動器連接埠與主機進行分區。ONTAP 啟動器連接埠僅用於連接來源陣列目標連接埠，以進行匯入和探索。
+* 只需對參與匯入的 ONTAP 節點進行區域劃分，無需對整個叢集進行區域劃分。
+
+
+image::new-zoning.png[ONTAP FLI 的 FC 分區範例]

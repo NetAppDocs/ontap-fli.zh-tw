@@ -1,0 +1,60 @@
+---
+permalink: get-started/learn-about-data-migration.html 
+sidebar: sidebar 
+keywords: data migration, foreign lun import, fli, ontap, foreign array, san migration, fibre channel, iscsi, offline import, online import, import relationship, lun migration, migration methodology, scsi initiator, 7 mode 
+summary: 了解 ONTAP 資料遷移計劃，包括關鍵術語和涵蓋 SAN 遷移的探索到驗證的五階段方法。 
+---
+= 了解 ONTAP 資料遷移計劃
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+資料遷移計畫提供成熟的解決方案，幫助客戶將資料從外部（第三方）陣列遷移到 ONTAP，並將 LUN 從 NetApp 7 Mode 系統遷移到 ONTAP—其中，Foreign LUN Import（FLI）是此遷移方案的關鍵組成部分。為了提高遷移成功率並減少工作量，該計畫提供高效、一致地執行遷移所需的工具、指導和支援，幫助客戶更快、更自信地採用 NetApp 技術。
+
+資料遷移常常面臨許多實際的營運挑戰，例如較長的停機時間、生產工作負載風險、資源有限以及專業知識不足。隨著可用性要求不斷提高，停機時間變得越來越難以接受，遷移計劃必須圍繞業務連續性。由於效能影響、資料完整性和潛在資料遺失是任何遷移中常見的擔憂，因此提前了解 FLI 的核心概念和工作流程有助於簡化執行過程，並降低初始配置和營運成本。
+
+FLI 是 ONTAP 的資料遷移功能,它將使用者資料從外部（第三方）陣列 LUN 複製到本地 ONTAP LUN。ONTAP 透過充當 SCSI 啟動器來執行遷移:它從外部 LUN 讀取區塊並將其寫入目標 ONTAP LUN。
+
+當外部 LUN 透過光纖通道 (FC) 存取時，ONTAP FLI 受到支援。從 ONTAP 9.19.1 開始，新增了 iSCSI FLI 支援，以使用後端的 iSCSI 傳輸來存取外部陣列 LUN。使用 iSCSI FLI 時，通往來源陣列的後端路徑為 iSCSI/TCP，而前端主機對 ONTAP LUN 的存取可以是 FC 或 iSCSI（後端和前端可以不同）。
+
+iSCSI 和 FC ONTAP FLI 支援離線匯入（匯入期間主機無 I/O）和線上匯入（主機保持連線，僅有一次短暫的切換中斷）。
+
+
+
+== 關鍵術語
+
+外部陣列:: 任何不執行 ONTAP 的儲存系統（包括 NetApp 7 Mode 在 7 Mode 到 ONTAP 轉換環境中）。
+外部 LUN:: 包含外部陣列上以該陣列原生格式儲存的使用者資料的 LUN。
+匯入關係:: 用於資料複製的外部 LUN（來源）和 ONTAP LUN（目標）之間的持久配對。
+LUN 匯入:: 將資料塊從外部 LUN 傳輸到 ONTAP LUN 的過程。
+
+
+
+
+== 高階方法
+
+探索階段:: 收集環境的完整清單（主機、儲存系統和 SAN/ 網路架構），以便了解現有資源以及所有資源的連接方式。
+分析階段:: 審查收集到的清單，並根據相容性、風險和操作限制，確定每個主機和來源陣列最合適的移轉方法。
+規劃階段:: 建置並驗證移轉計畫、配置目的地 ONTAP 儲存設備、並準備所需的移轉和資格驗證工具及作業手冊。
+執行階段:: 根據選定的工作流程（線上或離線），執行移轉（匯入 / 複製）並完成所需的主機補救和轉換動作。
+驗證階段:: 確認遷移的資料和組態按預期運作，驗證主機存取和多重路徑，並記錄操作交接的最終狀態和結果。
+
+
+
+
+== 目標對象
+
+此資訊適用於規劃或執行 SAN（區塊 / LUN）資料遷移到 ONTAP 的客戶、合作夥伴和 NetApp 現場團隊，特別是使用外部 LUN 匯入（FLI）和相關遷移選項的遷移。
+
+.主要讀者
+* 客戶儲存管理員 / SAN 管理員負責規劃遷移方法、準備 ONTAP、協調變更視窗以及驗證主機存取 / 多路徑。
+* 遷移負責人/技術專案負責人需要高階指導，以便在 FLI、基於應用裝置的選項或基於主機/應用程式的遷移方法之間進行選擇，並估算時間表和工作量。
+* NetApp 以及合作夥伴的專業服務工程師，為遷移範圍界定、規劃、評估和客戶賦能提供支援（建議大多數遷移採用此方案，但最簡單的遷移除外）。
+
+
+.讀者應具備以下方面的基本知識：
+* SAN 概念（LUN 遮罩/對應、分區或 iSCSI 網路、多重路徑/ALUA）和標準變更控制實務。
+* ONTAP 管理基礎知識和輔助規劃工具的使用（例如環境資料收集和互通性驗證公用程式）。
+

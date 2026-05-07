@@ -1,0 +1,90 @@
+---
+permalink: migrate/discover-foreign-luns.html 
+sidebar: sidebar 
+keywords: discover foreign luns, foreign lun import, fli, ontap, storage disk show, mark foreign lun, fc backend, iscsi backend, foreign disk, lun discovery, san migration 
+summary: 從主機上取消配置外部 LUN，並將其對應到 ONTAP 啟動器，以便 ONTAP 可以在其儲存堆疊中發現 LUN。 
+---
+= 探索用於 FLI 移轉的外部 LUN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+設定後端連線後，先從主機取消對應和取消佈建來源（外部）LUN，然後將其對應並遮罩到外部陣列上的 ONTAP 啟動器身分（廠商主機群組和啟動器記錄），以便為 ONTAP 探索佈建來源（外部）LUN，確保它不會重複呈現。
+
+接下來，確認後端路徑端對端在線（FC FLI 中的 FC 分區和遮罩，或 iSCSI FLI 中健康的 ONTAP 到目標 iSCSI 工作階段）。驗證 ONTAP 儲存堆疊中是否已發現外部 LUN，並具有預期的路徑備援和基本資格。
+
+將外部陣列 LUN 配置到 NetApp 啟動器，在此步驟中，已識別用於匯入的 LUN 已安全地從主機作業系統中取消配置。現在，必須將此 LUN 對應到包含 NetApp iSCSI 啟動器的主機群組，這相當於 ONTAP 中的 iGroup。
+
+.範例
+對於 Pure Storage，以下命令用於將 LUN/ 磁碟區對應到啟動器（在本例中為 NetApp 啟動器）。
+
+[listing]
+----
+purehost create <HOSTNAME>
+purehost list
+purehost list --all
+purehgroup create <HGROUP>
+purehgroup list
+purehgroup list --connect
+purevol connect --host <HOSTNAME> <VOLUME>
+purevol connect --hgroup <HGROUP> <VOLUME>
+----
+.開始之前
+支援透過 FC 和 iSCSI 後端匯入外部 LUN。在開始 FLI 移轉之前，您應該先設定 link:../configure/fc-connectivity-wiring.html["FC"] 或 link:../configure/iscsi-setup-backend-connectivity.html["iSCSI"] 後端。
+
+.步驟
+. 將權限等級設定為進階：
++
+[source, cli]
+----
+set -privilege advanced
+----
+. 確認外部 LUN 可見性：
++
+[source, cli]
+----
+storage disk show
+----
+. 標記為外部：
++
+[source, cli]
+----
+storage disk set-foreign-lun -disk <FOREIGN_DISK_ID> -is-foreign-lun true
+----
+. 取得外部序號 （用於建立目的地 LUN）：
++
+[source, cli]
+----
+storage disk show -disk <FOREIGN_DISK_ID> -fields serial-number
+----
+. 將發現的外部磁碟標記為外部：
++
+[source, cli]
+----
+storage disk set-foreign-lun -disk <FOREIGN_DISK_ID> -is-foreign-lun true
+----
+. 擷取外部磁碟序號 （用於建立 LUN）：
++
+[source, cli]
+----
+storage disk show -disk <FOREIGN_DISK_ID> -fields serial-number
+----
+
+
+*範例*
+
+[listing]
+----
+C1_Cluster::*> storage disk show  -disk *NET*
+                     Usable           Disk    Container   Container
+Disk                   Size Shelf Bay Type    Type        Name      Owner
+---------------- ---------- ----- --- ------- ----------- --------- --------
+NET-1.1                   -     -   - LUN     foreign     -         -
+C1_Cluster::*>
+C1_Cluster::*> storage disk show -disk NET-1.1 -fields serial-number
+disk    serial-number
+------- -------------
+NET-1.1 wtJfv?ZnvjXa
+----

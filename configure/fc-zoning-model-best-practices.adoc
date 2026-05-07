@@ -1,0 +1,35 @@
+---
+permalink: configure/fc-zoning-model-best-practices.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= ONTAP Foreign LUN Import 建議的 FC 佈線和分區實務做法
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+外部 LUN 匯入（FLI）要求來源 LUN 可被 ONTAP 存取，這可以透過將來源目標連接埠對應到 ONTAP 啟動器連接埠來實現。現有的來源到主機區域通常在移轉過程中不會修改，並且可以在移轉後刪除或停用。
+
+.標準 FC FLI 案例使用 4 個不同的區域
+* 區域 1：來源儲存設備到目的地儲存設備 (Fabric A)
+* 區域 2：來源儲存設備到目的地儲存設備 (Fabric B)
+* 區域 3：主機到目的地儲存設備 (Fabric A)
+* 區域 4：主機到目的地儲存設備 (Fabric B)
+
+
+.分區最佳實務做法
+* 請勿在同一區域中混用來源目標連接埠和目的地目標連接埠。
+* 請勿在同一區域中混用目的地啟動器連接埠和主機連接埠。
+* 不要在同一區域中混合使用目的地目標連接埠和目的地啟動器連接埠。
+* 盡可能為每個控制器的區域設定至少兩個連接埠以實現備援。
+* 優先採用單一啟動器和單一目標分區。
+* 請使用符合 FLI 工作流程所需分區模型的對應實體連接埠 WWPN。如果遷移分區指南明確禁止使用 NPIV WWPN，請勿使用 NPIV WWPN。
+
+
+image::new-fc-zoning-model.png[ONTAP FLI 的 FC 分區模型範例]
+
+
+NOTE: 將來源目標分區至目的地啟動器後，來源儲存設備應可透過 ONTAP 的探索命令顯示。如果陣列第一次未出現，在某些環境中可能需要重設連接至 ONTAP 啟動器的交換器連接埠。

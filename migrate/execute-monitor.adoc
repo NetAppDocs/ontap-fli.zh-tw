@@ -1,0 +1,95 @@
+---
+permalink: migrate/execute-monitor.html 
+sidebar: sidebar 
+keywords: lun import start, execute import, monitor import, foreign lun import, fli, ontap, lun import show, import progress, pause import, resume import, san migration, online fli, offline fli, asa r2 
+summary: 啟動 LUN 匯入並監控進度。暫停並恢復複製串流，以管理匯入和作用中主機工作負載之間的頻寬爭用。 
+---
+= 執行並監控 FLI LUN 匯入
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+建立匯入關係後，您可以使用 lun import start 開始將資料從外部 LUN 匯入到目的地 ONTAP LUN 的背景匯入，並使用 lun import show 追蹤進度，該指令會報告目前作業（例如匯入或驗證）、管理和作業狀態以及完成百分比，以便您可以監控工作直到完成。
+
+在主機 I/O 和匯入爭用相同後端資源的線上場景中，您可以暫時 lun import pause 以停止複製串流而不會遺失檢查點，然後 lun import resume 以從最後一個檢查點繼續（當負載和延遲穩定時）；這是在保持應用程式回應時間穩定的同時調節活動複製串流的建議控制手段。
+
+.關於此任務
+從 ONTAP 9.17.1 開始，ASA r2 系統支援使用 FLI 離線遷移功能遷移外部 LUN 的資料。ASA r2 系統與其他 ONTAP 系統（ASA、AFF 和 FAS）在儲存層的實作方式上有所不同。在 ASA r2 系統中，建立儲存單元（LUN 或命名空間）時會自動建立磁碟區。每個磁碟區僅包含一個儲存單元。因此,對於 ASA r2 系統,建立 LUN 時無需在 `-path`選項中包含磁碟區名稱,而應包含儲存單元路徑。
+
+.步驟
+. 將權限等級設定為 advance：
++
+[source, cli]
+----
+set -privilege advanced
+----
+. 開始匯入 LUN：
++
+[source, cli]
+----
+lun import start -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 監控匯入進度：
++
+[cols="2"]
+|===
+| 命令 | 說明 
+
+
+| 顯示 SVM 上的所有匯入  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME>
+----
+
+
+| 顯示特定 LUN 匯入  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| 詳細檢視（包含更多欄位）  a| 
+[source, cli]
+----
+lun import show -instance
+----
+|===
+. 如果主機延遲受到影響（常見的線上控制）、暫停 / 恢復：
++
+[cols="2"]
+|===
+| 命令 | 說明 
+
+
+| 暫停匯入（保留檢查點）  a| 
+[source, cli]
+----
+lun import pause -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| 確認已暫停  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| 從上一個檢查點繼續匯入  a| 
+[source, cli]
+----
+lun import resume -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| 確認其再次執行  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+|===
+

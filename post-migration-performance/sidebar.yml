@@ -1,0 +1,24 @@
+---
+section: post-migration-performance
+title: FLI 遷移後
+entries:
+- title: 遷移後概述
+  url: "/post-migration-performance/post-migration-overview.html"
+- title: 執行移轉後清理
+  url: "/post-migration-performance/clean-up.html"
+- title: 執行 ESXi VMFS ATS/CAW 補救
+  url: "/post-migration-performance/esxi-remediation.html"
+- title: 執行 ONTAP FLI ESXi 遷移後主機補救
+  url: "/post-migration-performance/post-remediation-esxi.html"
+- title: 執行 ONTAP FLI AIX 遷移後主機修復
+  url: "/post-migration-performance/post-remediation-aix.html"
+- title: 執行 ONTAP FLI HP 遷移後主機修復
+  url: "/post-migration-performance/post-remediation-hp.html"
+- title: 執行 ONTAP FLI Linux 遷移後主機修復
+  url: "/post-migration-performance/post-remediation-linux.html"
+- title: 執行 ONTAP FLI Solaris 遷移後主機補救
+  url: "/post-migration-performance/post-remediation-solaris.html"
+- title: 執行 ONTAP FLI Windows 遷移後主機修復
+  url: "/post-migration-performance/post-remediation-windows.html"
+- title: FLI 效能
+  url: "/post-migration-performance/performance.html"

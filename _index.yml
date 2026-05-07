@@ -6,13 +6,62 @@ indexpage:
     foreign
   lead: 物件外部LUN匯入ONTAP
   tiles:
-  - title: FLI 工作流程
+  - title: 版本資訊
+    url: "/release-notes.html"
     links:
-    - title: 離線工作流程
-      url: "/san-migration/concept_fli_offline_workflow.html"
-    - title: 線上工作流程
-      url: "/san-migration/concept_fli_online_workflow.html"
-    - title: FLI 7-Mode to ONTAP VMware移轉工作流程
-      url: "/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html"
-    - title: 使用工作流程自動化（WFA）的FLI
-      url: "/san-migration/concept_fli_using_workflow_automation_wfa.html"
+    - title: ONTAP 中 SAN 資料遷移的新功能
+      url: release-notes/whats-new.html
+  - title: 開始使用
+    url: "/get-started.html"
+    links:
+    - title: 了解 ONTAP 資料遷移計劃
+      url: "/get-started/learn-about-data-migration.html"
+    - title: 了解如何將 SAN 資料遷移到 ONTAP
+      url: "/get-started/learn-about-san-data-migration.html"
+    - title: 了解 ONTAP Foreign LUN Import
+      url: "/get-started/learn-about-fli.html"
+  - title: FLI 階段
+    url: "/phases.html"
+    links:
+    - title: ONTAP Foreign LUN Import (FLI) 探索階段
+      url: "/phases/discovery-phase.html"
+    - title: ONTAP Foreign LUN Import（FLI）分析階段
+      url: "/phases/analyze-phase.html"
+    - title: ONTAP Foreign LUN Import（FLI）規劃與準備階段
+      url: "/phases/plan-prepare-phase.html"
+    - title: ONTAP Foreign LUN Import（FLI）執行階段
+      url: "/phases/execute-phase.html"
+    - title: ONTAP Foreign LUN Import（FLI）驗證階段
+      url: "/phases/verify-phase.html"
+  - title: FLI 組態
+    url: "/configure.html"
+    links:
+    - title: ONTAP 外來 LUN 匯入（FLI）連線和佈線
+      url: "/configure/fc-connectivity-wiring.html"
+    - title: ONTAP Foreign LUN Import（FLI）建議的 FC 佈線和分區實務做法
+      url: "/configure/iscsi-setup-backend-connectivity.html"
+  - title: FLI 遷移
+    url: "/migrate.html"
+    links:
+    - title: 探索用於 FLI 移轉的外部 LUN
+      url: "/migrate/discover-foreign-luns.html"
+    - title: 建立 ONTAP FLI LUN 匯入關係
+      url: "/migrate/create-import-relationship.html"
+    - title: 執行並監控 FLI LUN 匯入
+      url: "/migrate/execute-monitor.html"
+    - title: 驗證並刪除 FLI LUN 匯入關係
+      url: "/migrate/verify-delete.html"
+  - title: FLI 遷移後
+    url: "/post-migration-performance.html"
+    links:
+    - title: 執行移轉後清理
+      url: "/post-migration-performance/clean-up.html"
+    - title: 執行 ESXi VMFS ATS/CAW 補救
+      url: "/post-migration-performance/esxi-remediation.html"
+    - title: FLI 效能
+      url: "/post-migration-performance/performance.html"
+  - title: 場地調查與規劃工作表範例
+    url: "/sample-site.html"
+    links:
+    - title: 總覽
+      url: "/san-migration/reference_sample_site_survey_and_planning_worksheet.html"

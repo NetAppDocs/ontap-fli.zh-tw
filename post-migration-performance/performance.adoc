@@ -1,0 +1,80 @@
+---
+permalink: post-migration-performance/performance.html 
+sidebar: sidebar 
+keywords: fli performance, foreign lun import, import throttle, throughput, lun import pause, lun import resume, iscsi fli, performance counters, san migration, bandwidth 
+summary: 透過使用節流控制來管理 FLI 匯入吞吐量，以減少工作負載不足，並在活躍的正式作業工作負載期間平衡頻寬。 
+---
+= ONTAP FLI 效能控制
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+外部 LUN 匯入（FLI）包含控制措施，以降低工作負載不足的風險，並協助管理在正式作業 I/O 處於作用中狀態時匯入所消耗的頻寬。
+
+節流匯入（限制匯入吞吐量）:: ONTAP 提供 lun import throttle 來對匯入關係套用最大處理量限制。值為 0 表示匯入會盡力執行並同時處理使用者 I/O；非零值則會限制匯入頻寬：
++
+--
+若要設定最大匯入處理量（例如：3MB/s）、請執行下列步驟：
+
+[source, cli]
+----
+set -privilege advanced
+lun import throttle -vserver <SVM> -path <LUN_PATH> -max-throughput-limit 3MB
+----
+--
+監控詳細的匯入進度和處理量:: 使用 lun import show -instance（或 -fields）檢視詳細狀態，包括目前處理量、處理量上限，以及匯入時顯示的任何 QoS 內容：
++
+--
+[source, cli]
+----
+set -privilege advanced
+lun import show -instance
+----
+--
+暫停（操作節流）:: 當線上匯入與主機 I/O 共享後端資源時，暫停匯入以讓主機 I/O 恢復，然後從上一個檢查點繼續，在操作上可能很有用。
++
+--
+[source, cli]
+----
+set -privilege advanced
+lun import pause -vserver <SVM> -path <LUN_PATH>
+----
+--
+繼續匯入::
++
+--
+[source, cli]
+----
+set -privilege advanced
+lun import resume -vserver <SVM> -path <LUN_PATH>
+----
+--
+
+
+
+
+== iSCSI FLI 效能計數器
+
+探索 / 確認可用物件（選用）:: `statistics catalog object show | grep -i iswi`
+開始統計資料收集:: `statistics start -object iswi_session -sample_id import_in_progress`
+收集 iSCSI 啟動器工作階段計數器:: `statistics show -sample-id import_in_progress`
+
+
+
+
+== 影響效能的 ONTAP FLI 因素
+
+完成匯入所需的時間受多種因素影響，包括：
+
+* 來源與目的地之間並行移轉的數量
+* 來源陣列功能與目前負載
+* 目的地 ONTAP 功能和目前負載
+* 遷移期間主機 I/O 量（尤其與線上匯入相關）
+* 前端架構和網路特性，例如頻寬、扇入和扇出以及整體拓撲
+* 其他非 FLI ONTAP 應用程式也在使用叢集間 LIF 資源
+* 並發性方面，一般 FLI 指南建議每個節點的並發移轉數量限制在 8 個以內，以獲得最佳效能。
+
+
+由於這些變數因環境而異，因此估算效能最可靠的方法是執行多個不同規模的測試移轉，然後使用測量的處理量來規劃正式作業持續時間。

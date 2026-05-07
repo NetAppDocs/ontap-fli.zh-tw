@@ -1,0 +1,12 @@
+---
+section: migrate
+title: FLI 遷移
+entries:
+- title: 探索外部 LUN
+  url: "/migrate/discover-foreign-luns.html"
+- title: 建立匯入關係
+  url: "/migrate/create-import-relationship.html"
+- title: 執行並監控遷移
+  url: "/migrate/execute-monitor.html"
+- title: 驗證並刪除來源 LUN
+  url: "/migrate/verify-delete.html"

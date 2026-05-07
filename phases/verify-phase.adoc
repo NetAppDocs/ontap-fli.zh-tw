@@ -1,0 +1,70 @@
+---
+permalink: phases/verify-phase.html 
+sidebar: sidebar 
+keywords: verify phase, foreign lun import, fli, post-migration cleanup, application validation, fc zoning, iscsi cleanup, ontap configuration, migration documentation, san migration 
+summary: 了解驗證階段，此階段會確認移轉已按計畫完成，並移除移轉期間使用的暫存組態。 
+---
+= ONTAP Foreign LUN Import（FLI）驗證階段
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+驗證階段旨在確認移轉已按計劃完成，並專注於移轉後的清理工作。這包括驗證應用程式行為、確認主機存取和到 ONTAP LUN 的路徑是否正確、收集移轉日誌以進行稽核和疑難排解，以及移除僅用於移轉的臨時連線和組態。
+
+作為清理工作的一部分，您需要刪除不再需要的來源端啟動器記錄和分區，並記錄最終組態，以便維運團隊能夠清楚地了解「建成後」的狀態。
+
+對於 iSCSI FLI，驗證階段也應包括移除在叢集間 LIF 上建立的軟體 iSCSI 啟動器工作階段和啟動器。如果叢集間 LIF 僅為匯入外部 LUN 而建立，則即使是這些 LIF 也必須刪除。
+
+
+
+== ONTAP FLI 驗證階段任務
+
+以下是每個元件的 ONTAP FLI 驗證任務。
+
+[cols="1,2"]
+|===
+| 元件 | 工作 
+
+
+| 主機  a| 
+* 對遷移後的 LUN 執行應用程式層級驗證。（檔案系統一致性檢查、checksum 錯誤、dbcc checkdb（MS SQL）、rman（Oracle））
+* 確認遷移和修復後，所有預期的檔案系統、資料存放區、叢集磁碟均可存取且穩定。
+* 確認 IO 路徑計數和路徑類型是否符合預期。
+
+
+
+
+| FC FLI 網狀架構  a| 
+* 如果在早期轉換期間尚未移除，請從作用中區域集中移除主機對來源儲存設備區域或等效存取規則。
+* 刪除專門為移轉而建立的來源到目的地連線區域。
+* 備份更新的移轉後區域集，以供復原和稽核之用。
+
+
+
+
+| iSCSI FLI 網路  a| 
+* 刪除為移轉建立的 iSCSI FLI 後端連線物件。
+* 必須刪除 iSCSI 啟動器工作階段，且必須刪除在叢集間 LIF 上建立的 iSCSI 啟動器物件。
+
+
+
+
+| NetApp 儲存陣列（目的地）  a| 
+* 驗證移轉後儲存設備的正確性，包括主機或使用案例所需的 LUN 對齊。
+* 收集 FLI 遷移匯入記錄，以供稽核和疑難排解。在遷移完成後觸發 AutoSupport。
+* 移除在移轉期間僅用於復原的任何手動建立的 Snapshot 複本。
+* 從 ONTAP 中移除不再需要的來源陣列組態成品，例如來源陣列物件和外部磁碟關聯詳細資料。使用 storage disk show 指令確認相同項目。
+* 記錄最終的 ONTAP 組態、包括 LUN 路徑、對應、igroup、啟動器和主機存取模式。
+
+
+
+
+| 外部儲存陣列（來源）  a| 
+* 刪除目標儲存設備（NetApp）啟動器群組和主機群組，這些群組是在移轉期間為將來源 LUN 呈現給 ONTAP 而建立的。
+* 停用來源存取時，請移除與原始主機對應相關的主機啟動器群組和主機記錄。
+* 確保遷移後的來源 LUN 不再以可能導致主機重複接收相同 LUN 的方式呈現。這一點至關重要，必須在整個遷移過程中加以確保。
+
+
+|===

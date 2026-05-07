@@ -1,0 +1,143 @@
+---
+permalink: post-migration-performance/post-remediation-solaris.html 
+sidebar: sidebar 
+keywords: host remediation, solaris, post-migration, fli, ontap 
+summary: 遷移後、Solaris 主機需要採取補救措施，以確保新導入的 LUN 能夠被正確識別並正常運作。 
+---
+= 執行 ONTAP FLI Solaris 遷移後主機補救
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+遷移後、Solaris 主機需要採取補救措施，以確保新導入的 LUN 能夠被正確識別並正常運作。
+
+
+
+== 遷移後 - 離線 FLI
+
+對於離線 FLI，刪除 LUN 匯入並確認主機啟動器已連線後，將 LUN 上線。
+
+[cols="5"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | 叢集 | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備 | 步驟 1：開啟伺服器電源 
+
+
+| 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：在 SPARC 伺服器 OBP 上，設定提供給此主機 HBA 的新開機裝置 
+
+
+| 步驟 3：檢查 Pool 詳細資料 | 步驟 3：識別多重路徑裝置 ID 並將其呈現給相應的應用程式。 | 步驟 3：檢查資源池狀態 | 步驟 3：檢查檔案系統詳細資料 | 步驟 3：重新啟動主機，從新映射的 LUN（屬於 LUN 匯入的一部分）啟動 
+
+
+| 步驟 4：將裝置掛載回各自的資料夾 |  | 步驟 4：匯入資源池 | 步驟 4：驗證所需的叢集組態並啟動叢集應用程式 |  
+
+
+|  |  | 步驟 5：列出 Pool 中存在的 FS | 步驟 5：驗證叢集狀態和正在使用叢集的應用程式。 |  
+
+
+|  |  | 步驟 6：將 FS 掛載回對應的資料夾 |  |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 附加後重新掃描。
++
+[source, cli]
+----
+cfgadm -al
+----
+. 識別儲存裝置。
++
+[source, cli]
+----
+format
+sanlun lun show all
+mpathadm list lu
+mpathadm show lu
+----
+. 驗證裝置是否已連接。
++
+[source, cli]
+----
+format |grep disk_id
+----
+. 匯入 zpool 後，FS 將自動掛載。
++
+[source, cli]
+----
+zpool import zpool_name
+df -g (to ensure its unmounted)
+----
+
+
+
+
+== 遷移後 - 線上 FLI
+
+刪除 LUN 匯入後，請檢查 LUN 是否設定為停用 -space-reserve 並啟用 -space-allocation。如果不是，請進行相應修改。
+
+[cols="4"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 Solaris 主機上的儲存設備。 
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 附加後重新掃描。
++
+[source, cli]
+----
+cfgadm -al
+----
+. 識別儲存裝置。
++
+[source, cli]
+----
+format
+sanlun lun show all
+mpathadm list lu
+mpathadm show lu
+----
+. 驗證裝置是否已連接。
++
+[source, cli]
+----
+`format |grep disk_id`
+----
+. 匯入 zpool 後，FS 將自動掛載。
++
+[source, cli]
+----
+zpool import zpool_name
+df -g
+----
+
+
+[cols="2"]
+|===
+|  | Solaris 
+
+
+| 步驟 1 | 擷取主機資訊。 
+
+
+| 步驟 2 | 卸載檔案系統。 
+
+
+| 步驟 3 | 備份 VG。 
+
+
+| 步驟 4 | 停用 VG。 
+
+
+| 步驟 5 | 匯出 VG。 
+|===

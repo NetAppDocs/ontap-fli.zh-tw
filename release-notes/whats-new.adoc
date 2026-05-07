@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: release-notes/whats-new.html 
+keywords: 'what"s new, release notes, san data migration' 
+summary: 了解 ONTAP 中可用於 SAN 資料遷移的新功能。 
+---
+= ONTAP 中 SAN 資料遷移的新功能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+了解 ONTAP 中可用於 SAN 資料遷移的新功能。
+
+
+
+== ONTAP 9.19.1
+
+* 從 ONTAP 9.19.1 開始、ONTAP FLI 支援 iSCSI 協定進行後端連線。
+
+
+
+
+== ONTAP 9.17.1
+
+* 從 ONTAP 9.17.1 開始，ASA R2 系統支援 FLI 移轉。
++
+詳細了解link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA R2 系統"^] 。
+
+
+
+|===
+|===

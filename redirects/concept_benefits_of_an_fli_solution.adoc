@@ -1,0 +1,8 @@
+---
+permalink: san-migration/concept_benefits_of_an_fli_solution.html 
+redirect: ontap-fli/get-started/learn-about-san-data-migration.html 
+---
+= 
+:allow-uri-read: 
+
+

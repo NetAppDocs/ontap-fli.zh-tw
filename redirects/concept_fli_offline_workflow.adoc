@@ -1,0 +1,8 @@
+---
+permalink: san-migration/concept_fli_offline_workflow.html 
+redirect: ontap-fli/get-started/learn-about-san-data-migration.html 
+---
+= 
+:allow-uri-read: 
+
+

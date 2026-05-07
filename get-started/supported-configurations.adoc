@@ -1,0 +1,95 @@
+---
+permalink: get-started/supported-configurations.html 
+sidebar: sidebar 
+keywords: supported configurations, foreign lun import, fli, ontap fli, aff, asa, fas, ontap select, cloud volumes ontap, cvo, iscsi fli, fc fli, interoperability, san migration, lun import, supported platforms 
+summary: 查看 ONTAP FLI 支援的平台和組態，包括 FC 和 iSCSI 後端選項以及移轉規劃的關鍵限制。 
+---
+= 了解 ONTAP Foreign LUN Import 支援的組態和平台
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP FLI 必須部署在支援的組態中，以確保可預測的行為和完全可支援性。
+
+* 所有 FLI 遷移均在 LUN（區塊）層級執行；檔案和協定層級的遷移不在 ONTAP FLI 的範圍內。
+* 每個節點最多可同時進行 8 個匯入作業。實際安全並行數取決於觀察到的主機延遲和匯入延遲。
+* 匯入的外部 LUN 大小上限為每個 LUN 4 TB。
+* iSCSI 工作階段擴充限制（後端 iSCSI）：
++
+** 每個 IC LIF 包含 1 個啟動器
+** 每個 LIF 最多 16 個工作階段
+** 每個節點最多 32 個工作階段
+
+
+* iSCSI 協定限制：
++
+** 沒有 iSCSI 探索工作階段
+** 無多重連線工作階段 (MCS)
+** 不支援錯誤恢復等級 > 0 （僅支援 ERL0）
+** iSCSI 啟動器 LIF 使用不支援 IPv6
+
+
+* 安全性和管理可用性注意事項：
++
+** 不包含 CHAP
+** iSCSI FLI 操作的 REST API 涵蓋範圍不可用（僅限 CLI 工作流程）。
+
+
+* 線上匯入的營運規劃注意事項：
++
+** 在線上 FLI 中，主機 I/O 和匯入複本共享後端資源
+** 匯入作業可能會暫停和繼續，以保護主機延遲
+** 如果可能，遷移應安排在非尖峰時段進行
+
+
+
+
+
+
+== 支援的組態和平台
+
+ONTAP FLI 必須部署在支援的組態中，以確保可預測的行為和完整的支援能力。隨著新組態逐漸通過驗證，支援的組合可能會改變。對於每次移轉，請根據目前的互通性指引驗證端對端堆疊（來源陣列 + 主機 + 網路架構/網路 + ONTAP 目標）。
+
+.支援的目的地（您可以遷移到的位置）
+* ONTAP 是 FLI 遷移唯一支援的目的地。FLI 旨在將資料匯入 ONTAP LUN；不支援遷移至第三方目的地儲存設備。
+* 對於 iSCSI FLI，iSCSI 軟體啟動器與 FLI 堆疊整合，專門用於啟用使用 iSCSI/TCP 後端連線進行外部 LUN 探索和匯入。
+
+
+.支援的 ONTAP 平台涵蓋範圍（目的地平台）
+平台涵蓋範圍取決於用於探索 / 匯入的後端傳輸：
+
+* FC 後端 FLI（傳統）支援 AFF / ASA / ASA r2 / FAS 上的 ONTAP（根據 iSCSI 測試設計中的比較表）。
+* iSCSI 後端 FLI 擴展了覆蓋範圍，包括 AFF / ASA / ASA r2 / FAS / ONTAP Select / Cloud Volumes ONTAP (CVO)（根據相同的比較）。
+
+
+.支援的來源陣列和資格認證方法
+* 對於 FC 後端 FLI，支援的外部陣列通常透過已建立的互通性清單和認證指南進行驗證（隨著新陣列獲得認證，支援的清單也會不斷發展）。
+* 使用 iSCSI 後端 FLI 時，預設不會預先驗證任何外部陣列；客戶需要在進行正式作業移轉之前，使用提供的驗證工具（例如 sanlunmigrate / offtap sanlunmigrate）執行現場驗證。
+
+
+.主機作業系統和 fabric / 交換器支援（端對端驗證）
+* 主機作業系統支援應與所選前端傳輸協定（FC 或 iSCSI）的 SAN 主機互通性指南以及移轉後的主機組態保持一致。
+* 交換器 / 光纖通道網路支援也必須作為端對端組態的一部分進行驗證（特別是對於需要分區 / 遮罩的 FC 環境）。
+
+
+.移轉後需求（完全移轉後仍受支援）
+匯入完成且主機在 ONTAP LUN 上執行後，請確保最終穩定狀態組態受到支援。這包括主機多重路徑、HBA／驅動程式／韌體層級、分區／遮罩（FC）、iSCSI 組態（如果使用）以及您計劃使用的任何 ONTAP 功能互動。
+
+.iSCSI FLI 特定護欄（對可支援性非常重要）
+* iSCSI FLI 使用叢集間（IC）LIF 進行後端 iSCSI 工作階段。如果已在另一個子網路上建立了現有 IC LIF，而僅僅為了存取外部目標而在不同的子網路上建立新的 IC LIF，則被視為不支援的規劃指引。
+* iSCSI 啟動器工作階段組態僅用於移轉，移轉完成後應將其清除，以避免操作方面的副作用，包括升級和還原方面的考量。
+
+
+
+
+== 最佳實務
+
+NetApp強烈建議提供專業服務或合作夥伴專業服務、參與範圍及規劃移轉、以及訓練客戶人員如何使用Foreign LUN Import（FLI）7-Mode移轉ONTAP 至VMware。
+
+* 在遷移專案開始前至少一週執行一次或多次測試遷移，以驗證組態、連線能力和處理量；發現任何其他問題；並驗證您的方法。
+* 為達到最大處理量、每個節點並行執行的移轉數量不得超過16個。
+* 雖然不需要進行驗證，但我們鼓勵您驗證已匯入和遷移的部分 LUN，以驗證匯入程序。
+* 利用測試移轉中觀察到的處理量來規劃正式作業移轉
+

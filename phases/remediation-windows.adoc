@@ -1,0 +1,226 @@
+---
+permalink: phases/remediation-windows.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, windows host, pre-migration, offline fli, online fli 
+summary: 在 Windows 主機上執行 ONTAP FLI 移轉之前，請完成下列移轉前步驟。離線移轉和線上移轉的步驟有所不同。 
+---
+= ONTAP FLI Windows 主機補救
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在 Windows 主機上執行 ONTAP FLI 移轉之前，請完成下列移轉前步驟。離線移轉和線上移轉的步驟有所不同。
+
+
+
+== 遷移前 - 離線 FLI
+
+這些步驟適用於離線和線上 FLI。在從 Windows 主機取消對應來源 LUN 之前，請完成下列主機端準備工作。
+
+[cols="4"]
+|===
+| 檔案系統裝置 | 實體磁碟機（無檔案系統） | WSFC（WFC） | Hyper V 
+
+
+| 步驟 1：識別計劃進行移轉的檔案系統磁碟 | 步驟 1：識別計劃進行遷移的實體磁碟 | 步驟 1：識別計劃進行移轉的叢集磁碟 | 步驟 1：停止虛擬機器上的所有應用程式並關閉虛擬機器。 
+
+
+| 步驟 2：正常關閉應用程式 | 步驟 2 正常關閉應用程式 | 步驟 2 正常關閉應用程式 | 步驟 2：將磁碟從主機離線。 
+
+
+| 步驟 3：使磁碟離線 |  | 步驟 3：關閉叢集並停止所有叢集節點上的叢集服務 | 步驟 3：從主機取消對應所有 LUN。 
+|===
+
+
+=== 檔案系統裝置
+
+.步驟
+. 識別計劃進行移轉的檔案系統磁碟。
++
+Get-Disk | Format-Table Number，FriendlyName，Size，PartitionStyle
+
+. 正常關閉應用程式。
++
+Stop-Service -Name <ServiceName>
+
+. 將磁碟離線。
++
+Set-Disk -Number <DiskNumber> -IsOffline $true
+
+
+
+
+
+=== 實體磁碟機（無檔案系統）
+
+.步驟
+. 識別計劃進行移轉的實體磁碟。
++
+Get-PhysicalDisk | Format-Table FriendlyName、Size、MediaType
+
+. 正常關閉應用程式。
++
+Stop-Service -Name <ServiceName>
+
+
+
+
+
+=== WSFC（Windows Server Failover Clustering）
+
+.步驟
+. 識別計劃進行移轉的叢集磁碟。
++
+Get-ClusterResource | Where-Object ResourceType -eq "Physical Disk"
+
+. 正常關閉應用程式。
++
+停止-ClusterResource -Name <ResourceName>
+
+. 關閉叢集並停止所有叢集節點上的叢集服務。
++
+Stop-Cluster -Name <ClusterName>
+
+
+
+
+
+=== Hyper V
+
+.步驟
+. 停止虛擬機器上的所有應用程式並關閉虛擬機器。
++
+Stop-VM -Name <VM_Name> -Force
+
+. 將磁碟從主機離線。
++
+Set-Disk -Number <DiskNumber> -IsOffline $true
+
+. 從儲存陣列端取消主機上所有 LUN 的對應。
+. 請確保已從主機中正確移除磁碟。
++
+Get-Disk | Where-Object OperationalStatus -ne "Online"
+
+
+
+
+
+== 遷移前 - 線上 FLI
+
+以下是線上 FLI 的具體步驟，但這些步驟之前必須先執行移轉前作業 - 離線 FLI 中的步驟。
+
+將 NetApp LUN 配置到主機後，必須執行下列步驟。
+
+此時 LUN 匯入已建立完成，LUN 已對應到主機 igroup，且主機上已登入 iSCSI 或 FC 啟動器。
+
+對於離線 FLI， NetApp LUN 保持離線狀態。
+
+[cols="2"]
+|===
+| 檔案系統裝置 | 實體磁碟機（無檔案系統） 
+
+
+| 步驟 1：重新掃描所有已對應主機上的儲存設備。 | 步驟 1：重新掃描所有已對應主機上的儲存設備。 
+
+
+| 步驟 2：識別列出的磁碟機並將磁碟上線。 | 步驟 2：將實體磁碟新增至所需的應用程式並啟動。 
+
+
+| 步驟 3：驗證所有檔案系統磁碟是否可用且正常運作。 |  
+
+
+| 步驟 4：啟動所需的應用程式。 |  
+|===
+
+
+=== 檔案系統裝置
+
+.步驟
+. 重新掃描所有已對應主機上的儲存設備。
++
+更新-HostStorageCache
+
+. 識別列出的磁碟機，並將磁碟上線。
++
+[Source]
+----
+Get-Disk | Where-Object IsOffline -eq $true
+Set-Disk -Number <DiskNumber> -IsOffline $false
+----
+. 確認所有檔案系統磁碟是否可用且運作正常。
++
+Get-Volume | Format-Table DriveLetter、FileSystemLabel、Size、SizeRemaining
+
+. 啟動所需的應用程式。
++
+Start-Service -Name <ServiceName>
+
+
+
+
+
+=== 實體磁碟機（無檔案系統）
+
+.步驟
+. 重新掃描所有已對應主機上的儲存設備。
++
+更新-HostStorageCache
+
+. 將實體磁碟新增至所需應用程式並啟動。
++
+應用程式專屬組態
+
+
+
+
+
+=== WSFC
+
+.步驟
+. 重新掃描所有已對應主機上的儲存設備。
++
+更新-HostStorageCache
+
+. 識別列出的磁碟機，並將磁碟上線。
++
+[Source]
+----
+Get-Disk | Where-Object IsOffline -eq $true
+Set-Disk -Number <DiskNumber> -IsOffline $false
+----
+. 請確認所有映射主機上的磁碟機是否可用且上線。
++
+Get-ClusterResource | Where-Object ResourceType -eq "Physical Disk"
+
+. 啟動 WSFC 叢集應用程式並設定所需的叢集資源。
++
+[Source]
+----
+Start-Cluster -Name <ClusterName>
+Start-ClusterResource -Name <ResourceName>
+----
+
+
+
+
+=== Hyper V
+
+.步驟
+. 重新掃描磁碟管理，所有磁碟都應該連線。
++
+更新-HostStorageCache
+
+. 選擇磁碟並將其上線，所有磁碟都應上線，並應取得原始名稱和磁碟代號。
++
+[Source]
+----
+Get-Disk | Where-Object IsOffline -eq $true
+Set-Disk -Number <DiskNumber> -IsOffline $false
+----
+. 嘗試啟動 Virtual Machine，Virtual Machine 應該可以順利上線。
++
+Start-VM -Name <VM_Name>
+
+

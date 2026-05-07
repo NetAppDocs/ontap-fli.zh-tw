@@ -1,0 +1,75 @@
+---
+permalink: post-migration-performance/clean-up.html 
+sidebar: sidebar 
+keywords: post-migration cleanup, foreign lun import, fli, data integrity, snapshot, autosupport, fc fli, iscsi fli, san migration, de-provision, import logs 
+summary: 完成 FLI 後的移轉後清理工作，方法是確認匯入完成、驗證資料完整性，以及移除暫存後端組態。 
+---
+= 執行 ONTAP FLI 遷移後清理
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+LUN 匯入完成並刪除關係後，還需要執行幾個重要的清理步驟，以最終完成遷移、確保資料完整性並移除為 FLI 工作流程設定的任何臨時配置。這些步驟包括確認匯入已完成、驗證資料完整性、從 ONTAP 探索取消佈建外部 LUN、清理後端連線以及檢閱記錄和文件。
+
+完成 FLI 遷移後、您應該執行以下步驟以完成遷移並確保系統處於乾淨狀態：
+
+* 確認 LUN 匯入已成功完成，且資料完整性已驗證
+* 建立磁碟區層級 Snapshot
+* 從 NetApp 儲存陣列啟動器取消配置 LUN。
++
+根據不同的儲存供應商，步驟會有所不同。請依照外部儲存陣列供應商建議的步驟進行操作。
+
+
+
+.步驟
+. 將外部 LUN 屬性標記為 false （使用外部磁碟序號）：
++
+[source, cli]
+----
+storage disk modify -serial-number <FOREIGN_SERIAL> -is-foreign false
+----
+. 確保 ONTAP 中不再顯示外部儲存陣列 LUN：
++
+[source, cli]
+----
+storage disk show -array-name <ARRAY_NAME> -fields disk,serial-number,is-foreign,import-in-progress
+----
+. 針對 FC FLI 執行以下操作：
++
+.. 刪除 NetApp 儲存陣列啟動器和外部儲存陣列目標 WWPN 之間的分區。
+.. 檢查外部儲存陣列，確認 NetApp 儲存陣列啟動器是否已不再登入。
+.. 將 FC 適配器從啟動器轉換為目標。
+
+
+. 對 iSCSI FLI 執行以下操作：
++
+.. 刪除外部儲存陣列與 NetApp 儲存陣列之間的 iSCSI 工作階段。
+.. 刪除叢集間 LIF 上的 iSCSI 啟動器。
+.. 如果叢集間 LIF 是為外部 LUN 匯入而建立的，且沒有其他應用程式使用叢集間 LIF，則刪除該叢集間 LIF。
+
+
+. 檢閱記錄中的錯誤，以驗證您的移轉是否成功。
++
+匯入記錄儲存在叢集事件記錄檔中。
+
++
+*範例*
+
++
+[listing]
+----
+DataMig-cmode::*> rows 0; event log show -nodes * -event fli*
+7/7/2014 18:37:21   DataMig-cmode-01 INFORMATIONAL fli.lun.verify.complete: Import verify of foreign LUN 83017542001E of size 42949672960 bytes from array model DF600F belonging to vendor HITACHI  with NetApp LUN QvChd+EUXoiS is successfully completed.
+~~~~~~ Output truncated ~~~~~~~
+
+The verification steps to compare the source and destination LUNs are covered in the execute migration phase. The importing and LUN verification steps are covered in the execute migration phase because they are linked to the import job and the foreign LUN.
+----
+. 收集一份 AutoSupport 以記錄客戶環境，並在完成後收集另一份 AutoSupport 以記錄最終組態：
++
+[source, cli]
+----
+autosupport invoke -node <node_name> -type all -message “migration-final”
+----
+

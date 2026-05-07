@@ -1,0 +1,112 @@
+---
+permalink: phases/remediation-hp.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, hp host, pre-migration, offline fli, online fli 
+summary: 在 HP 主機上執行 ONTAP FLI 遷移之前，請完成下列遷移前步驟。離線遷移和線上遷移的步驟有所不同。 
+---
+= ONTAP FLI HP 主機補救
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在 HP 主機上執行 ONTAP FLI 遷移之前，請完成下列遷移前步驟。離線遷移和線上遷移的步驟有所不同。
+
+
+
+== 遷移前 - 離線 FLI
+
+這些步驟對於線上和離線 FLI 都是通用的。在從主機取消佈建來源 LUN 之前，請確保完成下列步驟。
+
+[cols="3"]
+|===
+| 檔案系統（LVM 和非 LVM） | 主機叢集 （SCSI3 PR） | SANBOOT 
+
+
+| 步驟 1：收集端對端區塊裝置組態：多重路徑健全狀況 / 路徑、開機 LUN 上的 LVM 配置、以及確認正確開機裝置和開機參數的 UEFI 設定。 | 步驟 1：擷取整體叢集詳細資料及移轉所涉及的磁碟。 | 步驟 1：收集端對端 SAN 開機組態：多重路徑健全狀況 / 路徑、開機 LUN 上的 LVM 配置、以及確認正確開機裝置和開機參數的 UEFI 設定。 
+
+
+| 步驟 2：確保對應資料裝置（LVM/非 LVM）的 /etc/fstab 項目正確。 | 步驟 2：依照建議的程序正常關閉叢集服務。 | 步驟 2：確保 SAN 開機裝置（包括資料裝置（lvm/nonlvm））的 /etc/fstab 項目正確無誤 
+
+
+| 步驟 3：確保所有對目標掛載點的操作都已暫停。確保沒有進程仍在存取區塊裝置。如有必要，請釋放/終止已開啟的進程句柄。 | 步驟 3：移除與多重路徑裝置相關聯的 SCSI 區塊裝置。 | 步驟 3：從 UEFI shell 驗證裝置對應表，並從儲存裝置開機進入 hpux 
+
+
+| 步驟 4：卸載檔案系統並執行 LVM 磁碟區群組組態備份。停用 VG 並匯出 VG | 步驟 4：重新掃描主機，確保現有裝置對應中沒有過時的項目。 | 步驟 4：確保將主要開機裝置設定為儲存裝置，以便在後續重新開機時自動開機 
+
+
+| 步驟 5：移除所有過時的 SCSI 裝置檔案。 |  | 步驟 5：重新啟動主機以確保主機能夠正常啟動並執行上述變更。主機正常啟動後，即可進行 FLI 移轉的主機預修復。 
+
+
+| 步驟 6：重新掃描 sci 匯流排，以便主機擁有更新的裝置清單，例如：ioscan -fnC disk |  | 步驟 6：現在關閉 sanboot 主機，以繼續 ONTAP FLI 工作流程。 
+|===
+
+
+== 遷移前 - 線上 FLI
+
+以下是線上 FLI 的具體步驟，但這些步驟必須先執行遷移前離線 FLI 中的步驟。以下步驟必須在 NetApp LUN 配置到主機後執行。
+
+[cols="4"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 HP-UX 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 | 步驟 1：開啟伺服器電源 
+
+
+| 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：從 UEFI shell 驗證裝置對應表，並從新的儲存裝置開機進入 hpux 
+
+
+| 步驟 3：檢查檔案系統詳細資料 | 步驟 3：識別多重路徑裝置 ID 並將其呈現給相應的應用程式。 | 步驟 3：確保已正確建立新的 LVM 裝置檔案 | 步驟 3：將主要開機裝置修改為新的儲存 LUN 重新啟動主機，以從新對應的 LUN 開機，該 LUN 是 LUN Import 的一部分 
+
+
+| 步驟 4：將裝置掛載回各自的資料夾 |  | 步驟 4：匯入 VG/LVM |  
+
+
+|  |  | 步驟 5：啟動 VG |  
+
+
+|  |  | 步驟 6：列出 VG 上存在的 LV |  
+
+
+|  |  | 步驟 7：將 LVM 掛載回各自的資料夾 |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 識別儲存裝置。
++
+[Source]
+----
+ioscan -fnC disk
+sanlun lun show all (Works on Netapp Storage)
+sanlun lun show all -pv
+sanlun lun show -wwpn
+----
+. 識別磁碟區群組和檔案系統。
++
+[Source]
+----
+vgdisplay -v /dev/vg_name
+vgdisplay /dev/vg_name
+lvdisplay /dev/vg_name/lv_name
+----
+. 卸載檔案系統並匯出 VG。
++
+[Source]
+----
+bdf
+umount /mount_point
+vgchange -a n /dev/vg_name
+vgexport /dev/hpux_vg_online
+----
+. 分離後重新掃描以確認乾淨狀態。
++
+[Source]
+----
+insf -e
+ioscan -fnC disk
+----
+

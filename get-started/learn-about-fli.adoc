@@ -1,0 +1,44 @@
+---
+permalink: get-started/learn-about-fli.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, block migration, lun migration, san migration, offline fli, online fli, fibre channel, iscsi, scsi initiator, import workflow, cutover, fc backend, iscsi backend 
+summary: 了解 ONTAP Foreign LUN Import 如何透過充當 SCSI 啟動器從外部陣列讀取資料並寫入目的地 ONTAP LUN，藉此移轉 SAN LUN。 
+---
+= 了解 ONTAP Foreign LUN Import
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+外部 LUN 導入（FLI）是 ONTAP 的一項功能，它透過將使用者資料從外部陣列 LUN 複製到 ONTAP LUN，實現區塊級（LUN）資料遷移。ONTAP 透過作為 SCSI 發起程式執行遷移，從外部 LUN 讀取資料並寫入目標 ONTAP LUN。
+
+FLI 嚴格在 LUN 層級運行，專為 SAN 遷移而設計；它並非檔案級遷移工具（NAS/檔案協定遷移（例如 NFS/SMB）需要採用不同的方法）。FLI 支援離線和線上遷移。在離線模式下，主機 I/O 在匯入期間停止；在線上模式下，主機操作會在短暫切換後恢復，同時匯入在背景繼續進行。
+
+外部 LUN 會出現在 ONTAP 儲存堆疊中，必須明確標記為外部 LUN，以防止意外覆蓋/所有權變更。FC FLI 使用 FC 後端連接（發起程序連接埠、分區/遮罩），而 iSCSI FLI 的後端使用綁定到叢集間連接的 iSCSI 軟體發起程序，遷移後的主機端（前端）協定仍然可以是 FC 或 iSCSI，具體取決於設計。
+
+.離線和線上 FLI 比較
+以下總結了離線遷移和線上遷移方法之間的主要差異。
+
+[cols="3"]
+|===
+| 區域 | 離線 FLI | 線上 FLI 
+
+
+| 匯入期間的主機 I/O | 在整個匯入期間，主機 I/O 會停止。 | 主機 I/O 可以在匯入複本繼續進行時執行（轉換後）。 
+
+
+| 停機時間設定檔 | 在整個匯入期間需要停機。 | 設計上盡量減少干擾,通常只需要短暫的停機時間即可完成切換。 
+
+
+| 操作使用案例 | 當應用程式或主機模型可以接受或需要較長的停機時間時，這是最佳選擇。 | 當必須將停機時間降至最低，且您可以容忍背景複製活動時，這是最佳選擇。 
+|===
+.離線 FLI 工作流程
+在離線工作流程中，主機在整個匯入期間會中斷連線。
+
+image::new-offline-fli.png[離線 FLI 工作流程]
+
+.線上 FLI 工作流程
+在線上工作流程中，主機僅在匯入從複製過渡到完成期間的短暫轉換期間中斷連線。
+
+image::new-online-fli.png[離線 FLI 工作流程]

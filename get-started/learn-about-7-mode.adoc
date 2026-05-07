@@ -1,0 +1,20 @@
+---
+permalink: get-started/learn-about-7-mode.html 
+sidebar: sidebar 
+keywords: 7 mode transition, foreign lun import, fli, ontap, clustered ontap, lun migration, online workflow, offline workflow, 32 bit aggregates, misaligned lun, data migration, 7 mode to ontap 
+summary: 了解如何使用外部 LUN 匯入功能，透過線上或離線工作流程將 LUN 從 NetApp 7-Mode 系統遷移到叢集 ONTAP。 
+---
+= 了解 Foreign LUN Import 7-mode 到 ONTAP 轉換
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+當來源 LUN 託管在執行 ONTAP 7 模式的 NetApp 系統上，並且需要將該 LUN 遷移到叢集 ONTAP 時，可以使用外部 LUN 匯入在 7 模式和叢集模式 ONTAP 之間進行資料遷移。此方法對於 LUN 託管在 32 位元聚合上或 LUN 未對齊等傳統場景尤其有用，因為外部 LUN 匯入也可用於其他用例。
+
+使用外部 LUN 匯入進行資料遷移可以透過線上或離線工作流程執行。操作上，它遵循與標準 FLI 線上和離線遷移相同的順序和規則，唯一的區別在於來源陣列是 NetApp 7 Mode 控制器，而不是第三方陣列。
+
+換句話說，無論來源是外部陣列還是 NetApp 7 Mode 陣列，核心 FLI 遷移工作流程都是相同的；只有來源平台會改變。
+
+iSCSI FLI 不支援從 NetApp 7 Mode 來源匯入。

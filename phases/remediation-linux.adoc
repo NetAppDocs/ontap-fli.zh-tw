@@ -1,0 +1,68 @@
+---
+permalink: phases/remediation-linux.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, linux host, pre-migration, offline fli, online fli 
+summary: 在 Linux 主機上執行 ONTAP FLI 遷移之前，請完成以下遷移前步驟。離線遷移和線上遷移的步驟有所不同。 
+---
+= ONTAP FLI Linux 主機補救措施
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在 Linux 主機上執行 ONTAP FLI 遷移之前，請完成以下遷移前步驟。離線遷移和線上遷移的步驟有所不同。
+
+
+
+== 遷移前 - 離線 FLI
+
+這些步驟對於線上和離線 FLI 都是通用的。在從主機取消佈建來源 LUN 之前，請確保完成下列步驟。
+
+[cols="3"]
+|===
+| 檔案系統（LVM 和非 LVM） | Pacemaker 搭配 LVM（SCSI3 PR） | SANBOOT 
+
+
+| 步驟 1：收集端對端區塊裝置組態：多重路徑健全狀況 / 路徑、區塊裝置上的 LVM 配置、以及 GRUB/ 開機載入器設定、確認正確的開機裝置和開機參數。 | 步驟 1：收集端對端區塊裝置組態：多重路徑健全狀況 / 路徑、區塊裝置上的 LVM 配置、以及 GRUB/ 開機載入器設定、確認正確的開機裝置和開機參數。 | 步驟 1：收集端對端 SAN 啟動組態：多重路徑健全狀況 / 路徑、開機 LUN 上的 LVM 配置、以及 GRUB/ 開機載入器設定、確認正確的開機裝置和開機參數。 
+
+
+| 步驟 2：確保各個資料設備（LVM/非 LVM）的  `/etc/fstab` 條目透過其 FS UUID 引用。 | 步驟 2：停用待遷移 LUN 的叢集資源群組。停用後，刪除這些資源群組。 | 步驟 2：確保  `/etc/fstab` SAN 開機裝置（包括資料裝置（lvm/nonlvm））的項目是透過其 FS UUID 參照。 
+
+
+| 步驟 3：確保所有對目標掛載點的操作都已暫停。確保沒有程序仍在存取區塊裝置。如有必要，請釋放 / 終止開啟的程序控制代碼。 | 步驟 3：將剛剛停用/刪除的對應資源群組的 LVM VG 配置備份到檔案。然後停用這些 VG。 | 步驟 3：確保已使用正確的 UUID 參考更新 `GRUB_CMDLINE_LINUX`行。根據 UUID 裝置參考重新建立新的 GRUB 設定。 
+
+
+| 步驟 4：卸載檔案系統並執行 LVM 磁碟區群組組態備份。停用 VG 並匯出 VG | 步驟 4：從 PCS stonith 組態中移除來源 LUN。 | 步驟 4：使用新的 grub 設定驗證變更，並重新建立新的 initrd 映像以反映 SAN 開機裝置的變更。 
+
+
+| 步驟 5：清除裝置的多重路徑組態，並移除所有過時的 SCSI 裝置檔案。 | 步驟 5：清除裝置的多重路徑組態並移除所有過時的 SCSI 裝置檔案。注意：如果發現任何 lun 持續保留，請清除它們並確保沒有 PR 金鑰 | 步驟 5：重新啟動主機以確保主機能夠正常啟動並執行上述變更。主機正常啟動後，即可進行 FLI 移轉的主機預修復。 
+
+
+| 步驟 6：重新載入多重路徑組態，以便主機擁有更新的裝置清單。如有必要，請執行主機 SCSI 匯流排重新掃描。 | 步驟 6：重新掃描主機，確保現有裝置對應中沒有過時的項目。 | 步驟 6：現在關閉 sanboot 主機，以繼續 ONTAP FLI 工作流程。 
+|===
+
+
+== 遷移前 - 線上 FLI
+
+以下是線上 FLI 的具體步驟，但這些步驟必須先執行遷移前的離線 FLI 步驟。以下步驟必須在 NetApp LUN 配置到主機後執行。這些步驟必須在 NetApp LUN 配置到主機後執行。而且僅適用於線上 FLI。
+
+[cols="3"]
+|===
+| 檔案系統（LVM 和非 LVM） | Pacemaker 搭配 LVM（SCSI3 PR） | SANBOOT 
+
+
+| 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備。 | 步驟 1：開啟伺服器電源。 
+
+
+| 步驟 2：探索多重路徑裝置。 | 步驟 2：探索多重路徑裝置。確保已將移轉的 LUN 新增至 PCS Stonith 組態。 | 步驟 2：在伺服器 HBA BIOS 或 UEFI 中設定提供給此主機 HBA 的新開機裝置。 
+
+
+| 步驟 3：匯入 Volume Groups 並執行 VG 啟動。 | 步驟 3：對新發現的 VG/LVM 執行 VG Configuration Backup 還原，然後啟動 VG。 | 步驟 3：重新啟動主機，從新對應的 LUN 啟動，該 LUN 是 LUN Import 的一部分。 
+
+
+| 步驟 4：將 LVM 組態掛載到對應的掛載點。 | 步驟 4：建立新的 PCS 資源群組，並為可用的 LV 和檔案系統新增對應的資源。注意：請注意，新啟動的 LVM 物件保留了 LV 和檔案系統的結構。 |  
+
+
+|  | 步驟 5：驗證 PCS 叢集狀態，確認所有資源均處於線上和可用狀態。 |  
+|===

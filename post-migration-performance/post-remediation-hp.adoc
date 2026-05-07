@@ -1,0 +1,115 @@
+---
+permalink: post-migration-performance/post-remediation-hp.html 
+sidebar: sidebar 
+keywords: host remediation, hp-ux, post-migration, fli, ontap 
+summary: 遷移後、HP-UX 主機需要補救步驟，以確保新匯入的 LUN 能夠正確識別並正常運作。 
+---
+= 執行 ONTAP FLI HP 遷移後主機修復
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+遷移後、HP-UX 主機需要補救步驟，以確保新匯入的 LUN 能夠正確識別並正常運作。
+
+
+
+== 遷移後 - 離線 FLI
+
+對於離線 FLI，刪除 LUN 匯入並確認主機啟動器已連線後，將 LUN 上線。
+
+[cols="5"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | 叢集 | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 HP-UX 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 | 步驟 1：開啟伺服器電源 
+
+
+| 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：從 UEFI shell 驗證裝置對應表，並從新的 Storage 裝置開機進入 hpux。將主要開機裝置設定為新的 Storage LUN 
+
+
+| 步驟 3：檢查檔案系統詳細資料 | 步驟 3：識別多重路徑裝置 ID 並將其呈現給相應的應用程式。 | 步驟 3：確保正確探索新的 LVM 裝置檔案 | 步驟 3：檢查檔案系統詳細資料 | 步驟 3：重新啟動主機，從新映射的 LUN（屬於 LUN 匯入的一部分）啟動 
+
+
+| 步驟 4：將裝置掛載回各自的資料夾 |  | 步驟 4：匯入 VG/LVM | 步驟 4：驗證所需的叢集組態並啟動叢集應用程式 |  
+
+
+|  |  | 步驟 5：啟動 VG | 步驟 5：驗證叢集狀態和正在使用叢集的應用程式。 |  
+
+
+|  |  | 步驟 6：列出 VG 上存在的 LV |  |  
+
+
+|  |  | 步驟 7：將 LVM 掛載回各自的資料夾 |  |  
+|===
+
+
+== 遷移後 - 線上 FLI
+
+刪除 LUN 匯入後，檢查 LUN 是否已設定 `-space-reserve disabled`和 `-space-allocation enabled`。如果沒有，請相應地進行修改。
+
+為確保 SCSI UNMAP 功能正常運作，請查閱供應商文件以確認支援的軟體版本。啟用此功能需要 Veritas VxVM + VxFS 組合。
+
+[cols="4"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 HP-UX 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應的 HP-UX 主機上的儲存設備 
+|===
+.步驟
+. 識別儲存裝置。
++
+[source, cli]
+----
+ioscan -fnC disk
+insf -e
+sanlun lun show all
+sanlun lun show all -pv
+sanlun lun show -wwpn
+----
+. 匯入 VG 並將 VG 上線。
++
+[source, cli]
+----
+vgimport /dev/vg_name /dev/disk/disk_name
+vgchange -a y /dev/vg_name
+----
+. 識別磁碟區群組和檔案系統。
++
+[source, cli]
+----
+vgdisplay -v /dev/vg_name
+vgdisplay /dev/vg_name
+lvdisplay /dev/vg_name/lv_name
+----
+. 掛載檔案系統。
++
+[source, cli]
+----
+bdf
+mount /dev/vg_name/vol_name /mount_point
+----
+
+
+[cols="2"]
+|===
+|  | HP-UX 
+
+
+| 步驟 1 | 擷取主機資訊。 
+
+
+| 步驟 2 | 卸載檔案系統。 
+
+
+| 步驟 3 | 備份 VG。 
+
+
+| 步驟 4 | 停用 VG。 
+
+
+| 步驟 5 | 匯出 VG。 
+|===

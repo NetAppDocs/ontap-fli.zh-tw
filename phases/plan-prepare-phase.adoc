@@ -1,0 +1,336 @@
+---
+permalink: phases/plan-prepare-phase.html 
+sidebar: sidebar 
+keywords: plan and prepare phase, foreign lun import, fli, migration planning, test migration, cutover, intercluster lif, iscsi fli, gap analysis, san migration, fc fli, zoning, test migration 
+summary: 執行一次或多次測試移轉，以確認陣列、網路和架構、ONTAP 組態和主機補救步驟是否正確，並收集可用於正式作業排程的處理量範例。 
+---
+= ONTAP 外來 LUN 匯入（FLI）測試移轉和轉換規劃
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+執行一次或多次測試移轉，以確認陣列、網路和架構、ONTAP 組態和主機補救步驟是否正確，並收集可用於正式作業排程的處理量範例。
+
+良好的測試移轉可驗證：
+
+* 後端準備：IC LIF 可連線性、iSCSI 工作階段穩定性和外部 LUN 探索在各路徑之間保持一致。
+* 工作流程正確性：匯入關係建立 / 開始 / 顯示 / 完成（以及可選的驗證）在選定模式（線上 / 離線）下按預期運作。
+* 主機準備就緒：主機重新掃描 / 修復步驟可針對目標使用案例可靠地運作（例如 ESXi VMFS/RDM、Windows 獨立 / WFC）。
+* 營運估算：測試執行中觀察到的處理量為估算正式作業移轉持續時間提供了最實際的基礎，並且通常比任何通用基準測試都更好。
+
+
+
+
+== 使用Hitachi AMS2100測試移轉範例
+
+以下是使用Hitachi AMS2100做為外部陣列的測試移轉範例。視所涉及的陣列、主機作業系統及其他變數而定、您的步驟可能有所不同。
+
+您可以使用下列範例作為執行測試移轉所需步驟的一般指南。NetApp建議您儘早執行測試移轉、以便找出測試所帶來的任何問題、並有足夠的時間解決。在繼續正式作業移轉之前、應先在所有來源陣列和目的地陣列的組合上執行測試移轉。
+
+.步驟
+. 在來源陣列上建立2 GB測試LUN。
++
+.. 以 `system`身分登入 Hitachi Storage Navigator Modular。
+.. 選擇 *AMS 2100 陣列*。
+.. 按一下*顯示及設定陣列*。
+.. 使用  `root` 登入。
+.. 展開*群組*並選取*邏輯單位*。
+.. 選擇* Create LU*（創建LU*）以創建測試LUN。
+.. 建立2 GB的測試LUN。
+.. 按一下「*確定*」。
+.. 跳過此處的LUN指派、然後按一下*關閉*繼續。
+.. 確認測試 LUN 已建立。
+
+
+. 將測試 LUN 指派給為 ONTAP 啟動器所建立的主機群組。
++
+.. 展開*群組*並選取*邏輯單位*。
+.. 選擇 *Host Groups* 以將測試 LUN 對應到 *cDOT_FLI* 主機群組。
+.. 選擇上一步驟建立的主機群組 *cDOT_FLI*，然後按一下 *Edit Host Group*。
+.. 選擇主機群組的連接埠。在本例中，我們選擇 *0a*、*0e*、*1a*、*1e*。選取 *Forced Set to All Selected Ports* 選項。
+.. 在 HDS Storage Navigator 中，編輯主機群組。
+.. 按一下 *Logical Units* 並新增測試 LUN。
+.. 按一下「*確定*」以對應LUN。
+.. 選擇*是、我已閱讀上述警告並想要編輯主機群組*、然後按一下*確認*。
+.. 驗證主機群組建立、然後按一下*關閉*。
+
+
+. 驗證測試LUN、並從來源儲存設備對應至目的地儲存設備、然後執行Foreign LUN Import（FLI）匯入。
++
+.. 使用  `admin` 使用者透過 SSH 登入 ONTAP 儲存設備。
+.. 將模式變更為 *Advanced*。
++
+DataMig-cmode::> set -privilege advanced
+
+.. 當系統詢問是否要繼續使用進階指令時，請輸入 'y'。
+.. 在ONTAP上發現來源陣列。等待幾分鐘，然後重試偵測來源陣列。
++
+storage array 顯示
+
++
+第一次發現儲存陣列時ONTAP 、可能無法自動探索以顯示陣列。請依照下列指示、重設ONTAP 連接了交換器連接埠的交換器連接埠。
+
++
+例如，DataMig-cmode 叢集啟動器連接埠 `0a` 和 `0b` 的 ONTAP 連接到 Cisco 連接埠 `4/9` 和 `4/11`。若要重設 Cisco 交換器上的連接埠 `4/9`：
+
++
+[listing]
+----
+conf t
+interface fc4/
+shutdown
+no shutdown
+exit
+exit
+----
++
+重設一個連接埠通常已足夠。重設一個連接埠後、請檢查陣列清單和LUN路徑。
+
+.. 驗證是否已透過所有啟動器連接埠探索來源陣列：
++
+storage array config show -array-name HITACHI_DF600F_1
+
++
+[listing]
+----
+             LUN   LUN
+Node         Group Count     Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- -----------------------
+DataMig-cmode-01 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+DataMig-cmode-02 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+----
+.. 列出從 Hitachi 儲存設備對應的測試 LUN，並驗證磁碟內容和路徑：
++
+storage disk show -array-name HITACHI_DF600F_1 -instance
+
++
+[listing]
+----
+
+                  Disk: HIT-1.1
+        Container Type: unassigned
+            Owner/Home: -  / -
+               DR Home: -
+    Stack ID/Shelf/Bay: -  / -  / -
+                   LUN: 0
+                 Array: HITACHI_DF600F_1
+                Vendor: HITACHI
+                 Model: DF600F
+         Serial Number: 83017542001A
+                   UID: 48495441:43484920:38333031:37353432:30303236:00000000:00000000:00000000:00000000:00000000
+                   BPS: 512
+         Physical Size: -
+              Position: present
+Checksum Compatibility: block
+             Aggregate: -
+                  Plex: -
+Paths:
+                                LUN  Initiator Side        Target Side                                            Link
+Controller         Initiator     ID  Switch Port           Switch Port           Acc Use  Target Port     TPGN    Speed  I/O KB/s  IOPS
+------------------ ---------  -----  --------------------  --------------------  --- ---  --------------  ------  ----   --- -----
+DataMig-cmode-01   0a             0  DM-Cisco9506-1:4-9    DM-Cisco9506-1:2-24   AO  INU  50060e801046b968  2   2 Gb/S    0  0
+DataMig-cmode-01   0b             0  DM-Cisco9506-2:4-9    DM-Cisco9506-2:2-24   AO  INU  50060e801046b96c  2   2 Gb/S    0  0
+DataMig-cmode-01   0b             0  DM-Cisco9506-2:4-9    DM-Cisco9506-2:1-14   AO  INU  50060e801046b964  1   2 Gb/S    0  0
+DataMig-cmode-01   0a             0  DM-Cisco9506-1:4-9    DM-Cisco9506-1:1-14   AO  INU  50060e801046b960  1   2 Gb/S    0  0
+DataMig-cmode-02   0a             0  DM-Cisco9506-1:4-11   DM-Cisco9506-1:2-24   AO  INU  50060e801046b968  2   2 Gb/S    0  0
+DataMig-cmode-02   0b             0  DM-Cisco9506-2:4-11   DM-Cisco9506-2:2-24   AO  INU  50060e801046b96c  2   2 Gb/S    0  0
+DataMig-cmode-02   0b             0  DM-Cisco9506-2:4-11   DM-Cisco9506-2:1-14   AO  INU  50060e801046b964  1   2 Gb/S    0  0
+DataMig-cmode-02   0a             0  DM-Cisco9506-1:4-11   DM-Cisco9506-1:1-14   AO  INU  50060e801046b960  1   2 Gb/S    0  0
+
+Errors:
+-
+
+DataMig-cmode::*>
+----
+
+
+. 使用序號將來源 LUN 標記為外部：
++
+storage disk set-foreign-lun { -serial-number 83017542001A } -is-foreign true
+
++
+.. 確認來源 LUN 是否標記為外部：
++
+storage disk show -array-name HITACHI_DF600F_1
+
+.. 列出所有外部陣列及其序號：
++
+storage disk show -container-type foreign -fields serial-number
+
++
+
+NOTE: LUN create命令會根據分割區偏移量來偵測大小和對齊方式、並據此以Foreign磁碟引數建立LUN。
+
+
+
+. 建立目的地 Volume：
++
+vol create -vserver datamig flivol aggr1 -size 10g
+
+. 使用外部 LUN 建立測試 LUN：
++
+lun create -vserver datamig -path /vol/flivol/testlun1 -ostype linux -foreign-disk 83017542001A
+
++
+.. 列出測試 LUN 並驗證 LUN 的大小與來源 LUN 一致：
++
+lun show
+
++
+
+NOTE: 對於FLI離線移轉、LUN必須在線上、才能將其對應至igroup、然後必須離線才能建立LUN匯入關係。
+
+
+
+. 建立不新增任何啟動器的 FCP 協定測試 igroup：
++
+lun igroup create -vserver datamig -igroup testig1 -protocol fcp -ostype linux
+
+. 將測試 LUN 對應至測試 igroup：
++
+lun map -vserver datamig -path /vol/flivol/testlun1 -igroup testig1
+
+. 離線測試 LUN：
++
+lun offline -vserver datamig -path /vol/flivol/testlun1
+
+. 建立與測試 LUN 和外部 LUN 的匯入關係：
++
+lun import create -vserver datamig -path /vol/flivol/testlun1 -foreign-disk 83017542001A
+
+. 開始移轉（匯入）：
++
+lun import start -vserver datamig -path /vol/flivol/testlun1
+
++
+.. 監控匯入進度：
++
+lun import show -vserver datamig -path /vol/flivol/testlun1
+
+.. 檢查匯入工作是否成功完成：
++
+lun import show -vserver datamig -path /vol/flivol/testlun1
+
++
+[listing]
+----
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+datamig 83017542001A   /vol/flivol/testlun1
+                                           import    started
+                                                           completed     100
+----
+
+
+. 啟動驗證作業，比較來源 LUN 和目標 LUN。監控驗證進度：
++
+lun import verify start -vserver datamig -path /vol/flivol/testlun1
+
++
+[listing]
+----
+DataMig-cmode::*> lun import show -vserver datamig -path /vol/flivol/testlun1
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+datamig 83017542001A   /vol/flivol/testlun1
+                                           verify    started
+                                                           in_progress     44
+----
++
+.. 檢查驗證工作是否已完成且無任何錯誤：
++
+lun import show -vserver datamig -path /vol/flivol/testlun1
+
++
+[listing]
+----
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+datamig 83017542001A   /vol/flivol/testlun1
+                                           verify    started
+                                                           completed      100
+----
+
+
+. 刪除匯入關係以移除遷移作業：
++
+lun import delete -vserver datamig -path /vol/flivol/testlun1
+
++
+lun import show -vserver datamig -path /vol/flivol/testlun1
+
+. 從測試 igroup 取消對應測試 LUN：
++
+lun unmap -vserver datamig -path /vol/flivol/testlun1 -igroup testig1
+
+. 將測試 LUN 上線：
++
+lun online -vserver datamig -path /vol/flivol/testlun1
+
+. 將外部 LUN 屬性標記為 false：
++
+storage disk modify -serial-number 83017542001A -is-foreign false
+
++
+
+NOTE: 請勿移除使用ONTAP 來源儲存設備所建立的主機群組、並使用非同步啟動器連接埠。在從該來源陣列進行移轉時、會重複使用相同的主機群組。
+
+. 從來源儲存設備移除測試LUN。
++
+.. 以系統的形式登入Hitachi Storage Navigator模組化。
+.. 選擇 *AMS 2100 陣列*，然後按一下 *Show and Configure Array*。
+.. 使用  `root` 登入。
+.. 選取*群組*、然後選取*主機群組*。
+.. 選擇 *cDOT_FLI Igroup* 並點選 *Edit Host Group*。
+.. 在「編輯主機群組」視窗中，選取選擇要映射測試 LUN 的所有目標連接埠，然後選取 *強制設定為所有選定的連接埠*。
+.. 選取*邏輯單位*索引標籤。
+.. 從*指派的邏輯單元*視窗中選取測試LUN。
+.. 選取*移除*以移除LUN對應。
+.. 按一下「*確定*」。
+
+
+. 請勿移除主機群組、並繼續刪除測試LUN。
++
+.. 選取 *Logical Units*。
+.. 選擇上一步驟建立的測試 LUN。
+.. 按一下*刪除LUN*。
+.. 按一下*「Confirm（確認）」以刪除測試LUN。
+
+
+. 刪除目的地儲存設備上的測試LUN。
++
+.. 使用  `admin` 使用者透過 SSH 登入 ONTAP 儲存設備。
+.. 將 NetApp 儲存系統上的測試 LUN 離線：
++
+lun offline -vserver datamig -path /vol/flivol/testlun1
+
++
+
+NOTE: 請確定您未選取其他主機LUN。
+
+.. 銷毀 NetApp 儲存系統上的測試 LUN：
++
+lun destroy -vserver datamig -path /vol/flivol/testlun1
+
+.. 將 NetApp 儲存系統上的測試磁碟區離線：
++
+vol offline -vserver datamig -volume flivol
+
+.. 銷毀 NetApp 儲存系統上的測試磁碟區：
++
+vol destroy -vserver datamig -volume flivol
+
+
+
+

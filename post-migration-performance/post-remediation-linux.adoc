@@ -1,0 +1,53 @@
+---
+permalink: post-migration-performance/post-remediation-linux.html 
+sidebar: sidebar 
+keywords: host remediation, linux, post-migration, fli, ontap 
+summary: 遷移後、Linux 主機需要採取補救措施，以確保新導入的 LUN 能夠被正確識別並正常運作。 
+---
+= 執行 ONTAP FLI Linux 遷移後主機修復
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+遷移後、Linux 主機需要採取補救措施，以確保新導入的 LUN 能夠被正確識別並正常運作。
+
+
+
+== 遷移後 - 離線 FLI
+
+對於離線 FLI，刪除 LUN 匯入並確認主機啟動器已連線後，將 LUN 上線。
+
+[cols="3"]
+|===
+| 檔案系統（LVM 和非 LVM） | Pacemaker 搭配 LVM（SCSI3 PR） | SANBOOT 
+
+
+| 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備 | 步驟 1：開啟伺服器電源 
+
+
+| 步驟 2：探索多重路徑裝置。 | 步驟 2：探索多重路徑裝置。確保已將移轉的 LUN 新增至 PCS Stonith 組態。 | 步驟 2：在伺服器 HBA BIOS 或 UEFI 上設定呈現給此主機 HBA 的新開機裝置 
+
+
+| 步驟 3：匯入 Volume Group 並執行 VG 啟動。 | 步驟 3：對新發現的 VG/LVM 執行 VG Configuration Backup 還原，然後啟動 VG。 | 步驟 3：重新啟動主機，從新映射的 LUN（屬於 LUN 匯入的一部分）啟動 
+
+
+| 步驟 4：將 LVM 組態掛載到對應的掛載點。 | 步驟 4：建立新的 PCS 資源群組，並為可用的 LV 和檔案系統新增對應的資源。注意：請注意，新啟動的 LVM 物件保留了 LV 和檔案系統的結構。 |  
+
+
+|  | 步驟 5：驗證 PCS 叢集狀態，確認所有資源均處於線上和可用狀態。 |  
+|===
+
+
+== 遷移後 - 線上 FLI
+
+刪除 LUN 匯入後，檢查 LUN 是否已設定 `-space-reserve disabled`和 `-space-allocation enabled`。如果沒有，請相應地進行修改。
+
+[cols="4"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 Linux 主機上的儲存設備 
+|===

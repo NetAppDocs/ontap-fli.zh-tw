@@ -1,0 +1,56 @@
+---
+permalink: post-migration-performance/esxi-remediation.html 
+sidebar: sidebar 
+keywords: esxi remediation, vmfs, ats, caw, vaai, vmkfstools, datastore, online fli, foreign lun import, fli, vmware, ats-only 
+summary: 修復 VMware ESXi 資料存放區，這些資料存放區具有僅限 ATS 的 VMFS 標頭，當透過線上 FLI 匯入關係呈現時，可能會阻止掛載。 
+---
+= 執行 ONTAP FLI ESXi VMFSS ATS/CAW 修復
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在線上 FLI 遷移期間,臨時匯入關係不支援 VMware ATS 或 CAW（VAAI Atomic Test and Set 或 SCSI Compare And Write）。如果您的資料存放區是 VMFS5,並且是在支援 ATS 的儲存設備上建立的,則 VMware 可能會將 VMFS 標頭標記為「僅限 ATS」。在這種狀態下,透過線上 FLI 關係呈現資料存放區時,可能無法掛載。
+
+.關於此任務
+* 「僅限 ATS」設定儲存在 VMFS 標頭中，該標頭位於資料儲存區的第一個範圍上。如果資料儲存區跨越多個範圍，則只需修復第一個範圍。
+* 如果 datastore 在多個 ESXi 主機之間共用，通常只需從一台主機更新；其他主機在重新掃描和重新掛載後即可取得變更。
+* 更改僅 ATS 模式時，資料儲存區不能有任何作用中的 I/O 執行。VMware 指引是撤離並移轉或關閉 VM、卸載並視需要重新掛載以套用變更。
+
+
+.步驟
+. 檢查資料存放區目前的 ATS 模式。
++
+在 ESXi 主機上針對 VMFS 磁碟區執行此命令：
+
++
+[source, cli]
+----
+vmkfstools -Ph -v1 /vmfs/volumes/<DATASTORE_NAME_OR_UUID>
+----
+. 僅停用 ATS。
++
+
+IMPORTANT: 確保虛擬機器已遷移並關閉，並且根據變更計劃的要求，從所有主機卸載資料儲存區。在第一個範圍 LUN（naa.*）的裝置路徑上執行：
+
++
+[source, cli]
+----
+vmkfstools --configATSOnly 0 /vmfs/devices/disks/naa.<naa_id>:1
+----
++
+這會變更磁碟區以允許非 ATS 鎖定（公用）。
+
+. 重新掃描儲存適配器（或重新掛載資料存放區），以便主機重新讀取更新後的模式。
+. 重新啟用 ATS。
++
+遷移完成後，如果您想要還原僅使用 ATS 的行為：
+
++
+[source, cli]
+----
+vmkfstools --configATSOnly 1 /vmfs/devices/disks/naa.<naa_id>:1
+----
+. 重新掃描並重新掛載以套用變更。
+

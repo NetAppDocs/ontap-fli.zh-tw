@@ -1,0 +1,16 @@
+---
+permalink: migrate/migrate-overview.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, migration, overview 
+summary: 本節說明外部 LUN 匯入（FLI）匯入工作流程，涵蓋從外部 LUN 探索到匯入執行、監控和最終清理的完整生命週期。 
+---
+= 了解 ONTAP FLI 遷移
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節說明 Foreign LUN Import (FLI) 匯入工作流程，涵蓋從外部 LUN 探索到匯入執行、監控和最終清理的完整生命週期。它說明 ONTAP 如何使用已建立的後端連線（FC 或 iSCSI）安全地探索外部 LUN，這些 LUN 已從主機取消佈建並專門對應至 ONTAP 啟動器，確保不會有雙重呈現的風險。工作流程接著詳細說明如何在 ONTAP 中識別和標記外部磁碟、如何佈建目的地 LUN 以符合來源幾何結構，以及如何建立持續匯入關係以配對來源和目的地裝置。
+
+本節也從 LUN 狀態和時序的角度闡明了離線和線上 FLI 的操作差異,並強調兩種模式下底層 ONTAP 匯入命令保持不變。本節描述如何啟動、監控、節流（暫停/繼續）和完成匯入,以及如何在需要時使用選用驗證來驗證資料完整性。最後,本節概述了資料複製完成後安全移除匯入關係的步驟,從而將目的地 LUN 轉換到完全正式作業使用,並結束 FLI 工作流程。

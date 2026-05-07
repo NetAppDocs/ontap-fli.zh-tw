@@ -1,0 +1,157 @@
+---
+permalink: phases/remediation-aix.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, aix host, pre-migration, offline fli, online fli 
+summary: 在 AIX 主機上執行 ONTAP FLI 遷移之前，請完成下列遷移前步驟。離線遷移和線上遷移的步驟有所不同。 
+---
+= ONTAP FLI AIX 主機補救措施
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在 AIX 主機上執行 ONTAP FLI 遷移之前，請完成下列遷移前步驟。離線遷移和線上遷移的步驟有所不同。
+
+
+
+== 遷移前 - 離線 FLI
+
+這些步驟對於線上和離線 FLI 都是通用的。在從主機取消佈建來源 LUN 之前，請確保完成下列步驟。
+
+[cols="5"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | 叢集 | Sanboot 
+
+
+| 步驟 1：擷取要移轉範圍內檔案系統的 LUN 詳細資料。 | 步驟 1：擷取在遷移範圍內用作原始區塊設備（無檔案系統）的 LUN 詳細資訊。 | 步驟 1：擷取對應至主機且具有 LVM 組態的、在遷移範圍內的 LUN。 | 步驟 1：擷取整體叢集詳細資料及移轉所涉及的磁碟。 | 步驟 1：擷取 SAN 開機 LUN 詳細資料和相關分割區資訊。 
+
+
+| 步驟 2：卸載檔案系統。 | 步驟 2：移除與多重路徑裝置相關的 SCSI 區塊裝置 | 步驟 2：如果 LVM 裝置已掛載，則將其卸載。 | 步驟 2：依照建議的程序正常關閉叢集服務。 | 步驟 2：從作業系統以及 IPL（Initial Program Load）/SMS 選單驗證開機裝置清單。確保所有裝置都正確引用其裝置名稱。 
+
+
+| 步驟 3：移除與多重路徑裝置相關聯的 SCSI 區塊裝置。 | 步驟 3：重新掃描所有裝置。 | 步驟 3：備份 VG 並停用 / 關閉 VG。例如： `varyoffvg vg_name` | 步驟 3：移除與多路徑裝置相關聯的 SCSI 區塊裝置。例如： `rmdev -Rdl hdiskx` |  
+
+
+| 步驟 4：重新掃描主機，確保現有裝置對應中沒有過時的項目。 | 步驟 4：重新掃描主機，確保現有裝置對應中沒有過時的項目。 | 步驟 4：重新掃描主機，確保現有裝置對應中沒有過時的項目。例如： `cfgmgr` | 步驟 4：重新掃描主機，確保現有裝置對應中沒有過時的項目。 |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 識別儲存裝置。
++
+[Source]
+----
+lsdev -Cc disk
+sanlun lun show all (This works only for NetApp storage)
+sanlun lun show all -pv
+lsmpio -l hdiskx
+----
+. 識別磁碟區群組和檔案系統。
++
+[Source]
+----
+lspv
+lsvg <vg_name>
+lsvg -l <vg_name>
+lsvg -p <vs_name>
+----
+. Varyoffvg 並卸載檔案系統。
++
+[Source]
+----
+df -g (to get the mount points)
+umount /mount_point
+varyoffvg <vg_name>
+df -g (to ensure its unmounted)
+----
+. 移除 SCSI 區塊裝置。
++
+rmdev -Rdl hdiskx
+
+. 確認裝置已卸離。
++
+lspv |grep hdiskx
+
+. 分離後重新掃描以確認乾淨狀態。
++
+cfgmgr
+
+
+
+
+
+== 遷移前 - 線上 FLI
+
+以下是線上 FLI 的具體步驟，但這些步驟之前必須先執行上述「遷移前 - 離線 FLI」部分中的步驟。
+
+將 NetApp LUN 配置到主機後，必須執行下列步驟。
+
+此時，LUN 匯入已經建立完成，LUN 已對應到主機 igroup，並且主機上已登入了 iSCSI 或 FC Initiator。
+
+對於離線 FLI， NetApp LUN 保持離線狀態。
+
+[cols="4"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備。 | 步驟 1：開啟伺服器電源。 
+
+
+| 步驟 2：識別多路徑裝置。例如： `lsdev -Cc disk; lsmpio -l hdiskx` | 步驟 2：識別多路徑裝置。例如： `lsdev -Cc disk; lsmpio -l hdiskx` | 步驟 2：識別多路徑裝置。例如： `lsdev -Cc disk; lsmpio -l hdiskx` | 步驟 2：驗證從 IPL（Initial Program Load）/SMS 選單中顯示的啟動裝置清單是否列出了來自新儲存裝置的新 LUN。將啟動順序設定為新裝置清單路徑。 
+
+
+| 步驟 3：檢查檔案系統�細細資料。 | 步驟 3：識別多重路徑裝置 ID 並將其呈現給相應的應用程式。 | 步驟 3：確保探索到新的 LUN。 | 步驟 3：確保伺服器正常開機。 
+
+
+| 步驟 4：將裝置掛載回各自的資料夾。 |  | 步驟 4：VG 應該會自動啟動。 |  
+
+
+|  |  | 步驟 5：驗證 VG、LV 和檔案系統是否處於作用中且可掛載。 |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 識別儲存裝置
++
+[Source]
+----
+lsdev -Cc disk
+sanlun lun show all (This works only for NetApp storage)
+sanlun lun show all -pv
+lsmpio -l hdiskx
+----
+. 識別磁碟區群組和檔案系統。
++
+[Source]
+----
+lspv
+lsvg <vg_name>
+lsvg -l <vg_name>
+lsvg -p <vs_name>
+----
+. Varyoffvg 並卸載檔案系統。
++
+[Source]
+----
+df -g (to get the mount points)
+umount /mount_point
+varyoffvg <vg_name>
+df -g (to ensure its unmounted)
+----
+. 移除 SCSI 區塊裝置。
++
+rmdev -Rdl
+
+. 確認裝置已卸離。
++
+lspv |grep hdiskx
+
+. 分離後重新掃描以確認乾淨狀態。
++
+cfgmgr
+
+

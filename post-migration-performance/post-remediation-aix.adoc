@@ -1,0 +1,153 @@
+---
+permalink: post-migration-performance/post-remediation-aix.html 
+sidebar: sidebar 
+keywords: host remediation, aix, post-migration, fli, ontap 
+summary: 遷移後、AIX 主機需要採取補救措施、以確保新匯入的 LUN 能夠被正確識別並正常運作。 
+---
+= 執行 ONTAP FLI AIX 遷移後主機修復
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+遷移後、AIX 主機需要採取補救措施、以確保新匯入的 LUN 能夠被正確識別並正常運作。
+
+
+
+== 遷移後 - 離線 FLI
+
+對於離線 FLI，刪除 LUN 匯入並確認主機啟動器已連線後，將 LUN 上線。
+
+[cols="5"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | 叢集 | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備 | 步驟 1：開啟伺服器電源 
+
+
+| 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：識別多重路徑裝置 | 步驟 2：驗證從 IPL（Initial Program Load）/SMS 選單中顯示的啟動裝置清單是否列出了來自新儲存裝置的 LUN，並引用對應的裝置清單。將啟動順序設定為新裝置清單路徑。 
+
+
+| 步驟 3：檢查檔案系統詳細資料 | 步驟 3：識別多重路徑裝置 ID 並將其呈現給相應的應用程式。 | 步驟 3：確保已探索新的 LUN | 步驟 3：檢查檔案系統詳細資料 | 步驟 3：確保伺服器正常開機 
+
+
+| 步驟 4：將裝置掛載回各自的資料夾 |  | 步驟 4：啟動 VG | 步驟 4：驗證所需的叢集組態並啟動叢集應用程式 | 步驟 4：重新啟動主機，從新映射的 LUN（屬於 LUN 匯入的一部分）啟動 
+
+
+|  |  | 步驟 5：列出 VG 上存在的 LV | 步驟 5：驗證叢集狀態和正在使用的應用程式。 |  
+
+
+|  |  | 步驟 6：將 LVM 掛載回各自的資料夾 |  |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+.步驟
+. 分離後重新掃描以確認乾淨狀態。
++
+[source, cli]
+----
+cfgmgr
+----
+. 識別儲存裝置。
++
+[source, cli]
+----
+lsdev -Cc disk
+sanlun lun show all
+sanlun lun show all -pv
+lsmpio -l hdiskx
+----
+. 驗證裝置是否已連接。
++
+[source, cli]
+----
+lspv |grep hdiskx
+----
+. 識別磁碟區群組和檔案系統。
++
+[source, cli]
+----
+lspv
+lsvg <vg_name>
+lsvg -l <vg_name>
+lsvg -p <vs_name>
+----
+. Varyonvg 和掛載檔案系統。
++
+[source, cli]
+----
+varyonvg <vg_name>
+mount /mount_point
+df -g
+----
+
+
+
+
+== 遷移後 - 線上 FLI
+
+刪除匯入關係後，確認啟用 UNMAP 後，新的 LUN 可以獨立運作。刪除 LUN 匯入後，檢查 LUN 是否已設定 `-space-reserve disabled`和 `-space-allocation enabled`。如果未設置，請進行相應修改。
+
+[cols="4"]
+|===
+| 檔案系統 | 區塊裝置 | LVM （FS） | Sanboot 
+
+
+| 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備 | 步驟 1：重新掃描所有已對應 AIX 主機上的儲存設備 
+
+
+|  |  | 如果裝置採用精簡配置，則會自動啟用 SCSI UNMAP。 | 如果裝置採用精簡配置，則會自動啟用 SCSI UNMAP。 
+|===
+.步驟
+. 分離後重新掃描以確認乾淨狀態。
++
+[source, cli]
+----
+cfgmgr
+----
+. 識別儲存裝置。
++
+[source, cli]
+----
+lsdev -Cc disk
+sanlun lun show all
+sanlun lun show all -pv
+lsmpio -l hdiskx
+----
+. 驗證裝置是否已連接。
++
+[source, cli]
+----
+lspv |grep hdiskx
+----
+. 在裝置上驗證 UNMAP：
++
+[source, cli]
+----
+chfs -a reclaim=normal /mount_point
+lvmstat -v vg_name -r
+----
+
+
+[cols="1,2"]
+|===
+|  | AIX/PowerVM 
+
+
+| 步驟 1 | 擷取主機資訊。 
+
+
+| 步驟 2 | 卸載檔案系統。 
+
+
+| 步驟 3 | 備份 VG。 
+
+
+| 步驟 4 | 停用 VG。 
+
+
+| 步驟 5 | 匯出 VG。 
+|===

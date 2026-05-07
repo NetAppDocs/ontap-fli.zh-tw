@@ -1,0 +1,88 @@
+---
+permalink: migrate/verify-delete.html 
+sidebar: sidebar 
+keywords: verify import, delete import relationship, foreign lun import, fli, lun import delete, lun import verify, import cleanup, san migration, offline verification, asa r2 
+summary: 複製完成後，刪除匯入關係以完成移轉；移除前，可選擇驗證區塊層級資料完整性。 
+---
+= 驗證並刪除 FLI LUN 匯入關係
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+匯入複製完成後，匯入狀態確認無誤後，您可以使用 lun import delete 指令移除匯入配對，從而完成遷移。此指令會在來源 LUN 不再使用且目標 LUN 成為主機 I/O 的活動副本後，安全地刪除匯入關係。在離線 FLI 工作流程中，通常需要在匯入和所有驗證完成後將目標 LUN 聯機，以便主機可以重新發現並恢復對已遷移 LUN 的存取。
+
+如果在刪除關聯關係之前需要進行資料完整性確認，可以執行 lun import verify 命令。此命令會逐塊比較資料，但由於驗證必須在離線狀態下進行（這意味著在驗證期間，LUN 必須離線且主機無法存取），因此會造成服務中斷。移轉後的作業，例如主機修復、分區和啟動器清理、文件編制和作業驗證，均在移轉後階段處理，因此不在本節的討論範圍之內。
+
+.關於此任務
+從 ONTAP 9.17.1 開始，ASA r2 系統支援使用 FLI 離線遷移功能遷移外部 LUN 的資料。ASA r2 系統與其他 ONTAP 系統（ASA、AFF 和 FAS）在儲存層的實作方式上有所不同。在 ASA r2 系統中，建立儲存單元（LUN 或命名空間）時會自動建立磁碟區。每個磁碟區僅包含一個儲存單元。因此,對於 ASA r2 系統,建立 LUN 時無需在 `-path`選項中包含磁碟區名稱,而應包含儲存單元路徑。
+
+.步驟
+. 將權限等級設定為 advance：
++
+[source, cli]
+----
+set -privilege advanced
+----
+. 確認匯入狀態（必須完成或停止後才能刪除）：
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 如果匯入仍在進行中且已完成 % 為 100：
++
+[source, cli]
+----
+lun import stop -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 刪除匯入關係（最終確定）：
++
+[source, cli]
+----
+lun import delete -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 確認關係已移除：
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 確認匯入作業未正在執行（應已停止或完成）：
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 將 LUN 離線（驗證必須在離線狀態下進行）：
++
+[source, cli]
+----
+lun offline -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 開始逐區塊驗證（選用，但建議使用）：
++
+[source, cli]
+----
+lun import verify start -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 監控驗證進度：
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 停止驗證（在將 LUN 上線之前需要進行此操作）：
++
+[source, cli]
+----
+lun import verify stop -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. 將 LUN 上線（中斷時間到此結束）：
++
+[source, cli]
+----
+lun online -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+

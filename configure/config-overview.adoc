@@ -1,0 +1,16 @@
+---
+permalink: configure/config-overview.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, configuration, overview 
+summary: 本節說明使用光纖通道（FC）和 iSCSI 後端連線的外部 LUN 匯入（FLI）組態與驗證架構。 
+---
+= 了解 ONTAP FLI 組態
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節介紹使用光纖通道（FC）和 iSCSI 後端連線的外部 LUN 匯入（FLI）的組態和驗證架構。重點在於確保在 LUN 探索和匯入期間，從 ONTAP 到外部儲存陣列的可靠、備援存取，同時保持與主機存取路徑的清楚區隔。內容涵蓋建議的 SAN 設計原則（雙光纖通道架構、啟動器/目標連接埠使用以及分區最佳實務做法）、ONTAP 上的介面卡組態要求，以及在啟動匯入之前確認外部 LUN 可見且狀況良好的操作檢查。
+
+此外，本文還詳細介紹了 iSCSI 後端 FLI 模型，該模型使用綁定到叢集間 LIF（IC LIF）的 ONTAP 軟體 iSCSI 啟動器，強調明確的工作階段建立（無探索工作階段）、全網狀連線以實現恢復能力，並嚴格驗證網路連線能力和工作階段健全狀況。在 FC 和 iSCSI 兩種情境中，目標都是建立確定性、可支援的後端傳輸，以滿足 FLI 先決條件、實現跨所有路徑的一致外部 LUN 探索，並提供必要的檢測工具（統計資料和可見度）來疑難排解探索和匯入執行期間的問題。

@@ -1,0 +1,242 @@
+---
+permalink: post-migration-performance/post-remediation-esxi.html 
+sidebar: sidebar 
+keywords: host remediation, esxi, post-migration, fli, ontap 
+summary: 遷移後、ESXi 主機需要採取補救措施、以確保新匯入的 LUN 能夠正確識別並正常運作。 
+---
+= 執行 ONTAP FLI ESXi 遷移後主機補救
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+遷移後、ESXi 主機需要採取補救措施、以確保新匯入的 LUN 能夠正確識別並正常運作。
+
+
+
+== 遷移後 - 離線 FLI
+
+對於離線 FLI，刪除 LUN 匯入並確認主機啟動器已連線後，將 LUN 上線。
+
+[cols="4"]
+|===
+| VM / VMDK | RDM | WFSC | VMSC 
+
+
+| 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 
+
+
+| 步驟 2：列出磁碟區/裝置詳細資料，以確認 LUN 上的檔案系統詳細資料。 | 步驟 2：識別新的 NAA ID 並將 RDM 新增回對應的 VM。 | 步驟 2：列出磁碟區/裝置詳細資料，以確認 LUN 上的檔案系統詳細資料。 | 步驟 2：列出磁碟區/裝置詳細資料，以確認 LUN 上的檔案系統詳細資料。 
+
+
+| 步驟 3：識別資料存放區詳細資料，並將資料存放區掛載回 ESXi。 | 步驟 3：開啟客體 VM 電源並啟動應用程式。 | 步驟 3：識別資料存放區詳細資料，並將資料存放區掛載回 ESXi。 | 步驟 3：識別資料存放區詳細資料，並將資料存放區掛載回 ESXi。 
+
+
+| 步驟 4：識別資料存放區詳細資料，並將資料存放區掛載回 ESXi。 |  | 步驟 4：識別資料存放區詳細資料，並將資料存放區掛載回 ESXi。 | 步驟 4：開啟客體 VM 電源並啟動應用程式。 
+
+
+|  |  | 步驟 5：識別叢集使用的 RDM 磁碟，並使用相同的控制器 ID 和單元號碼（例如 SCSI1:0）將它們重新對應到 WFSC 叢集節點，以保持與先前組態的一致性。 | 步驟 5：開啟客體 VM 電源並啟動應用程式 
+
+
+|  |  | 步驟 6：開啟客體 VM 電源並啟動叢集應用程式。 |  
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+分離後重新掃描以確認乾淨狀態::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+完成後退出維護模式::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+重新掃描對應到 LUN 的所有 ESXi 主機上的儲存設備::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+列出裝置和檔案系統以確認 LUN / 檔案系統詳細資料::
+
+
+[source, cli]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+如果遷移後 NAA ID 發生變更，請識別新的 NAA ID::
+
+
+[source, cli]
+----
+esxcli storage core device list | grep -i naa
+----
+將 VMFS 資料存放區掛載回 ESXi::
+
+
+[source, cli]
+----
+esxcli storage filesystem mount -l <DATASTORE_NAME>
+----
+驗證資料存放區掛載::
+
+
+[source, cli]
+----
+esxcli storage filesystem list
+----
+將 RDM 重新加入虛擬機器（透過 vSphere 使用者介面完成）:: 通常不使用 CLI；而是驗證後端裝置的可見性。
++
+--
+[source, cli]
+----
+esxcli storage core device list -d <naa.ID>
+----
+--
+退出維護模式（如果適用）::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+開啟客體 VM 電源::
++
+--
+（虛擬機器電源操作通常透過 vCenter 完成，但也可以在 ESXi 主機上進行驗證）
+
+[source, cli]
+----
+vim-cmd vmsvc/getallvms
+vim-cmd vmsvc/power.on <VMID>
+----
+--
+
+
+
+
+== 遷移後 - 線上 FLI
+
+刪除匯入關係後，確認新的 LUN 已啟用 CAW/UNMAP/XCOPY/WRITESAME 功能，可獨立運作。
+
+將 VMFS 鎖定模式恢復為僅 ATS 模式，方法是卸載資料存放區，將其設定為僅 ATS 模式，然後重新掛載。刪除 LUN 匯入後，檢查 LUN 是否已停用 -space-reserve 並啟用 -space-allocation。如果不是，請進行相應的修改。
+
+[cols="3"]
+|===
+| VM / VMDK | RDM | VMSC 
+
+
+| 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 
+
+
+| 步驟 2：正常關閉客體 VM。 |  | 步驟 2：正常關閉客體 VM。 
+
+
+| 步驟 3：卸載計劃遷移的資料存放區；如果是共享的，則從所有主機卸載。 |  | 步驟 3：卸載計劃遷移的資料存放區；如果是共享的，則從所有主機卸載。 
+
+
+| 步驟 4：檢查 VMFS 鎖定模式（僅 ATS 或 ATS+SCSI）。如果是 ATS-SCSI，則變更為僅 ATS |  | 步驟 4：檢查 VMFS 鎖定模式（僅 ATS 或 ATS+SCSI）。如果是 ATS-SCSI，則變更為僅 ATS 
+
+
+| 步驟 5：識別資料存放區詳細資料並將資料存放區掛載回 ESXi。 |  | 步驟 5：啟用 VM-HA / DRS，並視需要設定所需的活動訊號磁碟。 
+
+
+| 步驟 6：開啟客體 VM 電源並啟動應用程式。 |  | 步驟 6：開啟客體 VM 電源並啟動應用程式 
+
+
+| 步驟 7：驗證資料存放區鎖定模式和 VM/ 應用程式健全狀況 |  | 步驟 7：驗證資料存放區鎖定模式和 VM/ 應用程式健全狀況 
+|===
+分離後重新掃描以確認乾淨狀態::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+完成後退出維護模式::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+重新掃描對應到 LUN 的所有 ESXi 主機上的儲存設備::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+列出裝置和檔案系統以確認 LUN / 檔案系統詳細資料::
+
+
+[source, cli]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+如果遷移後 NAA ID 發生變更，請識別新的 NAA ID::
+
+
+[source, cli]
+----
+esxcli storage core device list | grep -i naa
+----
+將 VMFS 資料存放區掛載回 ESXi::
+
+
+[source, cli]
+----
+esxcli storage filesystem mount -l <DATASTORE_NAME>
+----
+驗證資料存放區掛載::
+
+
+[source, cli]
+----
+esxcli storage filesystem list
+----
+將 RDM 重新加入虛擬機器（透過 vSphere 使用者介面完成）::
++
+--
+通常不使用 CLI；而是驗證後端裝置的可見性。
+
+[source, cli]
+----
+esxcli storage core device list -d <naa.ID>
+----
+--
+退出維護模式（如果適用）::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+開啟客體 VM 電源::
++
+--
+（虛擬機器電源操作通常透過 vCenter 完成，但可以在 ESXi 主機上進行驗證）
+
+[source, cli]
+----
+vim-cmd vmsvc/getallvms
+vim-cmd vmsvc/power.on <VMID>
+----
+--
+如果偵測到 ATS+SCSI，則轉換為僅 ATS::
+
+
+[source, cli]
+----
+vmkfstools --configATSOnly 1 /vmfs/volumes/<DATASTORE_NAME>
+----

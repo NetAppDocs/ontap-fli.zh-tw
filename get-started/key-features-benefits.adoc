@@ -1,0 +1,37 @@
+---
+permalink: get-started/key-features-benefits.html 
+sidebar: sidebar 
+keywords: fli, foreign lun import, ontap fli, block migration, san migration, online migration, offline migration, key features, benefits, multipathing, fibre channel, iscsi, lun import, data migration, load balancing 
+summary: 了解 ONTAP FLI 的主要特性和優勢，包括線上和離線移轉選項以及 SAN 環境中的區塊層級 LUN 移轉。 
+---
+= 了解 ONTAP Foreign LUN Import 的主要功能與優勢
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP Foreign LUN Import（FLI）是一項內建的區塊遷移功能，可將資料從外部（第三方）陣列 LUN 複製到原生 ONTAP LUN，並支援離線和線上遷移方式。FLI 旨在將 SAN LUN 從各種第三方陣列遷移到 ONTAP，它提供了一種一致的遷移方法，有助於跨不同主機和陣列標準化規劃、執行和驗證。
+
+
+
+== 主要功能
+
+* 線上和離線遷移，以符合業務停機時間需求。
+* 區塊層級、作業系統無關的移轉不依賴主機磁碟區管理程式或作業系統公用程式來移動資料。
+* 可在異質 SAN 環境中運行，旨在將 SAN LUN 從各種第三方陣列遷移到 ONTAP。
+* 後端傳輸具有靈活性，支援 FC 和 iSCSI 後端連線，但支援的組態取決於互通性驗證。
+* 原生多重路徑和負載平衡支援，利用標準 SAN 路徑模型。
+* CLI 驅動的控制和可見性，實現可重複執行和營運監控。
+
+
+
+
+== 主要優勢
+
+* ONTAP FLI 已包含在 ONTAP 中。執行基於 FLI 的 LUN 匯入無需單獨的移轉設備。
+* 透過啟用線上工作流程，在短暫切換後即可恢復主機存取，同時在背景繼續匯入，從而降低停機風險。
+* 一致的遷移方法有助於標準化不同主機和陣列之間的規劃、執行和驗證。
+* 支援複雜的過渡場景，包括從 7 Mode 遷移到 ONTAP，其中對齊和格式方面的考慮因素可以作為過渡工作流程的一部分來解決。
+* 強力支援的營運模式，雖然專業服務並非強制性，NetApp 建議對於超出簡單遷移範圍的任何事項，都應尋求專業服務或合格合作夥伴進行範圍界定、規劃和培訓。
+

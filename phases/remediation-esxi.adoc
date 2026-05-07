@@ -1,0 +1,193 @@
+---
+permalink: phases/remediation-esxi.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, esxi host, pre-migration, offline fli, online fli 
+summary: 在 ESXi 主機上執行 ONTAP FLI 移轉之前，請完成下列移轉前步驟。離線移轉和線上移轉的步驟有所不同。 
+---
+= ONTAP FLI ESXi 主機補救
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在 ESXi 主機上執行 ONTAP FLI 移轉之前，請完成下列移轉前步驟。離線移轉和線上移轉的步驟有所不同。
+
+
+
+== 遷移前 - 離線 FLI
+
+這組步驟對於線上和離線 FLI 都是通用的。在從主機取消配置來源 LUN 之前，請確保已完成下列步驟。
+
+[cols="4"]
+|===
+| VM / VMDK | RDM | WSFC | VMSC 
+
+
+ a| 
+步驟 1：正常關閉客體 VM。
+ a| 
+步驟 1：對於使用 RDM 的 VM、識別與 nmp 裝置的後端對應、並正常移除 RDM 磁碟。
+ a| 
+步驟 1：如果存在 WFSC，請正常關閉叢集，並依照 Windows 修復步驟移除磁碟。
+ a| 
+步驟 1：如果已設定 VM-HA 或 VMSC，請停用 HA、釋放活動訊號磁碟（如果存在），並視需要調整叢集組態。
+
+
+
+ a| 
+步驟 2：卸載計畫遷移的資料存放區；如果是共享的，則從所有主機卸載。
+ a| 
+步驟 2：分離移轉過程中涉及的相關 NMP 裝置。
+ a| 
+步驟 2：正常關閉客體 VM。
+ a| 
+步驟 2：卸載計畫遷移的資料存放區；如果是共享的，則從所有主機卸載。
+
+
+
+ a| 
+步驟 3：檢查 VMFS 鎖定模式（僅 ATS 或 ATS+SCSI）。如果僅使用 ATS，則變更為 SCSI（僅線上 FLI 需要）。
+ a| 
+ a| 
+步驟 3：卸載計劃遷移的資料存放區；如果是共用資料存放區，則從所有主機卸載。a
+ a| 
+步驟 3：分離移轉過程中涉及的相關 NMP 裝置。
+
+
+
+ a| 
+步驟 4：分離移轉過程中涉及的相關 NMP 裝置。
+|   a| 
+步驟 4：分離移轉過程中涉及的相關 NMP 裝置。
+|  
+|===
+.需要了解的關鍵點
+* *ATS-only* 設定儲存在 VMFS 標頭中，該標頭位於資料存放區的第一個範圍上。如果資料存放區跨越多個範圍，則只需修復第一個範圍。
+* 如果資料存放區在多個 ESXi 主機之間共用，通常只需從一台主機更新；其他主機在重新掃描 / 重新掛載後即可取得變更。
+* 更改 ATS 僅模式時，資料儲存區不能有任何作用中的 I/O 執行。VMware 指引是視需要撤離/移轉或關閉 VM 並卸載/重新掛載，以套用變更。
+
+
+
+
+=== ESX 範例命令：同步區塊
+
+將主機置於維護模式::
+
+
+esxcli system maintenanceMode set --enable true
+
+識別儲存設備和資料存放區::
+
+
+[Source]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+檢查 VMFS ATS 鎖定模式::
+
+
+vmkfstools --queryfs -h /vmfs/volumes/<DATASTORE_NAME>
+
+卸載資料存放區（如果共享，則在所有 ESXi 主機上重複此操作）::
+
+
+esxcli storage filesystem unmount -l <DATASTORE_NAME>
+
+卸離備用裝置（NMP / naa 裝置）::
+
+
+esxcli storage core device set -d <naa.ID> --state=off
+
+確認裝置已分離::
+
+
+esxcli storage core device list -d <naa.ID>
+
+分離後重新掃描以確認乾淨狀態::
+
+
+esxcli storage core adapter rescan --all
+
+完成後退出維護模式::
+
+
+esxcli system maintenanceMode set --enable false
+
+
+
+== 遷移前 - 線上 FLI
+
+以下是線上 FLI 的具體步驟，但這些步驟之前必須先執行遷移前離線 FLI 中的步驟。
+
+將 NetApp LUN 配置到主機後，必須執行下列步驟。
+
+此時，LUN 匯入已經建立完成，LUN 已對應到主機 igroup，並且主機上已登入 iSCSI 或 FC Initiator。
+
+如果是離線 FLI，NetApp LUN 會保持離線狀態。
+
+[cols="3"]
+|===
+| VM / VMDK | RDM | VMSC 
+
+
+| 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 | 步驟 1：重新掃描所有已對應 ESXi 主機上的儲存設備。 
+
+
+| 步驟 2：列出磁碟區/裝置詳細資料，以確認 LUN 上的檔案系統詳細資料。 | 步驟 2：識別新的 NAA ID 並將 RDM 新增回對應的 VM。 | 步驟 2：列出磁碟區/裝置詳細資料，以確認 LUN 上的檔案系統詳細資料。 
+
+
+| 步驟 3：識別資料存放區詳細資料，並將資料存放區掛載回 ESXi。 | 步驟 3：開啟客體 VM 電源並啟動應用程式。 | 步驟 3：識別資料存放區詳細資料，並將資料存放區掛載回 ESXi。 
+
+
+| 步驟 4：開啟客體 VM 電源並啟動應用程式。 |  | 步驟 4：開啟客體 VM 電源並啟動應用程式。 
+
+
+|  |  | 步驟 5：開啟客體 VM 電源並啟動應用程式 
+|===
+
+NOTE: 請參閱作業系統廠商文件以取得最新和更新的命令清單。
+
+將主機置於維護模式::
+
+
+esxcli system maintenanceMode set --enable true
+
+識別儲存設備和資料存放區::
+
+
+[Source]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+檢查 VMFS ATS 鎖定模式::
+
+
+vmkfstools --queryfs -h /vmfs/volumes/<DATASTORE_NAME>
+
+卸載資料存放區（如果共享，則在所有 ESXi 主機上重複此操作）::
+
+
+esxcli storage filesystem unmount -l <DATASTORE_NAME>
+
+如果偵測到僅支援 ATS，則轉換為 ATS+SCSI::
+
+
+vmkfstools --configATSOnly 0 /vmfs/volumes/<DATASTORE_NAME>
+
+卸離備用裝置（NMP / naa 裝置）::
+
+
+esxcli storage core device set -d <naa.ID> --state=off
+
+確認裝置已分離::
+
+
+esxcli storage core device list -d <naa.ID>
+
+分離後重新掃描以確認乾淨狀態::
+
+
+esxcli storage core adapter rescan --all

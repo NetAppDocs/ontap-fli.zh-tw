@@ -1,0 +1,36 @@
+---
+section: phases
+title: ONTAP FLI 階段
+entries:
+- title: 階段概述
+  url: "/phases/phase-overview.html"
+- title: 探索
+  url: "/phases/discovery-phase.html"
+- title: 分析
+  url: "/phases/analyze-phase.html"
+- title: 規劃與準備
+  entries:
+  - title: 總覽
+    url: "/phases/plan-overview.html"
+  - title: 測試移轉
+    url: "/phases/plan-prepare-phase.html"
+  - title: 主機補救
+    entries:
+    - title: 建議的主機移轉方法
+      url: "/phases/recommended-host-migration.html"
+    - title: AIX 主機修復
+      url: "/phases/remediation-aix.html"
+    - title: ESXi 主機修復
+      url: "/phases/remediation-esxi.html"
+    - title: HP 主機補救
+      url: "/phases/remediation-hp.html"
+    - title: Linux 主機修復
+      url: "/phases/remediation-linux.html"
+    - title: Solaris 主機補救
+      url: "/phases/remediation-solaris.html"
+    - title: Windows 主機修復
+      url: "/phases/remediation-windows.html"
+- title: 執行
+  url: "/phases/execute-phase.html"
+- title: 驗證
+  url: "/phases/verify-phase.html"
