@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html 
+permalink: sample-site/reference_site_survey_and_planning_worksheet_hosts_tab.html 
 sidebar: sidebar 
 keywords: site, survey and planning worksheet, hosts tab 
 summary: 在「站台調查與規劃」工作表中、您應該設定包含移轉專案主機資訊的索引標籤。 

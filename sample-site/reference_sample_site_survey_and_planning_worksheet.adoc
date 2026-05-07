@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_sample_site_survey_and_planning_worksheet.html 
+permalink: sample-site/reference_sample_site_survey_and_planning_worksheet.html 
 sidebar: sidebar 
 keywords: sample, site, survey and planning, worksheet 
 summary: 在移轉方法的分析與規劃階段、您需要使用「站台調查與規劃」工作表來記錄現有的組態、目標組態、落差和補救計畫。 

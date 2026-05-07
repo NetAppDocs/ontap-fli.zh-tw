@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html 
+permalink: sample-site/reference_site_survey_and_planning_worksheet_fas_config_tab.html 
 sidebar: sidebar 
 keywords: site, survey and planning worksheet, fas config tab 
 summary: 在您的「場地調查與規劃」工作表中、您應該有一個索引標籤、其中包含FAS 有關您的一套系統的資訊。 
