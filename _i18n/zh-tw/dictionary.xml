@@ -1300,7 +1300,6 @@
   <block id="f54f8723cdd855de6b42f8c6088ea7cf" category="paragraph">Start-VM -Name &lt;VM_Name&gt;</block>
   <block id="3530aa78abbe00fb441a6a913266c4f5" category="summary">了解驗證階段，此階段會確認移轉已按計畫完成，並移除移轉期間使用的暫存組態。</block>
   <block id="c7b5ec48b58689a14b9ca8360ae61c36" category="doc">ONTAP Foreign LUN Import（FLI）驗證階段</block>
-  <block id="2dc59e510103c83c15f9b3fff186d965" category="paragraph">驗證階段旨在確認移轉已按計劃完成，並專注於移轉後的清理工作。這包括驗證應用程式行為、確認主機存取和到 ONTAP LUN 的路徑是否正確、收集移轉日誌以進行稽核和疑難排解，以及移除僅用於移轉的臨時連線和組態。</block>
   <block id="312705c3917e0ecf74999294476290b4" category="paragraph">作為清理工作的一部分，您需要刪除不再需要的來源端啟動器記錄和分區，並記錄最終組態，以便維運團隊能夠清楚地了解「建成後」的狀態。</block>
   <block id="f67442f7dd9efc703506d4e505684839" category="paragraph">對於 iSCSI FLI，驗證階段也應包括移除在叢集間 LIF 上建立的軟體 iSCSI 啟動器工作階段和啟動器。如果叢集間 LIF 僅為匯入外部 LUN 而建立，則即使是這些 LIF 也必須刪除。</block>
   <block id="c8253ba169277559e143f0f27d32ba7a" category="section-title">ONTAP FLI 驗證階段任務</block>
@@ -1546,4 +1545,5 @@
   <block id="144e3bff2769f72c63f6e00004097fcc" category="sidebar">FLI 遷移後</block>
   <block id="259c870f8a8594516755af0729eb847a" category="sidebar">遷移後概述</block>
   <block id="5d793778d9d63a7b0602b47ee814bd26" category="sidebar">SAN 資料遷移的新進展</block>
+  <block id="d6fe85b2a7716d9377c34dd3d6ea37c4" category="paragraph">驗證階段旨在確認遷移已按計劃完成，並專注於遷移後的清理工作。這包括驗證應用程式行為、確認主機對 ONTAP LUN 的存取和路徑是否正確、收集遷移日誌以進行稽核和疑難排解，以及移除僅用於遷移的臨時連線和組態。</block>
 </blocks>
